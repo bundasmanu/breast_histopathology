@@ -1,53 +1,42 @@
 import numpy as np
-import matplotlib.pyplot as plt
 import pandas as pd
-from glob import glob
-import cv2
-import os
 import config_func
 from sklearn.utils import shuffle
+from sklearn.model_selection import train_test_split
+import config
 import pyswarms
 
 def main():
 
-    #NUMBER PATIENTS
-    numberPatients = os.listdir("../breast_histopathology/input/breast-histopathology-images/IDC_regular_ps50_idx5/")
-    print(len(numberPatients))
-
-    #GET ALL IMAGES
-    images = glob(pathname='../breast_histopathology/input/breast-histopathology-images/IDC_regular_ps50_idx5/**/*.png',
-                  recursive=True)  # RELATIVE PATHNAME
-    print(len(images))
-
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    '    DATA PREPARATION (PRE-PROCESSING, CLEAN, TRANSFORM)  '
+    '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    print("#################","DATA PREPARATION","####################\n")
     # CREATION OF DATAFRAME WITH ALL IMAGES --> [ID_PATIENT, PATH_IMAGE, TARGET]
-    data = pd.DataFrame(index=np.arange(0, len(images)), columns=["id", "image_path", "target"])
-
-    patients_dirs = os.listdir("../breast_histopathology/input/breast-histopathology-images/IDC_regular_ps50_idx5")
-    rootBase = "../breast_histopathology/input/breast-histopathology-images/IDC_regular_ps50_idx5"
+    data = pd.DataFrame(index=np.arange(0, config.SIZE_DATAFRAME), columns=[config.ID, config.IMAGE_PATH, config.TARGET])
 
     # POPULATE DATAFRAME
-    add_row = 0
-    for i in range(len(numberPatients)):
-        patient_dir = patients_dirs[i]
-        patient_link = os.path.join(rootBase, patient_dir)
-        for path in os.listdir(os.path.join(patient_link)):
-            files = os.path.join(patient_link, path)
-            for file in os.listdir(files):
-                data.iloc[add_row]["id"] = patient_dir
-                data.iloc[add_row]["target"] = path
-                data.iloc[add_row]["image_path"] = os.path.join(files, file)
-                add_row = add_row + 1
-
-    #INFO DATAFRAME
-    data.head(5)
-    data.shape
-    data.info()
+    data = config_func.populate_DataFrame(data)
 
     #TRANSFORM DATA INTO NUMPY ARRAY'S
-    X, Y = config_func.resize_images(50,50, data)
+    X, Y = config_func.resize_images(config.WIDTH,config.HEIGHT, data)
 
     #SHUFFLE DATA
     X, Y = shuffle(X, Y)
+
+    #DIVISION OF DATASET'S BETWEEN TRAIN, VALIDATION AND TEST --> I NEED ATTENTION, BECAUSE CLASSES ARE UNBALANCED
+    X_train, X_val, y_train, y_val = train_test_split(X, Y, test_size=config.VALIDATION_SIZE, random_state=0, stratify=Y) #RANDOM STATE IS NEEDED TO GUARANTEES REPRODUCIBILITY
+    X_train, X_test, y_train, y_test = train_test_split(X_train, y_train, test_size=config.TEST_SIZE, random_state=0, stratify=y_train)
+    print(X_train.shape)
+    print(X_val.shape)
+    print(X_test.shape)
+
+    #NORMALIZE DATA
+    X_train, X_val, X_test = config_func.normalize(X_train, X_val, X_test)
+
+    #ONE HOT ENCODING TARGETS
+    y_train, y_val, y_test = config_func.one_hot_encoding(y_train, y_val, y_test)
+    print("#################", "DATA PREPARATION CONCLUDED", "####################\n")
 
 if __name__ == "__main__":
     main()
