@@ -2,19 +2,16 @@ from . import Model
 from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D, Activation, Dropout, BatchNormalization, Dense, Flatten
 import config
-from exceptions import NoModel, IncoherentStrategy
+from exceptions import CustomError
 from .Strategies_Train import UnderSampling, OverSampling
+from keras.optimizers import Adam
+from keras.callbacks.callbacks import History
+from typing import Tuple
 
-class AlexNet(Model):
+class AlexNet(Model.Model):
 
-    def __init__(self, underSampling=True, oversampling=False, dataAugmentation=False):
-        if underSampling == True and oversampling == True:
-            raise IncoherentStrategy
-        if underSampling == True:
-            self.under_sampling = UnderSampling()
-        else:
-            self.over_sampling = OverSampling()
-
+    def __init__(self, *args, **kwargs):
+        super(AlexNet, self).__init__(*args, **kwargs)
 
     def build(self, trainedModel=None) -> Sequential:
 
@@ -61,26 +58,72 @@ class AlexNet(Model):
 
             model.add(Dense(units=config.NUMBER_CLASSES))
             model.add(Activation(config.SOFTMAX_FUNCTION))
+            model.summary()
 
             return model
 
         except:
             raise
 
-    def train(self, model : Sequential):
+    def train(self, model : Sequential) -> Tuple[History, Sequential]:
 
         '''
         THIS FUNCTION IS RESPONSIBLE FOR MAKE THE TRAINING OF MODEL
         :param model: Sequential model builded before, or passed (already trained model)
         :return: Sequential model --> trained model
+        :return: History.history --> train and validation loss and metrics variation along epochs
         '''
 
         try:
 
             if model is None:
-                raise NoModel
+                raise CustomError.ErrorCreationModel(config.ERROR_NO_MODEL)
+                return None
 
+            # OPTIMIZER
+            opt = Adam(learning_rate=config.LEARNING_RATE, decay=config.DECAY)
 
+            # COMPILE
+            model.compile(optimizer=opt, loss=config.LOSS_BINARY, metrics=[config.ACCURACY_METRIC])
+
+            #GET STRATEGIES RETURN DATA, AND IF DATA_AUGMENTATION IS APPLIED TRAIN GENERATOR
+            train_generator = None
+
+            if len(self.StrategyList) == 0: #IF USER DOESN'T PRETEND EITHER UNDERSAMPLING AND OVERSAMPLING
+                X_train = self.X_train
+                y_train = self.y_train
+
+            else: #USER WANTS AT LEAST UNDERSAMPLING OR OVERSAMPLING
+                X_train, y_train = self.StrategyList[0].applyStrategy(self.X_train, self.y_train)
+                if len(self.StrategyList) > 1: #USER CHOOSE DATA AUGMENTATION OPTION
+                    train_generator = self.StrategyList[1].applyStrategy(self.X_train, self.y_train)
+
+            if train_generator is None: #NO DATA AUGMENTATION
+
+                history = model.fit(
+                    x=X_train,
+                    y=y_train,
+                    batch_size=config.BATCH_SIZE_ALEX_NO_AUG,
+                    epochs=config.EPOCHS,
+                    validation_data=(self.X_val, self.y_val),
+                    shuffle=True,
+                    use_multiprocessing=config.MULTIPROCESSING
+                )
+
+                return history, model
+
+            #ELSE APPLY DATA AUGMENTATION
+
+            history = model.fit_generator(
+                generator=train_generator,
+                validation_data=(self.X_train, self.y_val),
+                epochs=config.EPOCHS,
+                steps_per_epoch=self.X_train.shape[0] / config.BATCH_SIZE_ALEX_AUG,
+                shuffle=True,
+                use_multiprocessing=config.MULTIPROCESSING
+            )
+
+            return history, model
 
         except:
-            raise
+            raise CustomError.ErrorCreationModel(config.ERROR_ON_TRAINING)

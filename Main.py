@@ -4,7 +4,9 @@ import config_func
 from sklearn.utils import shuffle
 from sklearn.model_selection import train_test_split
 import config
-import pyswarms
+from models import Model, ModelFactory, AlexNet
+from optimizers import *
+from exceptions import CustomError
 
 def main():
 
@@ -37,6 +39,25 @@ def main():
     #ONE HOT ENCODING TARGETS
     y_train, y_val, y_test = config_func.one_hot_encoding(y_train, y_val, y_test)
     print("#################", "DATA PREPARATION CONCLUDED", "####################\n")
+
+    factoryModel = ModelFactory.ModelFactory()
+    args = (
+        X_train,
+        X_val,
+        X_test,
+        y_train,
+        y_val,
+        y_test,
+    )
+    kwargs = {
+        config.UNDERSAMPLING_KWARG_FLAG : config.UNDERSAMPLING,
+        config.OVERSAMPLING_KWARG_FLAG : config.OVERSAMPLING,
+        config.DATA_AUGMENTATION_KWARG_FLAG : config.DATA_AUGMENTATION
+    }
+    alexNetModel = factoryModel.getModel(config.ALEX_NET, *args, **kwargs)
+    print(alexNetModel.X_train.shape)
+    print(len(alexNetModel.strategies))
+    alexNetModel.template_method()
 
 if __name__ == "__main__":
     main()

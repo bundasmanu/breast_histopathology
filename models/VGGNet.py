@@ -1,6 +1,7 @@
 from . import Model
+from keras.models import Sequential
 
-class VGGNet(Model):
+class VGGNet(Model.Model):
 
-    def build(self):
+    def build(self, trainedModel=None) -> Sequential:
         pass

@@ -27,5 +27,50 @@ GA_OPTIMIZER = "GA"
 RELU_FUNCTION = "relu"
 SOFTMAX_FUNCTION = "softmax"
 
+LEARNING_RATE = 0.001
+DECAY = 1e-6
+
+LOSS_BINARY = "binary_crossentropy"
+LOSS_CATEGORICAL = "categorical_crossentropy"
+
 VALID_PADDING = "valid"
 SAME_PADDING = "same"
+
+ACCURACY_METRIC = "accuracy"
+VALIDATION_ACCURACY = "val_accuracy"
+
+BATCH_SIZE_ALEX_NO_AUG = 32
+BATCH_SIZE_ALEX_AUG = 32
+EPOCHS = 50
+MULTIPROCESSING = True
+SHUFFLE = True
+
+X_VAL_ARGS = "X_Val"
+Y_VAL_ARGS = "y_val"
+
+HORIZONTAL_FLIP = True
+VERTICAL_FLIP = True
+WIDTH_SHIFT_RANGE = 0.1
+HEIGHT_SHIFT_RANGE = 0.1
+ROTATION_RANGE = 10
+
+#FLAGS TRAIN STRATEGY
+UNDERSAMPLING = True
+OVERSAMPLING = False
+DATA_AUGMENTATION = False
+
+UNDERSAMPLING_KWARG_FLAG = "undersampling"
+OVERSAMPLING_KWARG_FLAG = "oversampling"
+DATA_AUGMENTATION_KWARG_FLAG = "data_augmentation"
+
+#EXCEPTIONS MESSAGES
+ERROR_MODEL_EXECUTION = "\nError on model execution"
+ERROR_NO_ARGS = "\nPlease provide args: ",X_VAL_ARGS," and ", Y_VAL_ARGS
+ERROR_NO_ARGS_ACCEPTED = "\nThis Strategy doesn't accept more arguments"
+ERROR_NO_MODEL = "\nPlease pass a initialized model"
+ERROR_INVALID_OPTIMIZER = "\nPlease define a valid optimizer: ", PSO_OPTIMIZER," or ", GA_OPTIMIZER
+ERROR_INCOHERENT_STRATEGY = "\nYou cannot choose the oversampling and undersampling strategies at the same time"
+ERROR_ON_UNDERSAMPLING = "\nError on undersampling definition"
+ERROR_ON_OVERSAMPLING = "\nError on oversampling definition"
+ERROR_ON_DATA_AUG = "\nError on data augmentation definition"
+ERROR_ON_TRAINING = "\nError on training"

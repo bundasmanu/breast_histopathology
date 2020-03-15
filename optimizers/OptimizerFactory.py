@@ -1,6 +1,6 @@
 from models import Model
 import config
-from exceptions import InvalidOptimizer, NoModel
+from exceptions import CustomError
 from . import PSO, GA
 
 class OptimizerFactory:
@@ -13,14 +13,14 @@ class OptimizerFactory:
         try:
 
             if model is None:
-                raise NoModel
+                raise CustomError.ErrorCreationModel(config.ERROR_NO_MODEL)
 
             if typeOptimizer == config.PSO_OPTIMIZER:
                 return PSO(model)
             elif typeOptimizer == config.GA_OPTIMIZER:
                 return GA(model)
             else:
-                raise InvalidOptimizer
+                raise CustomError.ErrorCreationModel(config.ERROR_INVALID_OPTIMIZER)
 
         except:
             raise
