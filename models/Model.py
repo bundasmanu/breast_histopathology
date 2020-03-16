@@ -14,15 +14,15 @@ class Model(ABC):
     StrategyList = list()
 
     @abstractmethod
-    def __init__(self, X_train, X_val, X_test, y_train, y_val, y_test, **kwargs):
+    def __init__(self, X_train, X_val, X_test, y_train, y_val, y_test):
         self.X_train = X_train
         self.X_val = X_val
         self.X_test = X_test
         self.y_train = y_train
         self.y_val = y_val
         self.y_test = y_test
-        self.strategies = kwargs
 
+    @abstractmethod
     def define_train_strategies(self, undersampling=True, oversampling=False, data_augmentation=False) -> bool:
 
         '''
@@ -64,11 +64,11 @@ class Model(ABC):
         try:
 
             model = self.build()
-            no_errors = self.define_train_strategies(**self.strategies)
-            if not no_errors:
+            no_errors = self.define_train_strategies() #THIS FUNCTION IS APPLIED ON INHERITED OBJECTS OF THIS CLASS (ALEX_NET OR VGG NET)
+            if no_errors == False:
                 raise
             history, model = self.train(model)
-            predictions = self.predict()
+            predictions = self.predict(model)
 
             return model, predictions, history
         except:

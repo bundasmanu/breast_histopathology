@@ -3,12 +3,10 @@ from models import Model
 from exceptions import CustomError
 import config
 
-class PSO(Optimizer):
+class PSO(Optimizer.Optimizer):
 
-    def __init__(self, model : Model.Model):
-        if model == None:
-            return CustomError.ErrorCreationModel(config.ERROR_NO_MODEL)
-        self.model = model
+    def __init__(self):
+        super(PSO, self).__init__()
 
     def optimize(self):
         pass

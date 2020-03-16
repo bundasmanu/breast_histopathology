@@ -10,9 +10,12 @@ from typing import Tuple
 
 class AlexNet(Model.Model):
 
-    def __init__(self, *args, **kwargs):
-        super(AlexNet, self).__init__(*args, **kwargs)
-
+    def __init__(self, *args):
+        super(AlexNet, self).__init__(*args)
+    
+    def define_train_strategies(self, undersampling=True, oversampling=False, data_augmentation=False) -> bool:
+        return super(AlexNet, self).define_train_strategies(undersampling, oversampling, data_augmentation)
+    
     def build(self, trainedModel=None) -> Sequential:
 
         '''

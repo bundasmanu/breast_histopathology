@@ -49,15 +49,13 @@ def main():
         y_val,
         y_test,
     )
-    kwargs = {
-        config.UNDERSAMPLING_KWARG_FLAG : config.UNDERSAMPLING,
-        config.OVERSAMPLING_KWARG_FLAG : config.OVERSAMPLING,
-        config.DATA_AUGMENTATION_KWARG_FLAG : config.DATA_AUGMENTATION
-    }
-    alexNetModel = factoryModel.getModel(config.ALEX_NET, *args, **kwargs)
+
+    alexNetModel = factoryModel.getModel(config.ALEX_NET, *args)
     print(alexNetModel.X_train.shape)
-    print(len(alexNetModel.strategies))
-    alexNetModel.template_method()
+    model, predictions, history = alexNetModel.template_method()
+    print(predictions.shape)
+    print(y_test[0])
+    print(predictions[0])
 
 if __name__ == "__main__":
     main()
