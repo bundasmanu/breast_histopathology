@@ -12,7 +12,7 @@ class AlexNet(Model.Model):
 
     def __init__(self, *args):
         super(AlexNet, self).__init__(*args)
-    
+
     def define_train_strategies(self, undersampling=True, oversampling=False, data_augmentation=False) -> bool:
         return super(AlexNet, self).define_train_strategies(undersampling, oversampling, data_augmentation)
     
@@ -68,7 +68,7 @@ class AlexNet(Model.Model):
         except:
             raise
 
-    def train(self, model : Sequential) -> Tuple[History, Sequential]:
+    def train(self, model : Sequential, X_train, X_val, X_test, y_train, y_val, y_test) -> Tuple[History, Sequential]:
 
         '''
         THIS FUNCTION IS RESPONSIBLE FOR MAKE THE TRAINING OF MODEL
@@ -93,13 +93,13 @@ class AlexNet(Model.Model):
             train_generator = None
 
             if len(self.StrategyList) == 0: #IF USER DOESN'T PRETEND EITHER UNDERSAMPLING AND OVERSAMPLING
-                X_train = self.X_train
-                y_train = self.y_train
+                X_train = X_train
+                y_train = y_train
 
             else: #USER WANTS AT LEAST UNDERSAMPLING OR OVERSAMPLING
-                X_train, y_train = self.StrategyList[0].applyStrategy(self.X_train, self.y_train)
+                X_train, y_train = self.StrategyList[0].applyStrategy(X_train, y_train)
                 if len(self.StrategyList) > 1: #USER CHOOSE DATA AUGMENTATION OPTION
-                    train_generator = self.StrategyList[1].applyStrategy(self.X_train, self.y_train)
+                    train_generator = self.StrategyList[1].applyStrategy(X_train, y_train)
 
             if train_generator is None: #NO DATA AUGMENTATION
 
@@ -108,7 +108,7 @@ class AlexNet(Model.Model):
                     y=y_train,
                     batch_size=config.BATCH_SIZE_ALEX_NO_AUG,
                     epochs=config.EPOCHS,
-                    validation_data=(self.X_val, self.y_val),
+                    validation_data=(X_val, y_val),
                     shuffle=True,
                     use_multiprocessing=config.MULTIPROCESSING
                 )
@@ -119,9 +119,9 @@ class AlexNet(Model.Model):
 
             history = model.fit_generator(
                 generator=train_generator,
-                validation_data=(self.X_train, self.y_val),
+                validation_data=(X_val, y_val),
                 epochs=config.EPOCHS,
-                steps_per_epoch=self.X_train.shape[0] / config.BATCH_SIZE_ALEX_AUG,
+                steps_per_epoch=X_train.shape[0] / config.BATCH_SIZE_ALEX_AUG,
                 shuffle=True,
                 use_multiprocessing=config.MULTIPROCESSING
             )
@@ -130,3 +130,6 @@ class AlexNet(Model.Model):
 
         except:
             raise CustomError.ErrorCreationModel(config.ERROR_ON_TRAINING)
+
+    def __str__(self):
+        pass

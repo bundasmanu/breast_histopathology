@@ -14,13 +14,9 @@ class Model(ABC):
     StrategyList = list()
 
     @abstractmethod
-    def __init__(self, X_train, X_val, X_test, y_train, y_val, y_test):
-        self.X_train = X_train
-        self.X_val = X_val
-        self.X_test = X_test
-        self.y_train = y_train
-        self.y_val = y_val
-        self.y_test = y_test
+    def __init__(self, numberCNNLayers, numberDenseLayers):
+        self.nCNNLayers = numberCNNLayers
+        self.nDenseLayers = numberDenseLayers
 
     @abstractmethod
     def define_train_strategies(self, undersampling=True, oversampling=False, data_augmentation=False) -> bool:
@@ -51,7 +47,7 @@ class Model(ABC):
         except:
             raise
 
-    def template_method(self) -> Tuple[Sequential, np.array, History]:
+    def template_method(self, X_train, X_val, X_test, y_train, y_val, y_test) -> Tuple[Sequential, np.array, History]:
 
         '''
         https://refactoring.guru/design-patterns/template-method/python/example
@@ -67,8 +63,8 @@ class Model(ABC):
             no_errors = self.define_train_strategies() #THIS FUNCTION IS APPLIED ON INHERITED OBJECTS OF THIS CLASS (ALEX_NET OR VGG NET)
             if no_errors == False:
                 raise
-            history, model = self.train(model)
-            predictions = self.predict(model)
+            history, model = self.train(model, X_train, X_val, X_test, y_train, y_val, y_test)
+            predictions = self.predict(model, X_test)
 
             return model, predictions, history
         except:
@@ -79,15 +75,15 @@ class Model(ABC):
         pass
 
     @abstractmethod
-    def train(self, model : Sequential) -> Tuple[History, Sequential]:
+    def train(self, model : Sequential, X_train, X_val, X_test, y_train, y_val, y_test) -> Tuple[History, Sequential]:
         pass
 
-    def predict(self, model : Sequential):
+    def predict(self, model : Sequential, X_test):
 
         try:
 
             predictions = model.predict(
-                x=self.X_test,
+                x=X_test,
                 use_multiprocessing=config.MULTIPROCESSING
             )
 
@@ -98,3 +94,7 @@ class Model(ABC):
 
         except:
             raise
+
+    @abstractmethod
+    def __str__(self):
+        return "Model(nº CNN : ", self.nCNNLayers, " nº Dense: ", self.nDenseLayers

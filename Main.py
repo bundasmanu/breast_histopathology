@@ -42,17 +42,13 @@ def main():
 
     factoryModel = ModelFactory.ModelFactory()
     args = (
-        X_train,
-        X_val,
-        X_test,
-        y_train,
-        y_val,
-        y_test,
+        4,
+        2
     )
 
     alexNetModel = factoryModel.getModel(config.ALEX_NET, *args)
-    print(alexNetModel.X_train.shape)
-    model, predictions, history = alexNetModel.template_method()
+    model, predictions, history = alexNetModel.template_method(X_train=X_train, X_val=X_val, X_test=X_test,
+                                                               y_train=y_train, y_val=y_val, y_test=y_test)
     print(predictions.shape)
     print(y_test[0])
     print(predictions[0])
