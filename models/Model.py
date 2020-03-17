@@ -14,56 +14,45 @@ class Model(ABC):
     StrategyList = list()
 
     @abstractmethod
-    def __init__(self, numberCNNLayers, numberDenseLayers):
+    def __init__(self, data : Data.Data, numberCNNLayers, numberDenseLayers):
         self.nCNNLayers = numberCNNLayers
         self.nDenseLayers = numberDenseLayers
+        self.data = data
 
     @abstractmethod
-    def define_train_strategies(self, undersampling=True, oversampling=False, data_augmentation=False) -> bool:
+    def addStrategy(self, strategy : Strategy.Strategy) -> bool:
 
         '''
         THIS FUNCTION ESTABILISHES TRAINING STRATEGIES (UNDER SAMPLING AND OVER SAMPLING ARE INDEPENDENT, USER ONLY ACCEPTS ONE)
-        :param underSampling: boolean --> True wants undersampling strategy
-        :param oversampling: boolean --> True wants oversampling strategy
-        :param dataAugmentation: boolean --> True wants data augmentation strategy
+        IF USER WANTS TO USE STRATEGIES, NEED TO ADD STRATEGIES BEFORE CALL TEMPLATE FUNCTION (template_method)
+        :param Strategy object --> inherited object descendent from Strategy, e.g UnderSampling, OverSampling or Data Augmentation
         :return: boolean --> True no errors occured, False --> problem on the definition of any strategy
         '''
 
         try:
 
-            if undersampling == True and oversampling == True:
-                raise CustomError.ErrorCreationModel(config.ERROR_INCOHERENT_STRATEGY)
-                return False
-
-            if undersampling == True:
-                self.StrategyList.append(UnderSampling.UnderSampling())
-            else:
-                self.StrategyList.append(OverSampling.OverSampling())
-
-            if data_augmentation == True:
-                self.StrategyList.append(DataAugmentation.DataAugmentation())
+            self.StrategyList.append(strategy)
 
             return True
         except:
-            raise
+            raise CustomError.ErrorCreationModel(config.ERROR_APPEND_STRATEGY)
 
-    def template_method(self, data : Data.Data, *args) -> Tuple[Sequential, np.array, History]:
+    def template_method(self, *args) -> Tuple[Sequential, np.array, History]:
 
         '''
         https://refactoring.guru/design-patterns/template-method/python/example
         THIS FUNCTION REPRESENTS A TEMPLATE PATTERN TO EXECUTE THE ALL SEQUENCE OF JOBS TO DO
+        :param: args: list of integers in logical order to populate cnn and dense layers (filters and neurons)
         :return: Sequential: trained model
         :return: numpy array: model test data predictions
         :return History.history: history of trained model
         '''
 
         try:
+
             model = self.build(*args)
-            no_errors = self.define_train_strategies() #THIS FUNCTION IS APPLIED ON INHERITED OBJECTS OF THIS CLASS (ALEX_NET OR VGG NET)
-            if no_errors == False:
-                raise
-            history, model = self.train(model, data)
-            predictions = self.predict(model, data)
+            history, model = self.train(model)
+            predictions = self.predict(model)
 
             return model, predictions, history
         except:
@@ -74,15 +63,21 @@ class Model(ABC):
         pass
 
     @abstractmethod
-    def train(self, model : Sequential, data : Data.Data) -> Tuple[History, Sequential]:
+    def train(self, model : Sequential) -> Tuple[History, Sequential]:
         pass
 
-    def predict(self, model : Sequential, data : Data.Data):
+    def predict(self, model : Sequential):
+
+        '''
+        THIS FUNCTION IS USED IN MODEL PREDICTIONS
+        :param model: Sequential model result from training
+        :return: numpy array: predictions of X_test data in categorical way
+        '''
 
         try:
 
             predictions = model.predict(
-                x=data.X_test,
+                x=self.data.X_test,
                 use_multiprocessing=config.MULTIPROCESSING
             )
 

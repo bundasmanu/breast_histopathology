@@ -5,11 +5,11 @@ import config
 import pyswarms as ps
 import numpy as np
 from typing import Tuple
-import Data
+import math
 
 class PSO(Optimizer.Optimizer):
 
-    def __init__(self, model : Model.Model, *args):
+    def __init__(self, model : Model.Model, *args): #DIMENSIONS NEED TO BE EQUAL TO NUMBER OF LAYERS ON MODEL
         super(PSO, self).__init__(model, *args)
 
     def boundsDefinition(self):
@@ -26,7 +26,7 @@ class PSO(Optimizer.Optimizer):
             minBounds = np.ones(totalDimensions)
             maxBounds = np.ones(totalDimensions)
 
-            maxBounds = [maxBounds[i]*i for i in config.MAX_VALUES_LAYERS_ALEX_NET]
+            maxBounds = [maxBounds[j]*i for i, j in zip(config.MAX_VALUES_LAYERS_ALEX_NET, range(totalDimensions))]
             maxBounds = np.array(maxBounds)
 
             bounds = (minBounds, maxBounds)
@@ -35,21 +35,15 @@ class PSO(Optimizer.Optimizer):
 
         except:
             raise
-    
-    def objectiveFunction(self, score, *args):
-        return super(PSO, self).objectiveFunction(score, *args)
 
-    def loopAllParticles(self, particles, data : Data.Data):
+    def objectiveFunction(self, acc, *args):
+        return super(PSO, self).objectiveFunction(acc, *args)
+
+    def loopAllParticles(self, particles):
 
         '''
         THIS FUNCTION APPLIES PARTICLES ITERATION, EXECUTION CNN MODEL
         :param particles: numpy array of shape (nParticles, dimensions)
-        :param X_train: numpy array --> training data
-        :param X_val: numpy array --> validation data
-        :param X_test: numpy array --> test data
-        :param y_train: numpy array --> targets of training data
-        :param y_val: numpy array --> targets of validation data
-        :param y_test: numpy array --> targets of test data
         :return: list: all losses returned along all particles iteration
         '''
 
@@ -57,26 +51,19 @@ class PSO(Optimizer.Optimizer):
 
             losses = []
             for i in range(particles.shape[0]):
-                model, predictions, history = self.model.template_method(
-                    data=data, *particles[i]
-                )
-                acc = (data.y_test == predictions).mean()
-                losses.append(self.objectiveFunction(acc, *particles[i]))
+                int_converted_values = [math.trunc(i) for i in particles[i]] #CONVERSION OF DIMENSION VALUES OF PARTICLE
+                model, predictions, history = self.model.template_method(*int_converted_values) #APPLY BUILD, TRAIN AND PREDICT MODEL OPERATIONS, FOR EACH PARTICLE AND ITERATION
+                acc = (self.model.data.y_test == predictions).mean() #CHECK FINAL ACCURACY OF MODEL PREDICTIONS
+                losses.append(self.objectiveFunction(acc, *int_converted_values)) #ADD COST LOSS TO LIST
             return losses
 
         except:
             raise CustomError.ErrorCreationModel(config.ERROR_ON_OPTIMIZATION)
 
-    def optimize(self, data : Data.Data) -> Tuple[float, float]:
+    def optimize(self) -> Tuple[float, float]:
 
         '''
         THIS FUNCTION IS RESPONSIBLE TO APPLY ALL LOGIC OF PSO CNN NETWORK OPTIMIZATION
-        :param X_train: numpy array --> training data
-        :param X_val: numpy array --> validation data
-        :param X_test: numpy array --> test data
-        :param y_train: numpy array --> targets of training data
-        :param y_val: numpy array --> targets of validation data
-        :param y_test: numpy array --> targets of test data
         :return: [float, float] --> best cost and best particle position
         '''
 
@@ -93,7 +80,7 @@ class PSO(Optimizer.Optimizer):
                 optimizer = ps.single.GlobalBestPSO(n_particles=self.indiv, dimensions=self.dims,
                                                     options=config.lbestOptions, bounds=bounds)
 
-            cost, pos = optimizer.optimize(objective_func=self.loopAllParticles, data=data , iters=self.iters)
+            cost, pos = optimizer.optimize(objective_func=self.loopAllParticles, iters=self.iters)
 
             return cost, pos
 

@@ -3,12 +3,10 @@ from models import Model
 from exceptions import CustomError
 import config
 
-class GA(Optimizer):
+class GA(Optimizer.Optimizer):
 
     def __init__(self, model : Model.Model, *args):
-        if model == None:
-            return CustomError.ErrorCreationModel(config.ERROR_NO_MODEL)
-        self.model = model
+        super(GA, self).__init__(model, *args)
 
     def optimize(self):
         pass

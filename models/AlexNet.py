@@ -3,24 +3,26 @@ from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D, Activation, Dropout, BatchNormalization, Dense, Flatten
 import config
 from exceptions import CustomError
-from .Strategies_Train import UnderSampling, OverSampling
+from .Strategies_Train import Strategy
 from keras.optimizers import Adam
 from keras.callbacks.callbacks import History
 from typing import Tuple
 import Data
 
+
 class AlexNet(Model.Model):
 
-    def __init__(self, *args):
-        super(AlexNet, self).__init__(*args)
+    def __init__(self, data : Data.Data, *args):
+        super(AlexNet, self).__init__(data, *args)
 
-    def define_train_strategies(self, undersampling=True, oversampling=False, data_augmentation=False) -> bool:
-        return super(AlexNet, self).define_train_strategies(undersampling, oversampling, data_augmentation)
+    def addStrategy(self, strategy : Strategy.Strategy) -> bool:
+        return super(AlexNet, self).addStrategy(strategy)
     
     def build(self, *args, trainedModel=None) -> Sequential:
 
         '''
         THIS FUNCTION IS RESPONSIBLE FOR THE INITIALIZATION OF SEQUENTIAL ALEXNET MODEL
+        :param args: list integers, in logical order --> to populate cnn (filters) and dense (neurons)
         :return: Sequential: AlexNet MODEL
         '''
 
@@ -72,7 +74,7 @@ class AlexNet(Model.Model):
         except:
             raise CustomError.ErrorCreationModel(config.ERROR_ON_BUILD)
 
-    def train(self, model : Sequential, data : Data.Data) -> Tuple[History, Sequential]:
+    def train(self, model : Sequential) -> Tuple[History, Sequential]:
 
         '''
         THIS FUNCTION IS RESPONSIBLE FOR MAKE THE TRAINING OF MODEL
@@ -97,13 +99,13 @@ class AlexNet(Model.Model):
             train_generator = None
 
             if len(self.StrategyList) == 0: #IF USER DOESN'T PRETEND EITHER UNDERSAMPLING AND OVERSAMPLING
-                X_train = data.X_train
-                y_train = data.y_train
+                X_train = self.data.X_train
+                y_train = self.data.y_train
 
             else: #USER WANTS AT LEAST UNDERSAMPLING OR OVERSAMPLING
-                X_train, y_train = self.StrategyList[0].applyStrategy(data.X_train, data.y_train)
+                X_train, y_train = self.StrategyList[0].applyStrategy(self.data)
                 if len(self.StrategyList) > 1: #USER CHOOSE DATA AUGMENTATION OPTION
-                    train_generator = self.StrategyList[1].applyStrategy(X_train, y_train)
+                    train_generator = self.StrategyList[1].applyStrategy(self.data)
 
             if train_generator is None: #NO DATA AUGMENTATION
 
@@ -112,7 +114,7 @@ class AlexNet(Model.Model):
                     y=y_train,
                     batch_size=config.BATCH_SIZE_ALEX_NO_AUG,
                     epochs=config.EPOCHS,
-                    validation_data=(data.X_val, data.y_val),
+                    validation_data=(self.data.X_val, self.data.y_val),
                     shuffle=True,
                     use_multiprocessing=config.MULTIPROCESSING
                 )
@@ -123,7 +125,7 @@ class AlexNet(Model.Model):
 
             history = model.fit_generator(
                 generator=train_generator,
-                validation_data=(data.X_val, data.y_val),
+                validation_data=(self.data.X_val, self.data.y_val),
                 epochs=config.EPOCHS,
                 steps_per_epoch=X_train.shape[0] / config.BATCH_SIZE_ALEX_AUG,
                 shuffle=True,

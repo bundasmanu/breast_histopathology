@@ -7,6 +7,7 @@ import config
 from models import Model, ModelFactory, AlexNet
 import Data
 from optimizers import OptimizerFactory, Optimizer, PSO
+from models.Strategies_Train import UnderSampling, Strategy
 
 def main():
 
@@ -60,11 +61,17 @@ def main():
         32,
         16
     )
-    alexNetModel = factoryModel.getModel(config.ALEX_NET, *numberLayers)
-    #model, predictions, history = alexNetModel.template_method(d, *valuesLayers)
-    #print(predictions.shape)
-    #print(y_test[0])
-    #print(predictions[0])
+
+    #CREATE MODEL
+    alexNetModel = factoryModel.getModel(config.ALEX_NET, d, *numberLayers)
+
+    #CREATE STRATEGIES AND PASS TO MODEL --> if i don't want to train using strategies, i didn't add strategies
+    underSampling = UnderSampling.UnderSampling() #or d variable
+    alexNetModel.addStrategy(underSampling)
+    # model, predictions, history = alexNetModel.template_method(*valuesLayers)
+    # print(predictions.shape)
+    # print(y_test[0])
+    # print(predictions[0])
 
     #PSO OPTIMIZATION
     optFact = OptimizerFactory.OptimizerFactory()
@@ -74,7 +81,9 @@ def main():
         config.PSO_DIMENSIONS
     )
     optPSO = optFact.createOptimizer(config.PSO_OPTIMIZER, alexNetModel, *opt_options)
-    cost, pos = optPSO.optimize(d)
+    cost, pos = optPSO.optimize()
+    print(cost)
+    print(pos)
 
 if __name__ == "__main__":
     main()

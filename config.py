@@ -77,10 +77,11 @@ ERROR_ON_TRAINING = "\nError on training"
 ERROR_ON_OPTIMIZATION = "\nError on optimization"
 ERROR_INVALID_NUMBER_ARGS = "\nPlease provide correct number of args"
 ERROR_ON_BUILD = "\nError on building model"
+ERROR_APPEND_STRATEGY = "\nError on appending strategy"
 
 #PSO OPTIONS
-PARTICLES = 10
-ITERATIONS = 10
+PARTICLES = 2
+ITERATIONS = 2
 PSO_DIMENSIONS = 6
 TOPOLOGY_FLAG = 0 # 0 MEANS GBEST, AND 1 MEANS LBEST
 gbestOptions = {'w' : 0.9, 'c1' : 0.3, 'c2' : 0.3}

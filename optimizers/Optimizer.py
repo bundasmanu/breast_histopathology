@@ -15,7 +15,7 @@ class Optimizer(ABC):
         self.dims = dimensions
 
     @abstractmethod
-    def objectiveFunction(self, score, *args):
+    def objectiveFunction(self, acc, *args):
 
         '''
 
@@ -29,14 +29,14 @@ class Optimizer(ABC):
 
             cnnFilters = [args[i] for i in range(self.model.nCNNLayers)]
             totalFilters = sum(cnnFilters)
-            denseNeurons = [args[(self.model.nCNNLayers+self.model.nDenseLayers) - i] for i in range(self.model.nDenseLayers)]
+            denseNeurons = [args[(self.model.nCNNLayers+self.model.nDenseLayers) - (i+1)] for i in range(self.model.nDenseLayers)]
             totalNeurons = sum(denseNeurons)
             return 1.5 * ((1.0 - (1.0 / (totalFilters)))
-                      + (1.0 - (1.0 / (totalNeurons)))) + 5.0 * (1.0 - score)
+                      + (1.0 - (1.0 / (totalNeurons)))) + 5.0 * (1.0 - acc)
 
         except:
             raise
 
     @abstractmethod
-    def optimize(self, data : Data.Data):
+    def optimize(self):
         pass

@@ -5,15 +5,16 @@ import config
 import numpy as np
 import keras
 from sklearn.utils import shuffle
+import Data
 
 #REF: https://www.kaggle.com/rafjaa/resampling-strategies-for-imbalanced-datasets
 
 class UnderSampling(Strategy.Strategy):
 
     def __init__(self):
-        pass
+        super(UnderSampling, self).__init__()
 
-    def applyStrategy(self, X_train, y_train, **kwargs):
+    def applyStrategy(self, data : Data.Data, **kwargs):
 
         '''
         THIS FUNCTION APPLIES UNDERSAMPLING TECHNIQUE ON TRAINING DATA
@@ -29,7 +30,7 @@ class UnderSampling(Strategy.Strategy):
                 raise CustomError.ErrorCreationModel(config.ERROR_NO_ARGS_ACCEPTED)
                 return
 
-            numberValues = [np.argmax(y_train, axis=1)]
+            numberValues = [np.argmax(data.y_train, axis=1)]
             numberValues = np.array(numberValues)
             numberValues = numberValues.reshape(numberValues.shape[0] * numberValues.shape[1])
             occorrences_counter = np.bincount(numberValues)
@@ -39,10 +40,10 @@ class UnderSampling(Strategy.Strategy):
             underSampler = RandomUnderSampler(random_state=0) #ALLOWS REPRODUCIBILITY
 
             #I NEED TO RESHAPE TRAINING DATA TO 2D ARRAY (SAMPLES, FEATURES)
-            X_train = self.reshape4D_to_2D(X_train)
+            X_train = self.reshape4D_to_2D(data.X_train)
 
             #APLY DECODE OF TARGET DATA NEEDED TO APPLY RESAMPLE
-            decoded_ytrain = self.decodeYData(y_train)
+            decoded_ytrain = self.decodeYData(data.y_train)
 
             #APPLY RESAMPLE OF DATA
             X_train, decoded_ytrain = underSampler.fit_resample(X_train, decoded_ytrain)
