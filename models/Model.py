@@ -1,13 +1,13 @@
 from abc import ABC, abstractmethod
 from keras.models import Sequential
-from keras.callbacks.callbacks import History
 from typing import Tuple, List
 from .Strategies_Train import OverSampling, UnderSampling, DataAugmentation, Strategy
-from keras.optimizers import Adam
 from keras.callbacks.callbacks import History
 import config
 from exceptions import CustomError
 import numpy as np
+import keras
+import Data
 
 class Model(ABC):
 
@@ -47,7 +47,7 @@ class Model(ABC):
         except:
             raise
 
-    def template_method(self, X_train, X_val, X_test, y_train, y_val, y_test) -> Tuple[Sequential, np.array, History]:
+    def template_method(self, data : Data.Data, *args) -> Tuple[Sequential, np.array, History]:
 
         '''
         https://refactoring.guru/design-patterns/template-method/python/example
@@ -58,37 +58,39 @@ class Model(ABC):
         '''
 
         try:
-
-            model = self.build()
+            model = self.build(*args)
             no_errors = self.define_train_strategies() #THIS FUNCTION IS APPLIED ON INHERITED OBJECTS OF THIS CLASS (ALEX_NET OR VGG NET)
             if no_errors == False:
                 raise
-            history, model = self.train(model, X_train, X_val, X_test, y_train, y_val, y_test)
-            predictions = self.predict(model, X_test)
+            history, model = self.train(model, data)
+            predictions = self.predict(model, data)
 
             return model, predictions, history
         except:
             raise CustomError.ErrorCreationModel(config.ERROR_MODEL_EXECUTION)
 
     @abstractmethod
-    def build(self, trainedModel=None) -> Sequential:
+    def build(self, *args, trainedModel=None) -> Sequential: #I PUT TRAINED MODEL ARGUMENT AFTER ARGS BECAUSE NON REQUIRED ARGUMENTS NEED TO BE AFTER *ARGS
         pass
 
     @abstractmethod
-    def train(self, model : Sequential, X_train, X_val, X_test, y_train, y_val, y_test) -> Tuple[History, Sequential]:
+    def train(self, model : Sequential, data : Data.Data) -> Tuple[History, Sequential]:
         pass
 
-    def predict(self, model : Sequential, X_test):
+    def predict(self, model : Sequential, data : Data.Data):
 
         try:
 
             predictions = model.predict(
-                x=X_test,
+                x=data.X_test,
                 use_multiprocessing=config.MULTIPROCESSING
             )
 
             #CHECK PREDICTIONS OUTPUT WITH REAL TARGETS
             argmax_preds = np.argmax(predictions, axis=1) #BY ROW, BY EACH SAMPLE
+
+            #I APPLY ONE HOT ENCODING, IN ORDER TO FACILITATE COMPARISON BETWEEN Y_TEST AND PREDICTIONS
+            argmax_preds = keras.utils.to_categorical(argmax_preds)
 
             return argmax_preds
 

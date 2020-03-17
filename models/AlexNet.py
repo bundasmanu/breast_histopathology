@@ -7,6 +7,7 @@ from .Strategies_Train import UnderSampling, OverSampling
 from keras.optimizers import Adam
 from keras.callbacks.callbacks import History
 from typing import Tuple
+import Data
 
 class AlexNet(Model.Model):
 
@@ -16,7 +17,7 @@ class AlexNet(Model.Model):
     def define_train_strategies(self, undersampling=True, oversampling=False, data_augmentation=False) -> bool:
         return super(AlexNet, self).define_train_strategies(undersampling, oversampling, data_augmentation)
     
-    def build(self, trainedModel=None) -> Sequential:
+    def build(self, *args, trainedModel=None) -> Sequential:
 
         '''
         THIS FUNCTION IS RESPONSIBLE FOR THE INITIALIZATION OF SEQUENTIAL ALEXNET MODEL
@@ -29,33 +30,36 @@ class AlexNet(Model.Model):
             if trainedModel != None:
                 return trainedModel
 
+            if len(args) < (self.nDenseLayers+self.nCNNLayers):
+                raise CustomError.ErrorCreationModel(config.ERROR_INVALID_NUMBER_ARGS)
+
             model = Sequential()
 
             input_shape = (config.WIDTH, config.HEIGHT, config.CHANNELS)
-            model.add(Conv2D(filters=16, input_shape=input_shape, kernel_size=(5,5), strides=1, padding=config.VALID_PADDING))
+            model.add(Conv2D(filters=args[0], input_shape=input_shape, kernel_size=(5,5), strides=1, padding=config.VALID_PADDING))
             model.add(Activation(config.RELU_FUNCTION))
             model.add(MaxPooling2D(pool_size=(2,2), strides=2, padding='valid'))
             model.add(BatchNormalization())
 
-            model.add(Conv2D(filters=32, kernel_size=(3,3), strides=1, padding=config.SAME_PADDING))
+            model.add(Conv2D(filters=args[1], kernel_size=(3,3), strides=1, padding=config.SAME_PADDING))
             model.add(Activation(config.RELU_FUNCTION))
             model.add(MaxPooling2D(pool_size=(2,2), strides=1, padding='valid'))
             model.add(BatchNormalization())
 
-            model.add(Conv2D(filters=64, kernel_size=(3,3), strides=1, padding=config.SAME_PADDING))
+            model.add(Conv2D(filters=args[2], kernel_size=(3,3), strides=1, padding=config.SAME_PADDING))
             model.add(Activation(config.RELU_FUNCTION))
-            model.add(Conv2D(filters=64, kernel_size=(3,3), strides=1, padding=config.SAME_PADDING))
+            model.add(Conv2D(filters=args[3], kernel_size=(3,3), strides=1, padding=config.SAME_PADDING))
             model.add(Activation(config.RELU_FUNCTION))
             model.add(MaxPooling2D(pool_size=(2,2), strides=1, padding=config.SAME_PADDING))
             model.add(BatchNormalization())
 
             model.add(Flatten())
 
-            model.add(Dense(units=32))
+            model.add(Dense(units=args[4]))
             model.add(Activation(config.RELU_FUNCTION))
             model.add(Dropout(0.5))
 
-            model.add(Dense(units=16))
+            model.add(Dense(units=args[5]))
             model.add(Activation(config.RELU_FUNCTION))
             #DOESNT MAKE SENSE MAKE DROPOUT TO OPTPUT LAYER
 
@@ -66,9 +70,9 @@ class AlexNet(Model.Model):
             return model
 
         except:
-            raise
+            raise CustomError.ErrorCreationModel(config.ERROR_ON_BUILD)
 
-    def train(self, model : Sequential, X_train, X_val, X_test, y_train, y_val, y_test) -> Tuple[History, Sequential]:
+    def train(self, model : Sequential, data : Data.Data) -> Tuple[History, Sequential]:
 
         '''
         THIS FUNCTION IS RESPONSIBLE FOR MAKE THE TRAINING OF MODEL
@@ -93,11 +97,11 @@ class AlexNet(Model.Model):
             train_generator = None
 
             if len(self.StrategyList) == 0: #IF USER DOESN'T PRETEND EITHER UNDERSAMPLING AND OVERSAMPLING
-                X_train = X_train
-                y_train = y_train
+                X_train = data.X_train
+                y_train = data.y_train
 
             else: #USER WANTS AT LEAST UNDERSAMPLING OR OVERSAMPLING
-                X_train, y_train = self.StrategyList[0].applyStrategy(X_train, y_train)
+                X_train, y_train = self.StrategyList[0].applyStrategy(data.X_train, data.y_train)
                 if len(self.StrategyList) > 1: #USER CHOOSE DATA AUGMENTATION OPTION
                     train_generator = self.StrategyList[1].applyStrategy(X_train, y_train)
 
@@ -108,7 +112,7 @@ class AlexNet(Model.Model):
                     y=y_train,
                     batch_size=config.BATCH_SIZE_ALEX_NO_AUG,
                     epochs=config.EPOCHS,
-                    validation_data=(X_val, y_val),
+                    validation_data=(data.X_val, data.y_val),
                     shuffle=True,
                     use_multiprocessing=config.MULTIPROCESSING
                 )
@@ -119,7 +123,7 @@ class AlexNet(Model.Model):
 
             history = model.fit_generator(
                 generator=train_generator,
-                validation_data=(X_val, y_val),
+                validation_data=(data.X_val, data.y_val),
                 epochs=config.EPOCHS,
                 steps_per_epoch=X_train.shape[0] / config.BATCH_SIZE_ALEX_AUG,
                 shuffle=True,

@@ -5,7 +5,7 @@ import config
 
 class GA(Optimizer):
 
-    def __init__(self, model : Model.Model):
+    def __init__(self, model : Model.Model, *args):
         if model == None:
             return CustomError.ErrorCreationModel(config.ERROR_NO_MODEL)
         self.model = model

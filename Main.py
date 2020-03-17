@@ -5,8 +5,8 @@ from sklearn.utils import shuffle
 from sklearn.model_selection import train_test_split
 import config
 from models import Model, ModelFactory, AlexNet
-from optimizers import *
-from exceptions import CustomError
+import Data
+from optimizers import OptimizerFactory, Optimizer, PSO
 
 def main():
 
@@ -40,18 +40,41 @@ def main():
     y_train, y_val, y_test = config_func.one_hot_encoding(y_train, y_val, y_test)
     print("#################", "DATA PREPARATION CONCLUDED", "####################\n")
 
-    factoryModel = ModelFactory.ModelFactory()
-    args = (
-        4,
-        2
+    #CREATE OBJECT DATA
+    d = Data.Data(
+        X_train=X_train, X_val=X_val, X_test=X_test,
+        y_train=y_train, y_val=y_val, y_test=y_test
     )
 
-    alexNetModel = factoryModel.getModel(config.ALEX_NET, *args)
-    model, predictions, history = alexNetModel.template_method(X_train=X_train, X_val=X_val, X_test=X_test,
-                                                               y_train=y_train, y_val=y_val, y_test=y_test)
-    print(predictions.shape)
-    print(y_test[0])
-    print(predictions[0])
+    factoryModel = ModelFactory.ModelFactory()
+    numberLayers = (
+        4, #CNN LAYERS
+        2 #DENSE LAYERS
+    )
+
+    valuesLayers = (
+        16,
+        32,
+        64,
+        64,
+        32,
+        16
+    )
+    alexNetModel = factoryModel.getModel(config.ALEX_NET, *numberLayers)
+    #model, predictions, history = alexNetModel.template_method(d, *valuesLayers)
+    #print(predictions.shape)
+    #print(y_test[0])
+    #print(predictions[0])
+
+    #PSO OPTIMIZATION
+    optFact = OptimizerFactory.OptimizerFactory()
+    opt_options = (
+        config.PARTICLES,
+        config.ITERATIONS,
+        config.PSO_DIMENSIONS
+    )
+    optPSO = optFact.createOptimizer(config.PSO_OPTIMIZER, alexNetModel, *opt_options)
+    cost, pos = optPSO.optimize(d)
 
 if __name__ == "__main__":
     main()
