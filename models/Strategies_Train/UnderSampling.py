@@ -6,6 +6,7 @@ import numpy as np
 import keras
 from sklearn.utils import shuffle
 import Data
+import copy
 
 #REF: https://www.kaggle.com/rafjaa/resampling-strategies-for-imbalanced-datasets
 
@@ -40,16 +41,17 @@ class UnderSampling(Strategy.Strategy):
             underSampler = RandomUnderSampler(random_state=0) #ALLOWS REPRODUCIBILITY
 
             #I NEED TO RESHAPE TRAINING DATA TO 2D ARRAY (SAMPLES, FEATURES)
-            X_train = self.reshape4D_to_2D(data.X_train)
+            X_train = data.reshape4D_to_2D()
 
             #APLY DECODE OF TARGET DATA NEEDED TO APPLY RESAMPLE
-            decoded_ytrain = self.decodeYData(data.y_train)
+            decoded_ytrain = data.decodeYData()
 
             #APPLY RESAMPLE OF DATA
-            X_train, decoded_ytrain = underSampler.fit_resample(X_train, decoded_ytrain)
+            deepData = copy.deepcopy(data)
+            deepData.X_train, decoded_ytrain = underSampler.fit_resample(X_train, decoded_ytrain)
 
             #I NEED TO RESHAPE DATA AGAIN FROM 2D TO 4D
-            X_train = self.reshape2D_to_4D(X_train)
+            X_train = deepData.reshape2D_to_4D()
 
             occorrences_counter = np.bincount(decoded_ytrain)
             print("\nNumber samples Class 0: ", occorrences_counter[0])
