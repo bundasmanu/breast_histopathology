@@ -6,11 +6,28 @@ import pyswarms as ps
 import numpy as np
 from typing import Tuple
 import math
+from pyswarms.utils.plotters import plot_cost_history
+import matplotlib.pyplot as plt
 
 class PSO(Optimizer.Optimizer):
 
     def __init__(self, model : Model.Model, *args): #DIMENSIONS NEED TO BE EQUAL TO NUMBER OF LAYERS ON MODEL
         super(PSO, self).__init__(model, *args)
+
+    def plotCostHistory(optimizer):
+
+        '''
+        :param optimizer: optimizer object returned in the application/definition of PSO
+        '''
+
+        try:
+
+            plot_cost_history(cost_history=optimizer.cost_history)
+
+            plt.show()
+
+        except:
+            raise
 
     def boundsDefinition(self):
 
@@ -81,7 +98,7 @@ class PSO(Optimizer.Optimizer):
                                                     options=config.lbestOptions, bounds=bounds)
 
             cost, pos = optimizer.optimize(objective_func=self.loopAllParticles, iters=self.iters)
-
+            plot_cost_history(optimizer)
             return cost, pos
 
         except:

@@ -45,15 +45,16 @@ class AlexNet(Model.Model):
 
             model.add(Conv2D(filters=args[1], kernel_size=(3,3), strides=1, padding=config.SAME_PADDING))
             model.add(Activation(config.RELU_FUNCTION))
-            model.add(MaxPooling2D(pool_size=(2,2), strides=1, padding='valid'))
+            #model.add(MaxPooling2D(pool_size=(2,2), strides=2, padding='valid'))
+            model.add(MaxPooling2D(pool_size=(2, 2), strides=2))
             model.add(BatchNormalization())
 
-            model.add(Conv2D(filters=args[2], kernel_size=(3,3), strides=1, padding=config.SAME_PADDING))
-            model.add(Activation(config.RELU_FUNCTION))
-            model.add(Conv2D(filters=args[3], kernel_size=(3,3), strides=1, padding=config.SAME_PADDING))
-            model.add(Activation(config.RELU_FUNCTION))
-            model.add(MaxPooling2D(pool_size=(2,2), strides=1, padding=config.SAME_PADDING))
-            model.add(BatchNormalization())
+            # model.add(Conv2D(filters=args[2], kernel_size=(3,3), strides=1, padding=config.SAME_PADDING))
+            # model.add(Activation(config.RELU_FUNCTION))
+            # model.add(Conv2D(filters=args[3], kernel_size=(3,3), strides=1, padding=config.SAME_PADDING))
+            # model.add(Activation(config.RELU_FUNCTION))
+            # model.add(MaxPooling2D(pool_size=(2,2), strides=1, padding=config.SAME_PADDING))
+            # model.add(BatchNormalization())
 
             model.add(Flatten())
 
@@ -61,8 +62,8 @@ class AlexNet(Model.Model):
             model.add(Activation(config.RELU_FUNCTION))
             model.add(Dropout(0.5))
 
-            model.add(Dense(units=args[5]))
-            model.add(Activation(config.RELU_FUNCTION))
+            # model.add(Dense(units=args[5]))
+            # model.add(Activation(config.RELU_FUNCTION))
             #DOESNT MAKE SENSE MAKE DROPOUT TO OPTPUT LAYER
 
             model.add(Dense(units=config.NUMBER_CLASSES))

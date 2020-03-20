@@ -8,6 +8,7 @@ from exceptions import CustomError
 import numpy as np
 import keras
 import Data
+import matplotlib.pyplot as plt
 
 class Model(ABC):
 
