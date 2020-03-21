@@ -10,7 +10,7 @@ dependencies:
   - chardet=3.0.4=py37_1003
   - conda=4.8.2=py37_0
   - conda-package-handling=1.6.0=py37h7b6447c_0
-  - cryptography=2.8=py37h1ba5d50_0
+  - cryptography=2.8=py37h1ba5d50_0 
   - idna=2.8=py37_0
   - libedit=3.1.20181209=hc058e9b_0
   - libffi=3.2.1=hd88cf55_4
