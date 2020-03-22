@@ -31,7 +31,11 @@ class DataAugmentation(Strategy.Strategy):
 
             image_gen.fit(data.X_train, augment=True) #DATA AUGMENTATION
 
-            train_generator = image_gen.flow(data.X_train, data.y_train, batch_size=config.BATCH_SIZE_ALEX_AUG)
+            train_generator = image_gen.flow(
+                data.X_train,
+                data.y_train,
+                batch_size=config.BATCH_SIZE_ALEX_AUG,
+            )
 
             return train_generator
 

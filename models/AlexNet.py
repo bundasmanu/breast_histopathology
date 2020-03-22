@@ -8,7 +8,11 @@ from keras.optimizers import Adam
 from keras.callbacks.callbacks import History
 from typing import Tuple
 import Data
-
+from keras import regularizers
+from keras.callbacks import ReduceLROnPlateau, EarlyStopping
+import config_func
+from sklearn.utils import class_weight
+import numpy
 
 class AlexNet(Model.Model):
 
@@ -38,31 +42,42 @@ class AlexNet(Model.Model):
             model = Sequential()
 
             input_shape = (config.WIDTH, config.HEIGHT, config.CHANNELS)
-            model.add(Conv2D(filters=args[0], input_shape=input_shape, kernel_size=(5,5), strides=1, padding=config.VALID_PADDING))
+            model.add(Conv2D(filters=args[0], input_shape=input_shape, kernel_size=(5,5), strides=1, padding=config.VALID_PADDING, kernel_regularizer=regularizers.l2(config.DECAY)))
             model.add(Activation(config.RELU_FUNCTION))
             model.add(MaxPooling2D(pool_size=(2,2), strides=2, padding='valid'))
             model.add(BatchNormalization())
+            model.add(Dropout(0.25))
 
-            model.add(Conv2D(filters=args[1], kernel_size=(3,3), strides=1, padding=config.SAME_PADDING))
+            model.add(Conv2D(filters=args[1], kernel_size=(3,3), strides=1, padding=config.SAME_PADDING, kernel_regularizer=regularizers.l2(config.DECAY)))
             model.add(Activation(config.RELU_FUNCTION))
-            #model.add(MaxPooling2D(pool_size=(2,2), strides=2, padding='valid'))
+            model.add(MaxPooling2D(pool_size=(2,2), strides=2, padding='valid'))
             model.add(MaxPooling2D(pool_size=(2, 2), strides=2))
             model.add(BatchNormalization())
+            model.add(Dropout(0.25))
 
-            # model.add(Conv2D(filters=args[2], kernel_size=(3,3), strides=1, padding=config.SAME_PADDING))
-            # model.add(Activation(config.RELU_FUNCTION))
-            # model.add(Conv2D(filters=args[3], kernel_size=(3,3), strides=1, padding=config.SAME_PADDING))
-            # model.add(Activation(config.RELU_FUNCTION))
-            # model.add(MaxPooling2D(pool_size=(2,2), strides=1, padding=config.SAME_PADDING))
-            # model.add(BatchNormalization())
+            model.add(Conv2D(filters=args[2], kernel_size=(3,3), strides=1, padding=config.SAME_PADDING, kernel_regularizer=regularizers.l2(config.DECAY)))
+            model.add(Activation(config.RELU_FUNCTION))
+            model.add(Conv2D(filters=args[2], kernel_size=(3,3), strides=1, padding=config.SAME_PADDING, kernel_regularizer=regularizers.l2(config.DECAY)))
+            model.add(Activation(config.RELU_FUNCTION))
+            model.add(MaxPooling2D(pool_size=(2,2), strides=1, padding=config.SAME_PADDING))
+            model.add(BatchNormalization())
+            model.add(Dropout(0.25))
+
+            model.add(Conv2D(filters=args[3], kernel_size=(3,3), strides=1, padding=config.SAME_PADDING, kernel_regularizer=regularizers.l2(config.DECAY)))
+            model.add(Activation(config.RELU_FUNCTION))
+            model.add(Conv2D(filters=args[3], kernel_size=(3,3), strides=1, padding=config.SAME_PADDING, kernel_regularizer=regularizers.l2(config.DECAY)))
+            model.add(Activation(config.RELU_FUNCTION))
+            model.add(MaxPooling2D(pool_size=(2,2), strides=1, padding=config.SAME_PADDING))
+            model.add(BatchNormalization())
+            model.add(Dropout(0.25))
 
             model.add(Flatten())
 
-            model.add(Dense(units=args[4]))
+            model.add(Dense(units=args[4], kernel_regularizer=regularizers.l2(config.DECAY)))
             model.add(Activation(config.RELU_FUNCTION))
             model.add(Dropout(0.5))
 
-            # model.add(Dense(units=args[5]))
+            # model.add(Dense(units=args[5], kernel_regularizer=regularizers.l2(config.DECAY)))
             # model.add(Activation(config.RELU_FUNCTION))
             #DOESNT MAKE SENSE MAKE DROPOUT TO OPTPUT LAYER
 
@@ -108,6 +123,20 @@ class AlexNet(Model.Model):
                 if len(self.StrategyList) > 1: #USER CHOOSE DATA AUGMENTATION OPTION
                     train_generator = self.StrategyList[1].applyStrategy(self.data)
 
+            #reduce_lr = LearningRateScheduler(config_func.lr_scheduler)
+            es_callback = EarlyStopping(monitor='val_loss', patience=6)
+            decrease_callback = ReduceLROnPlateau(monitor='val_loss',
+                                                        patience=2,
+                                                        factor=0.7,
+                                                        mode='min',
+                                                        verbose=1,
+                                                        min_lr=0.000001)
+
+            weights_y_train = config_func.decode_array(y_train)
+            class_weights = class_weight.compute_class_weight('balanced',
+                                                              numpy.unique(weights_y_train),
+                                                              weights_y_train)
+
             if train_generator is None: #NO DATA AUGMENTATION
 
                 history = model.fit(
@@ -117,7 +146,9 @@ class AlexNet(Model.Model):
                     epochs=config.EPOCHS,
                     validation_data=(self.data.X_val, self.data.y_val),
                     shuffle=True,
-                    use_multiprocessing=config.MULTIPROCESSING
+                    use_multiprocessing=config.MULTIPROCESSING,
+                    callbacks=[es_callback, decrease_callback],
+                    class_weight=class_weights
                 )
 
                 return history, model
@@ -130,7 +161,8 @@ class AlexNet(Model.Model):
                 epochs=config.EPOCHS,
                 steps_per_epoch=X_train.shape[0] / config.BATCH_SIZE_ALEX_AUG,
                 shuffle=True,
-                use_multiprocessing=config.MULTIPROCESSING
+                use_multiprocessing=config.MULTIPROCESSING,
+
             )
 
             return history, model

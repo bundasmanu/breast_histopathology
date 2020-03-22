@@ -275,3 +275,7 @@ def plot_confusion_matrix(cm, classes,
     plt.ylabel('True label')
     plt.xlabel('Predicted label')
     plt.show()
+
+
+def lr_scheduler(epoch):
+    return config.LEARNING_RATE * (0.5 ** (epoch // config.DECAY))

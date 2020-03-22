@@ -59,12 +59,12 @@ def main():
     )
 
     valuesLayers = (
-        16,
         32,
+        48,
         64,
         64,
         16,
-        16
+        8
     )
 
     #CREATE MODEL
