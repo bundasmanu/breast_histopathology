@@ -8,6 +8,7 @@ from typing import Tuple
 import math
 from pyswarms.utils.plotters import plot_cost_history
 import matplotlib.pyplot as plt
+import config_func
 
 class PSO(Optimizer.Optimizer):
 
@@ -71,6 +72,8 @@ class PSO(Optimizer.Optimizer):
                 int_converted_values = [math.trunc(i) for i in particles[i]] #CONVERSION OF DIMENSION VALUES OF PARTICLE
                 model, predictions, history = self.model.template_method(*int_converted_values) #APPLY BUILD, TRAIN AND PREDICT MODEL OPERATIONS, FOR EACH PARTICLE AND ITERATION
                 acc = (self.model.data.y_test == predictions).mean() #CHECK FINAL ACCURACY OF MODEL PREDICTIONS
+                report, conf = config_func.getConfusionMatrix(predictions, self.model.data.y_test)
+                int_converted_values.append(conf)
                 losses.append(self.objectiveFunction(acc, *int_converted_values)) #ADD COST LOSS TO LIST
             return losses
 
@@ -94,7 +97,7 @@ class PSO(Optimizer.Optimizer):
                 optimizer = ps.single.GlobalBestPSO(n_particles=self.indiv, dimensions=self.dims,
                                                     options=config.gbestOptions, bounds=bounds)
             else: #local best topology
-                optimizer = ps.single.GlobalBestPSO(n_particles=self.indiv, dimensions=self.dims,
+                optimizer = ps.single.LocalBestPSO(n_particles=self.indiv, dimensions=self.dims,
                                                     options=config.lbestOptions, bounds=bounds)
 
             cost, pos = optimizer.optimize(objective_func=self.loopAllParticles, iters=self.iters)

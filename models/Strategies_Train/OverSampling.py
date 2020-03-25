@@ -37,7 +37,7 @@ class OverSampling(Strategy.Strategy):
             print("\nNumber samples Class 0: ", occorrences_counter[0])
             print("\nNumber samples Class 1: ", occorrences_counter[1])
 
-            overSampler = RandomOverSampler(random_state=0, sampling_strategy=0.5)  # ALLOWS REPRODUCIBILITY
+            overSampler = RandomOverSampler(random_state=0)  # ALLOWS REPRODUCIBILITY
 
             # I NEED TO RESHAPE TRAINING DATA TO 2D ARRAY (SAMPLES, FEATURES)
             X_train = data.reshape4D_to_2D()

@@ -93,6 +93,24 @@ class Model(ABC):
         except:
             raise
 
+    def save(self, model : Sequential, filename : str) -> bool:
+
+        '''
+        THIS FUNCTION IS USED TO SAVE A TRAINED MODEL --> This function may be called after train and predict of a model
+        :param model: Sequential object --> Sequential model object return in train
+        :param filename: str --> name of file, where you want to save model
+        :return: bool --> True with save model to file, and False if occurs an error in save process
+        '''
+
+        try:
+
+            model.save(filename)
+            del model
+            return True
+
+        except:
+            return False
+
     @abstractmethod
     def __str__(self):
         return "Model(nº CNN : ", self.nCNNLayers, " nº Dense: ", self.nDenseLayers

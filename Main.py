@@ -8,8 +8,9 @@ import config
 from models import ModelFactory
 import Data
 from optimizers import OptimizerFactory, Optimizer, PSO
-from models.Strategies_Train import UnderSampling, Strategy
+from models.Strategies_Train import UnderSampling, Strategy, DataAugmentation
 import matplotlib.pyplot as plt
+from keras.models import load_model
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL']='2' #MAKES MORE FASTER THE INITIAL SETUP OF GPU --> WARNINGS INITIAL STEPS IS MORE QUICKLY
 #os.environ["CUDA_VISIBLE_DEVICES"]="-1"  #THIS LINE DISABLES GPU OPTIMIZATION
@@ -59,21 +60,24 @@ def main():
     )
 
     valuesLayers = (
-        32,
-        48,
-        64,
-        64,
         16,
+        24,
+        48,
+        72,
+        12,
         8
     )
 
     #CREATE MODEL
     alexNetModel = factoryModel.getModel(config.ALEX_NET, d, *numberLayers)
-
+    vggNetModel = factoryModel.getModel(config.VGG_NET, d, *numberLayers)
     #CREATE STRATEGIES AND PASS TO MODEL --> if i don't want to train using strategies, i didn't add strategies
     #underSampling = UnderSampling.UnderSampling() #or d variable
     #alexNetModel.addStrategy(underSampling)
-    model, predictions, history = alexNetModel.template_method(*valuesLayers)
+    #data_aug = DataAugmentation.DataAugmentation()
+    #alexNetModel.addStrategy(data_aug)
+    #model, predictions, history = alexNetModel.template_method(*valuesLayers)
+    model, predictions, history = vggNetModel.template_method(*valuesLayers)
     print(config_func.plot_cost_history(history))
     print(config_func.plot_accuracy_plot(history))
     predictions = config_func.decode_array(predictions) #DECODE ONE-HOT ENCODING PREDICTIONS ARRAY
