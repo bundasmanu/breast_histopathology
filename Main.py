@@ -8,11 +8,11 @@ import config
 from models import ModelFactory
 import Data
 from optimizers import OptimizerFactory, Optimizer, PSO
-from models.Strategies_Train import UnderSampling, Strategy
+from models.Strategies_Train import UnderSampling, Strategy, DataAugmentation
 import matplotlib.pyplot as plt
 import os
-os.environ['TF_CPP_MIN_LOG_LEVEL']='2' #MAKES MORE FASTER THE INITIAL SETUP OF GPU --> WARNINGS INITIAL STEPS IS MORE QUICKLY
-#os.environ["CUDA_VISIBLE_DEVICES"]="-1"  #THIS LINE DISABLES GPU OPTIMIZATION
+#os.environ['TF_CPP_MIN_LOG_LEVEL']='2' #MAKES MORE FASTER THE INITIAL SETUP OF GPU --> WARNINGS INITIAL STEPS IS MORE QUICKLY
+os.environ["CUDA_VISIBLE_DEVICES"]="-1"  #THIS LINE DISABLES GPU OPTIMIZATION
 
 def main():
 
@@ -59,7 +59,7 @@ def main():
     )
 
     valuesLayers = (
-        32,
+        16,
         48,
         64,
         64,
@@ -71,8 +71,10 @@ def main():
     alexNetModel = factoryModel.getModel(config.ALEX_NET, d, *numberLayers)
 
     #CREATE STRATEGIES AND PASS TO MODEL --> if i don't want to train using strategies, i didn't add strategies
-    #underSampling = UnderSampling.UnderSampling() #or d variable
-    #alexNetModel.addStrategy(underSampling)
+    underSampling = UnderSampling.UnderSampling() #or d variable
+    alexNetModel.addStrategy(underSampling)
+    data_aug = DataAugmentation.DataAugmentation()
+    alexNetModel.addStrategy(data_aug)
     model, predictions, history = alexNetModel.template_method(*valuesLayers)
     print(config_func.plot_cost_history(history))
     print(config_func.plot_accuracy_plot(history))
