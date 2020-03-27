@@ -13,7 +13,7 @@ STANDARDIZE_AXIS_CHANNELS = (0,1,2,3)
 
 NUMBER_CLASSES = 2
 
-SIZE_DATAFRAME = 180000
+SIZE_DATAFRAME = 140000
 
 VALIDATION_SIZE = 0.2
 TEST_SIZE = 0.2
@@ -39,9 +39,9 @@ SAME_PADDING = "same"
 ACCURACY_METRIC = "accuracy"
 VALIDATION_ACCURACY = "val_accuracy"
 
-BATCH_SIZE_ALEX_NO_AUG = 180
+BATCH_SIZE_ALEX_NO_AUG = 128
 BATCH_SIZE_ALEX_AUG = 128
-EPOCHS = 10
+EPOCHS = 2
 MULTIPROCESSING = True
 SHUFFLE = True
 
@@ -78,16 +78,17 @@ ERROR_ON_OPTIMIZATION = "\nError on optimization"
 ERROR_INVALID_NUMBER_ARGS = "\nPlease provide correct number of args"
 ERROR_ON_BUILD = "\nError on building model"
 ERROR_APPEND_STRATEGY = "\nError on appending strategy"
+ERROR_ON_PLOTTING = "\nError on plotting"
 
 #PSO OPTIONS
-PARTICLES = 2
+PARTICLES = 1
 ITERATIONS = 2
-PSO_DIMENSIONS = 6
+PSO_DIMENSIONS = 5
 TOPOLOGY_FLAG = 0 # 0 MEANS GBEST, AND 1 MEANS LBEST
 gbestOptions = {'w' : 0.9, 'c1' : 0.3, 'c2' : 0.3}
 lbestOptions = {'w' : 0.9, 'c1' : 0.3, 'c2' : 0.3, 'k' : 4, 'p' : 2}
 
-MAX_VALUES_LAYERS_ALEX_NET = [16, 32, 64, 64, 32, 16]
+MAX_VALUES_LAYERS_ALEX_NET = [96, 96, 96, 96, 24]
 
 IDC_CLASS_NAME = "With IDC"
 HEALTHY_CLASS_NAME = "Healthy"
@@ -98,3 +99,14 @@ TOURNAMENT_SIZE = 100
 INDPB = 0.6
 CXPB = 0.4
 MUTPB = 0.2
+
+#FILENAMES SAVE MODELS
+ALEX_NET_BEST_FILE = "alex_best.h5"
+ALEX_NET_PSO_FILE = "alex_pso.h5"
+ALEX_NET_GA_FILE = "alex_ga.h5"
+VGG_NET_BEST_FILE = "vgg_best.h5"
+VGG_NET_PSO_FILE = "vgg_pso.h5"
+VGG_NET_GA_FILE = "vgg_ga.h5"
+
+#FILENAME POSITION PSO VARIATION
+POS_VAR = 'particles_pso.html'

@@ -6,16 +6,18 @@ import pyswarms as ps
 import numpy as np
 from typing import Tuple
 import math
-from pyswarms.utils.plotters import plot_cost_history
+from pyswarms.utils.plotters import plot_cost_history, plot_contour
 import matplotlib.pyplot as plt
 import config_func
+from pyswarms.utils.plotters.formatters import Designer
+from IPython.display import Image
 
 class PSO(Optimizer.Optimizer):
 
     def __init__(self, model : Model.Model, *args): #DIMENSIONS NEED TO BE EQUAL TO NUMBER OF LAYERS ON MODEL
         super(PSO, self).__init__(model, *args)
 
-    def plotCostHistory(optimizer):
+    def plotCostHistory(self, optimizer):
 
         '''
         :param optimizer: optimizer object returned in the application/definition of PSO
@@ -28,7 +30,31 @@ class PSO(Optimizer.Optimizer):
             plt.show()
 
         except:
-            raise
+            raise CustomError.ErrorCreationModel(config.ERROR_ON_PLOTTING)
+
+    def plotPositionHistory(self, optimizer, xLimits, yLimits, filename, xLabel, yLabel):
+
+        '''
+        :param optimizer: optimizer object returned in the application/definition of PSO
+        :param xLimits: numpy array (minLimit, maxLimit) of x Axis
+        :param yLimits: numpy array (minLimit, maxLimit) of y Axis
+        :param filename: name of filename returned by plot_contour (html gif)
+        :param xLabel: name of X axis
+        :param yLabel: name of Y axis
+        '''
+
+        try:
+
+            d = Designer(limits=[xLimits, yLimits], label=[xLabel, yLabel])
+            animation = plot_contour(pos_history=optimizer.pos_history,
+                                     designer=d)
+
+            animation.save(filename, writer='ffmpeg', fps=10)
+            Image(url=filename)
+
+            plt.show()
+        except:
+            raise CustomError.ErrorCreationModel(config.ERROR_ON_PLOTTING)
 
     def boundsDefinition(self):
 
@@ -72,7 +98,9 @@ class PSO(Optimizer.Optimizer):
                 int_converted_values = [math.trunc(i) for i in particles[i]] #CONVERSION OF DIMENSION VALUES OF PARTICLE
                 model, predictions, history = self.model.template_method(*int_converted_values) #APPLY BUILD, TRAIN AND PREDICT MODEL OPERATIONS, FOR EACH PARTICLE AND ITERATION
                 acc = (self.model.data.y_test == predictions).mean() #CHECK FINAL ACCURACY OF MODEL PREDICTIONS
-                report, conf = config_func.getConfusionMatrix(predictions, self.model.data.y_test)
+                decoded_predictions = config_func.decode_array(predictions)
+                decoded_y_true = config_func.decode_array(self.model.data.y_test)
+                report, conf = config_func.getConfusionMatrix(decoded_predictions, decoded_y_true)
                 int_converted_values.append(conf)
                 losses.append(self.objectiveFunction(acc, *int_converted_values)) #ADD COST LOSS TO LIST
             return losses
@@ -101,7 +129,10 @@ class PSO(Optimizer.Optimizer):
                                                     options=config.lbestOptions, bounds=bounds)
 
             cost, pos = optimizer.optimize(objective_func=self.loopAllParticles, iters=self.iters)
-            plot_cost_history(optimizer)
+            self.plotCostHistory(optimizer)
+            plt.show()
+            self.plotPositionHistory(optimizer, np.ones(2), np.ones(2)*128, config.POS_VAR, '', '')
+            plt.show()
             return cost, pos
 
         except:
