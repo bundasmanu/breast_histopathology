@@ -56,13 +56,13 @@ def main():
     factoryModel = ModelFactory.ModelFactory()
     numberLayers = (
         4, #CNN LAYERS
-        2 #DENSE LAYERS
+        1 #DENSE LAYERS
     )
 
     valuesLayers = (
-        8,
-        16,
-        24,
+        48,
+        64,
+        72,
         32,
         12,
         8
@@ -72,32 +72,33 @@ def main():
     alexNetModel = factoryModel.getModel(config.ALEX_NET, d, *numberLayers)
     vggNetModel = factoryModel.getModel(config.VGG_NET, d, *numberLayers)
     #CREATE STRATEGIES AND PASS TO MODEL --> if i don't want to train using strategies, i didn't add strategies
-    #underSampling = UnderSampling.UnderSampling() #or d variable
+    underSampling = UnderSampling.UnderSampling() #or d variable
+    vggNetModel.addStrategy(underSampling)
     #alexNetModel.addStrategy(underSampling)
     #data_aug = DataAugmentation.DataAugmentation()
     #alexNetModel.addStrategy(data_aug)
     #model, predictions, history = alexNetModel.template_method(*valuesLayers)
-    model, predictions, history = vggNetModel.template_method(*valuesLayers)
-    print(config_func.plot_cost_history(history))
-    print(config_func.plot_accuracy_plot(history))
-    predictions = config_func.decode_array(predictions) #DECODE ONE-HOT ENCODING PREDICTIONS ARRAY
-    y_test_decoded = config_func.decode_array(alexNetModel.data.y_test)  # DECODE ONE-HOT ENCODING y_test ARRAY
-    report, confusion_mat = config_func.getConfusionMatrix(y_test_decoded, predictions)
-    print(report)
-    plt.figure()
-    config_func.plot_confusion_matrix(confusion_mat, config.LIST_CLASSES_NAME)
+    # model, predictions, history = vggNetModel.template_method(*valuesLayers)
+    # print(config_func.plot_cost_history(history))
+    # print(config_func.plot_accuracy_plot(history))
+    # predictions = config_func.decode_array(predictions) #DECODE ONE-HOT ENCODING PREDICTIONS ARRAY
+    # y_test_decoded = config_func.decode_array(alexNetModel.data.y_test)  # DECODE ONE-HOT ENCODING y_test ARRAY
+    # report, confusion_mat = config_func.getConfusionMatrix(predictions, y_test_decoded)
+    # print(report)
+    # plt.figure()
+    # config_func.plot_confusion_matrix(confusion_mat, config.LIST_CLASSES_NAME)
 
     #PSO OPTIMIZATION
-    # optFact = OptimizerFactory.OptimizerFactory()
-    # opt_options = (
-    #     config.PARTICLES,
-    #     config.ITERATIONS,
-    #     config.PSO_DIMENSIONS
-    # )
-    # optPSO = optFact.createOptimizer(config.PSO_OPTIMIZER, alexNetModel, *opt_options)
-    # cost, pos = optPSO.optimize()
-    # print(cost)
-    # print(pos)
+    optFact = OptimizerFactory.OptimizerFactory()
+    opt_options = (
+        config.PARTICLES,
+        config.ITERATIONS,
+        config.PSO_DIMENSIONS
+    )
+    optPSO = optFact.createOptimizer(config.PSO_OPTIMIZER, alexNetModel, *opt_options)
+    cost, pos = optPSO.optimize()
+    print(cost)
+    print(pos)
 
 if __name__ == "__main__":
     main()

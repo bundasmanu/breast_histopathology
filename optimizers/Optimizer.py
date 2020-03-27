@@ -27,14 +27,14 @@ class Optimizer(ABC):
 
         try:
 
-            cnnFilters = [args[i]*i for i in range(self.model.nCNNLayers)] #ATTRIBUTION IMPORTANCE TO CNN FILTERS (*i) --> LAST FCONVOLUTION LAYER IS MORE IMPORTANT THAN FIRST
+            cnnFilters = [args[i] for i in range(self.model.nCNNLayers)] #ATTRIBUTION IMPORTANCE TO CNN FILTERS (*i) --> LAST FCONVOLUTION LAYER IS MORE IMPORTANT THAN FIRST
             totalFilters = sum(cnnFilters)
             denseNeurons = [args[(self.model.nCNNLayers+self.model.nDenseLayers) - (i+1)] for i in range(self.model.nDenseLayers)]
             totalNeurons = sum(denseNeurons)
 
             confusion_mat = args[-1]
-            recall_idc = confusion_mat[1][0] #THIS TWO VALUES NEED TO BE OPTIMIZED TO BE THE MINIMUM
-            precision_idc = confusion_mat[0][1]
+            recall_idc = confusion_mat[1][0]/ confusion_mat[1][1] #THIS TWO VALUES NEED TO BE OPTIMIZED TO BE THE MINIMUM
+            precision_idc = confusion_mat[0][1] / confusion_mat[1][1]
 
             return 2.0 * ((1.0 - (1.0 / (totalFilters)))
                       + (1.0 - (1.0 / (totalNeurons)))) + 1.5 * (1.0 - acc) + 5.0 * (1.0 - recall_idc) + 3.0 * (1.0 - precision_idc)
