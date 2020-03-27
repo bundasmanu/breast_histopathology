@@ -47,12 +47,13 @@ class UnderSampling(Strategy.Strategy):
             decoded_ytrain = data.decodeYData()
 
             #APPLY RESAMPLE OF DATA
-            deepData = copy.deepcopy(data)
+            args = (None, None, None, None, None)
+            deepData = Data.Data(data.X_train, *args)
             deepData.X_train, decoded_ytrain = underSampler.fit_resample(X_train, decoded_ytrain)
 
             #I NEED TO RESHAPE DATA AGAIN FROM 2D TO 4D
             X_train = deepData.reshape2D_to_4D()
-
+            del deepData
             occorrences_counter = np.bincount(decoded_ytrain)
             print("\nNumber samples Class 0: ", occorrences_counter[0])
             print("\nNumber samples Class 1: ", occorrences_counter[1])

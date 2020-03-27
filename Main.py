@@ -12,8 +12,8 @@ from models.Strategies_Train import UnderSampling, Strategy, DataAugmentation
 import matplotlib.pyplot as plt
 from keras.models import load_model
 import os
-os.environ['TF_CPP_MIN_LOG_LEVEL']='2' #MAKES MORE FASTER THE INITIAL SETUP OF GPU --> WARNINGS INITIAL STEPS IS MORE QUICKLY
-#os.environ["CUDA_VISIBLE_DEVICES"]="-1"  #THIS LINE DISABLES GPU OPTIMIZATION
+#os.environ['TF_CPP_MIN_LOG_LEVEL']='2' #MAKES MORE FASTER THE INITIAL SETUP OF GPU --> WARNINGS INITIAL STEPS IS MORE QUICKLY
+os.environ["CUDA_VISIBLE_DEVICES"]="-1"  #THIS LINE DISABLES GPU OPTIMIZATION
 
 def main():
 
@@ -60,11 +60,11 @@ def main():
     )
 
     valuesLayers = (
-        8,
+        48,
+        64,
+        64,
+        96,
         16,
-        24,
-        32,
-        12,
         8
     )
 
@@ -73,8 +73,10 @@ def main():
     vggNetModel = factoryModel.getModel(config.VGG_NET, d, *numberLayers)
     #CREATE STRATEGIES AND PASS TO MODEL --> if i don't want to train using strategies, i didn't add strategies
     #underSampling = UnderSampling.UnderSampling() #or d variable
+    #vggNetModel.addStrategy(underSampling)
     #alexNetModel.addStrategy(underSampling)
     #data_aug = DataAugmentation.DataAugmentation()
+    #vggNetModel.addStrategy(data_aug)
     #alexNetModel.addStrategy(data_aug)
     #model, predictions, history = alexNetModel.template_method(*valuesLayers)
     model, predictions, history = vggNetModel.template_method(*valuesLayers)

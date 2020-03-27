@@ -48,7 +48,7 @@ class VGGNet(Model.Model):
             model.add(Activation(config.RELU_FUNCTION))
             model.add(MaxPooling2D(pool_size=(2,2), strides=2))
             model.add(BatchNormalization())
-            model.add(Dropout(0.2))
+            model.add(Dropout(0.15))
 
             model.add(Conv2D(filters=args[1], kernel_size=(3,3), strides=1, kernel_regularizer=regularizers.l2(config.DECAY)))
             model.add(Activation(config.RELU_FUNCTION))
@@ -56,7 +56,7 @@ class VGGNet(Model.Model):
             model.add(Activation(config.RELU_FUNCTION))
             model.add(MaxPooling2D(pool_size=(2,2), strides=2))
             model.add(BatchNormalization())
-            model.add(Dropout(0.2))
+            model.add(Dropout(0.15))
 
             model.add(Conv2D(filters=args[2], kernel_size=(3,3), strides=1, padding=config.SAME_PADDING, kernel_regularizer=regularizers.l2(config.DECAY)))
             model.add(Activation(config.RELU_FUNCTION))
@@ -64,7 +64,7 @@ class VGGNet(Model.Model):
             model.add(Activation(config.RELU_FUNCTION))
             model.add(MaxPooling2D(pool_size=(2,2), strides=2))
             model.add(BatchNormalization())
-            model.add(Dropout(0.2))
+            model.add(Dropout(0.25))
 
             model.add(Conv2D(filters=args[3], kernel_size=(3,3), strides=1, padding=config.SAME_PADDING, kernel_regularizer=regularizers.l2(config.DECAY)))
             model.add(Activation(config.RELU_FUNCTION))
@@ -72,13 +72,14 @@ class VGGNet(Model.Model):
             model.add(Activation(config.RELU_FUNCTION))
             model.add(MaxPooling2D(pool_size=(2,2), strides=2))
             model.add(BatchNormalization())
-            model.add(Dropout(0.2))
+            model.add(Dropout(0.25))
 
             model.add(Flatten())
 
             model.add(Dense(units=args[4], kernel_regularizer=regularizers.l2(config.DECAY)))
             model.add(Activation(config.RELU_FUNCTION))
-            model.add(Dropout(0.5))
+            model.add(BatchNormalization())
+            #model.add(Dropout(0.5))
 
             model.add(Dense(units=config.NUMBER_CLASSES))
             model.add(Activation(config.SOFTMAX_FUNCTION))
@@ -115,13 +116,13 @@ class VGGNet(Model.Model):
                     train_generator = self.StrategyList[1].applyStrategy(self.data)
 
             #reduce_lr = LearningRateScheduler(config_func.lr_scheduler)
-            es_callback = EarlyStopping(monitor='val_loss', patience=6)
-            # decrease_callback = ReduceLROnPlateau(monitor='val_loss',
-            #                                             patience=3,
-            #                                             factor=0.7,
-            #                                             mode='min',
-            #                                             verbose=1,
-            #                                             min_lr=0.000001)
+            es_callback = EarlyStopping(monitor='loss', patience=6)
+            decrease_callback = ReduceLROnPlateau(monitor='val_loss',
+                                                        patience=2,
+                                                        factor=0.7,
+                                                        mode='min',
+                                                        verbose=1,
+                                                        min_lr=0.00001)
             decrease_callback2 = ReduceLROnPlateau(monitor='loss',
                                                         patience=3,
                                                         factor=0.7,
@@ -144,7 +145,7 @@ class VGGNet(Model.Model):
                     validation_data=(self.data.X_val, self.data.y_val),
                     shuffle=True,
                     use_multiprocessing=config.MULTIPROCESSING,
-                    callbacks=[decrease_callback2, es_callback],
+                    callbacks=[decrease_callback, decrease_callback2, es_callback],
                     class_weight=class_weights
                 )
 
