@@ -43,7 +43,7 @@ class Model(ABC):
         '''
         https://refactoring.guru/design-patterns/template-method/python/example
         THIS FUNCTION REPRESENTS A TEMPLATE PATTERN TO EXECUTE THE ALL SEQUENCE OF JOBS TO DO
-        :param: args: list of integers in logical order to populate cnn and dense layers (filters and neurons)
+        :param: args: list of integers in logical order to populate cnn and dense layers (filters and neurons), and batch_size
         :return: Sequential: trained model
         :return: numpy array: model test data predictions
         :return History.history: history of trained model
@@ -52,7 +52,7 @@ class Model(ABC):
         try:
 
             model = self.build(*args)
-            history, model = self.train(model)
+            history, model = self.train(model, args[-1])
             predictions = self.predict(model)
 
             return model, predictions, history
@@ -64,7 +64,7 @@ class Model(ABC):
         pass
 
     @abstractmethod
-    def train(self, model : Sequential) -> Tuple[History, Sequential]:
+    def train(self, model : Sequential, batch_size) -> Tuple[History, Sequential]:
         pass
 
     def predict(self, model : Sequential):

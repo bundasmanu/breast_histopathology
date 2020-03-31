@@ -68,6 +68,7 @@ class PSO(Optimizer.Optimizer):
             totalDimensions = self.dims
 
             minBounds = np.ones(totalDimensions)
+            minBounds[totalDimensions-1] = minBounds[totalDimensions-1] * config.MIN_BATCH_SIZE #min batch size
             maxBounds = np.ones(totalDimensions)
 
             maxBounds = [maxBounds[j]*i for i, j in zip(config.MAX_VALUES_LAYERS_ALEX_NET, range(totalDimensions))]
@@ -131,8 +132,12 @@ class PSO(Optimizer.Optimizer):
             cost, pos = optimizer.optimize(objective_func=self.loopAllParticles, iters=self.iters)
             self.plotCostHistory(optimizer)
             plt.show()
-            self.plotPositionHistory(optimizer, np.ones(2), np.ones(2)*128, config.POS_VAR, '', '')
-            plt.show()
+            #x_limits = np.ones(2)
+            #x_limits[1] = 128
+            #y_limits = np.ones(2)
+            #y_limits[1] = 128
+            #self.plotPositionHistory(optimizer, x_limits, y_limits, config.POS_VAR, '', '')
+            #plt.show()
             return cost, pos
 
         except:

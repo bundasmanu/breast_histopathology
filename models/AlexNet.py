@@ -42,7 +42,7 @@ class AlexNet(Model.Model):
             model = Sequential()
 
             input_shape = (config.WIDTH, config.HEIGHT, config.CHANNELS)
-            model.add(Conv2D(filters=args[0], input_shape=input_shape, kernel_size=(5,5), strides=1, padding=config.VALID_PADDING, kernel_regularizer=regularizers.l2(config.DECAY)))
+            model.add(Conv2D(filters=args[0], input_shape=input_shape, kernel_size=(3,3), strides=1, padding=config.VALID_PADDING, kernel_regularizer=regularizers.l2(config.DECAY)))
             model.add(Activation(config.RELU_FUNCTION))
             model.add(MaxPooling2D(pool_size=(2,2), strides=2, padding='valid'))
             model.add(BatchNormalization())
@@ -50,7 +50,6 @@ class AlexNet(Model.Model):
 
             model.add(Conv2D(filters=args[1], kernel_size=(3,3), strides=1, padding=config.SAME_PADDING, kernel_regularizer=regularizers.l2(config.DECAY)))
             model.add(Activation(config.RELU_FUNCTION))
-            model.add(MaxPooling2D(pool_size=(2,2), strides=2, padding='valid'))
             model.add(MaxPooling2D(pool_size=(2, 2), strides=2))
             model.add(BatchNormalization())
             model.add(Dropout(0.25))
@@ -91,7 +90,7 @@ class AlexNet(Model.Model):
         except:
             raise CustomError.ErrorCreationModel(config.ERROR_ON_BUILD)
 
-    def train(self, model : Sequential) -> Tuple[History, Sequential]:
+    def train(self, model : Sequential, batch_size) -> Tuple[History, Sequential]:
 
         '''
         THIS FUNCTION IS RESPONSIBLE FOR MAKE THE TRAINING OF MODEL
@@ -126,12 +125,12 @@ class AlexNet(Model.Model):
 
             #reduce_lr = LearningRateScheduler(config_func.lr_scheduler)
             es_callback = EarlyStopping(monitor='loss', patience=6)
-            # decrease_callback = ReduceLROnPlateau(monitor='val_loss',
-            #                                             patience=3,
-            #                                             factor=0.7,
-            #                                             mode='min',
-            #                                             verbose=1,
-            #                                             min_lr=0.000001)
+            decrease_callback = ReduceLROnPlateau(monitor='val_loss',
+                                                        patience=2,
+                                                        factor=0.7,
+                                                        mode='min',
+                                                        verbose=1,
+                                                        min_lr=0.000001)
 
             decrease_callback2 = ReduceLROnPlateau(monitor='loss',
                                                         patience=2,
@@ -150,12 +149,12 @@ class AlexNet(Model.Model):
                 history = model.fit(
                     x=X_train,
                     y=y_train,
-                    batch_size=config.BATCH_SIZE_ALEX_NO_AUG,
+                    batch_size=batch_size,
                     epochs=config.EPOCHS,
                     validation_data=(self.data.X_val, self.data.y_val),
                     shuffle=True,
                     use_multiprocessing=config.MULTIPROCESSING,
-                    callbacks=[decrease_callback2, es_callback],
+                    callbacks=[decrease_callback2, es_callback, decrease_callback],
                     class_weight=class_weights
                 )
 
@@ -167,7 +166,7 @@ class AlexNet(Model.Model):
                 generator=train_generator,
                 validation_data=(self.data.X_val, self.data.y_val),
                 epochs=config.EPOCHS,
-                steps_per_epoch=X_train.shape[0] / config.BATCH_SIZE_ALEX_AUG,
+                steps_per_epoch=X_train.shape[0] / batch_size,
                 shuffle=True,
                 use_multiprocessing=config.MULTIPROCESSING,
 
