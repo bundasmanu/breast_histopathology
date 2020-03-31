@@ -131,8 +131,8 @@ class PSO(Optimizer.Optimizer):
             cost, pos = optimizer.optimize(objective_func=self.loopAllParticles, iters=self.iters)
             self.plotCostHistory(optimizer)
             plt.show()
-            self.plotPositionHistory(optimizer, np.ones(2), np.ones(2)*128, config.POS_VAR, '', '')
-            plt.show()
+            #self.plotPositionHistory(optimizer, np.ones(2), np.ones(2)*128, config.POS_VAR, '', '')
+            #plt.show()
             return cost, pos
 
         except:
