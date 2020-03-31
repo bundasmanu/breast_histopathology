@@ -90,7 +90,7 @@ class VGGNet(Model.Model):
         except:
             raise CustomError.ErrorCreationModel(config.ERROR_ON_BUILD)
 
-    def train(self, model : Sequential) -> Tuple[History, Sequential]:
+    def train(self, model : Sequential, batch_size) -> Tuple[History, Sequential]:
 
         try:
 
@@ -122,7 +122,7 @@ class VGGNet(Model.Model):
                                                         factor=0.7,
                                                         mode='min',
                                                         verbose=1,
-                                                        min_lr=0.00001)
+                                                        min_lr=0.000001)
             decrease_callback2 = ReduceLROnPlateau(monitor='loss',
                                                         patience=3,
                                                         factor=0.7,
@@ -140,7 +140,7 @@ class VGGNet(Model.Model):
                 history = model.fit(
                     x=X_train,
                     y=y_train,
-                    batch_size=config.BATCH_SIZE_ALEX_NO_AUG,
+                    batch_size=batch_size,
                     epochs=config.EPOCHS,
                     validation_data=(self.data.X_val, self.data.y_val),
                     shuffle=True,
@@ -157,12 +157,10 @@ class VGGNet(Model.Model):
                 generator=train_generator,
                 validation_data=(self.data.X_val, self.data.y_val),
                 epochs=config.EPOCHS,
-                steps_per_epoch=X_train.shape[0] / config.BATCH_SIZE_ALEX_AUG,
+                steps_per_epoch=X_train.shape[0] / batch_size,
                 shuffle=True,
                 use_multiprocessing=config.MULTIPROCESSING,
                 callbacks=[es_callback, decrease_callback2],
-                class_weight=class_weights
-
             )
 
             return history, model

@@ -33,8 +33,8 @@ class Optimizer(ABC):
             totalNeurons = sum(denseNeurons)
 
             confusion_mat = args[-1]
-            recall_idc = confusion_mat[1][0]/ confusion_mat[1][1] #THIS TWO VALUES NEED TO BE OPTIMIZED TO BE THE MINIMUM
-            precision_idc = confusion_mat[0][1] / confusion_mat[1][1]
+            recall_idc = 1.0 - (confusion_mat[1][0]/ (confusion_mat[1][0] + confusion_mat[1][1])) #THIS TWO VALUES NEED TO BE OPTIMIZED TO BE THE MINIMUM
+            precision_idc = 1.0 - (confusion_mat[0][1] / (confusion_mat[0][1] + confusion_mat[1][1]))
 
             return 2.0 * ((1.0 - (1.0 / (totalFilters)))
                       + (1.0 - (1.0 / (totalNeurons)))) + 1.5 * (1.0 - acc) + 5.0 * (1.0 - recall_idc) + 3.0 * (1.0 - precision_idc)
