@@ -68,25 +68,68 @@ def main():
         config.BATCH_SIZE_ALEX_NO_AUG
     )
 
-    #CREATE MODEL
+    ## STRATEGIES OF TRAIN INSTANCES
+
+    underSampling = UnderSampling.UnderSampling()
+    data_aug = DataAugmentation.DataAugmentation()
+
+    ## ---------------------------ALEXNET APPLICATION ------------------------------------
+
+    ## DICTIONARIES DEFINITION
+    numberLayers = (
+        4, #CNN LAYERS
+        1 #DENSE LAYERS
+    )
+
+    valuesLayers = (
+        16,
+        24,
+        48,
+        72,
+        12,
+        config.BATCH_SIZE_ALEX_NO_AUG
+    )
+
+    # CREATION OF MODEL
     alexNetModel = factoryModel.getModel(config.ALEX_NET, d, *numberLayers)
-    #vggNetModel = factoryModel.getModel(config.VGG_NET, d, *numberLayers)
-    #CREATE STRATEGIES AND PASS TO MODEL --> if i don't want to train using strategies, i didn't add strategies
-    #underSampling = UnderSampling.UnderSampling() #or d variable
-    #vggNetModel.addStrategy(underSampling)
+
+    ## APPLY STRATEGIES OF TRAIN
     #alexNetModel.addStrategy(underSampling)
-    #data_aug = DataAugmentation.DataAugmentation()
     #alexNetModel.addStrategy(data_aug)
+
     model, predictions, history = alexNetModel.template_method(*valuesLayers)
-    # model, predictions, history = vggNetModel.template_method(*valuesLayers)
-    print(config_func.plot_cost_history(history))
-    print(config_func.plot_accuracy_plot(history))
-    predictions = config_func.decode_array(predictions) #DECODE ONE-HOT ENCODING PREDICTIONS ARRAY
-    y_test_decoded = config_func.decode_array(alexNetModel.data.y_test)  # DECODE ONE-HOT ENCODING y_test ARRAY
-    report, confusion_mat = config_func.getConfusionMatrix(predictions, y_test_decoded)
-    print(report)
-    plt.figure()
-    config_func.plot_confusion_matrix(confusion_mat, config.LIST_CLASSES_NAME)
+
+    config_func.print_final_results(d.y_test, predictions, history)
+
+    ## ---------------------------VGGNET APPLICATION ------------------------------------
+
+    ## DICTIONARIES DEFINITION
+    numberLayers = (
+        4, #CNN LAYERS
+        1 #DENSE LAYERS
+    )
+
+    valuesLayers = (
+        16,
+        24,
+        48,
+        72,
+        12,
+        config.BATCH_SIZE_ALEX_AUG
+    )
+
+    vggNetModel = factoryModel.getModel(config.VGG_NET, d, *numberLayers)
+
+    vggNetModel.addStrategy(underSampling)
+    vggNetModel.addStrategy(data_aug)
+
+    #model, predictions, history = vggNetModel.template_method(*valuesLayers)
+
+    #config_func.print_final_results(d.y_test, predictions, history)
+
+    ## ------------------------ENSEMBLE OF MODELS -------------------------------------
+
+    ## ------------------------PSO OPTIMIZATION ------------------------------------------
 
     #PSO OPTIMIZATION
     # optFact = OptimizerFactory.OptimizerFactory()
