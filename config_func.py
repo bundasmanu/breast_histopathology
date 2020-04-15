@@ -9,6 +9,8 @@ import random
 from sklearn.metrics import classification_report, confusion_matrix
 import matplotlib.pyplot as plt
 import itertools
+from keras.models import Model as mp
+from keras.layers import Average, Input
 
 def getNumberPatients():
 
@@ -279,3 +281,55 @@ def plot_confusion_matrix(cm, classes,
 
 def lr_scheduler(epoch):
     return config.LEARNING_RATE * (0.5 ** (epoch // config.DECAY))
+
+def ensemble(models):
+
+    '''
+    THIS FUNCTION IS USED TO ENSEMBLE OUTPUT OF A LIST OF MODELS, CONSIDERING ITS AVERAGE
+    :param models: List Models : models used (AlexNet, VGGNet, ResNet)
+    :return: model: model with average outputs of all models considered
+    '''
+
+    try:
+
+        ## get outputs of each model
+        input_shape = (config.WIDTH, config.HEIGHT, config.CHANNELS)
+        input_model = Input(input_shape)
+        models_out = [i(input_model) for i in models]
+
+        ## get average of each model (ensemble)
+        average = Average() (models_out)
+
+        ## define model with new outputs
+
+        model = mp(input_model, average, name='ensemble')
+
+        return model
+
+    except:
+        raise
+
+def print_final_results(y_test, predictions, history):
+
+    '''
+    THIS FUNCTION IS USED TO PRINT ANND PLOT FINAL RESULTS OF MODEL EVALUATION
+    :param y_test: real predictions of test
+    :param predictions: numpy array : predictions of model
+    :param history: History.history : history of train (validation and train along epochs)
+    :return: nothing only print's and plot's
+    '''
+
+    try:
+
+        if history != None:
+            print(plot_cost_history(history))
+            print(plot_accuracy_plot(history))
+        predictions = decode_array(predictions)  # DECODE ONE-HOT ENCODING PREDICTIONS ARRAY
+        y_test_decoded = decode_array(y_test)  # DECODE ONE-HOT ENCODING y_test ARRAY
+        report, confusion_mat = getConfusionMatrix(predictions, y_test_decoded)
+        print(report)
+        plt.figure()
+        plot_confusion_matrix(confusion_mat, config.DICT_TARGETS)
+
+    except:
+        raise
