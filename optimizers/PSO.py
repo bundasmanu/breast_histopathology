@@ -46,7 +46,10 @@ class PSO(Optimizer.Optimizer):
         try:
 
             d = Designer(limits=[xLimits, yLimits], label=[xLabel, yLabel])
-            animation = plot_contour(pos_history=optimizer.pos_history,
+            pos = []
+            for i in range(config.ITERATIONS):
+                pos.append(optimizer.pos_history[i][:, 0:2])
+            animation = plot_contour(pos_history=pos,
                                      designer=d)
 
             animation.save(filename, writer='ffmpeg', fps=10)
@@ -101,15 +104,15 @@ class PSO(Optimizer.Optimizer):
                 acc = (self.model.data.y_test == predictions).mean() #CHECK FINAL ACCURACY OF MODEL PREDICTIONS
                 decoded_predictions = config_func.decode_array(predictions)
                 decoded_y_true = config_func.decode_array(self.model.data.y_test)
-                report, conf = config_func.getConfusionMatrix(decoded_predictions, decoded_y_true)
-                int_converted_values.append(conf)
+                report, conf = config_func.getConfusionMatrix(decoded_predictions, decoded_y_true, dict=True)
+                int_converted_values.append(report)
                 losses.append(self.objectiveFunction(acc, *int_converted_values)) #ADD COST LOSS TO LIST
             return losses
 
         except:
             raise CustomError.ErrorCreationModel(config.ERROR_ON_OPTIMIZATION)
 
-    def optimize(self) -> Tuple[float, float]:
+    def optimize(self) -> Tuple[float, float, ps.single.general_optimizer.SwarmOptimizer]:
 
         '''
         THIS FUNCTION IS RESPONSIBLE TO APPLY ALL LOGIC OF PSO CNN NETWORK OPTIMIZATION
@@ -131,14 +134,7 @@ class PSO(Optimizer.Optimizer):
 
             cost, pos = optimizer.optimize(objective_func=self.loopAllParticles, iters=self.iters)
             self.plotCostHistory(optimizer)
-            plt.show()
-            #x_limits = np.ones(2)
-            #x_limits[1] = 128
-            #y_limits = np.ones(2)
-            #y_limits[1] = 128
-            #self.plotPositionHistory(optimizer, x_limits, y_limits, config.POS_VAR, '', '')
-            #plt.show()
-            return cost, pos
+            return cost, pos, optimizer
 
         except:
             raise CustomError.ErrorCreationModel(config.ERROR_ON_OPTIMIZATION)

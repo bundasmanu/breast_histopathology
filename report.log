@@ -971,3 +971,412 @@ Colocations handled automatically by placer.
 2020-04-15 01:18:50,820 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
 Instructions for updating:
 Use tf.cast instead.
+2020-04-15 17:59:14,084 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-15 17:59:16,214 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-15 17:59:19,719 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-15 18:14:34,155 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-15 18:14:35,818 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-15 18:14:38,908 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-15 18:35:33,851 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-15 18:35:35,727 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-15 18:35:39,146 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-15 19:09:26,337 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 11.255174402015504, best pos: [ 12.87668435  71.92992681   7.30978582  10.39814636   9.49214978
+ 145.89886693]
+2020-04-15 22:34:17,674 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-15 22:34:21,252 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-15 22:43:48,923 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-15 22:43:52,781 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-15 22:51:17,261 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-15 22:51:21,057 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-15 23:02:02,517 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-15 23:02:11,391 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-16 00:25:09,951 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-16 00:25:14,007 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-17 16:45:25,480 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-17 16:45:28,024 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-17 16:45:31,644 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-17 16:54:50,175 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-17 16:54:50,205 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-17 16:54:51,593 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-17 18:07:35,026 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 12.976811804555828, best pos: [183.7541846  151.67906497 176.29892999 120.96238544 156.51261788
+ 163.60038263]
+2020-04-17 18:10:13,334 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-17 18:10:13,364 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-17 18:10:14,465 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-17 18:38:28,666 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 11.752377044132825, best pos: [190.92596024 220.23620866 104.78045279 103.87987415 247.39396361
+  87.55746935]
+2020-04-17 18:38:32,141 - matplotlib.animation - INFO - Animation.save using <class 'matplotlib.animation.FFMpegWriter'>
+2020-04-17 18:38:32,143 - matplotlib.animation - INFO - MovieWriter._run: running command: ffmpeg -f rawvideo -vcodec rawvideo -s 1000x800 -pix_fmt rgba -r 10 -loglevel error -i pipe: -vcodec h264 -pix_fmt yuv420p -y particlesPso.html
+2020-04-17 18:38:32,497 - matplotlib.animation - WARNING - MovieWriter stderr:
+[NULL @ 000002a19f1057c0] Unable to find a suitable output format for 'particlesPso.html'
+particlesPso.html: Invalid argument
+
+2020-04-17 18:58:20,253 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-17 18:58:20,283 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-17 18:58:21,395 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-17 19:08:28,386 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-17 19:08:28,417 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-17 19:08:29,889 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-17 19:29:25,846 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 14.298616111931157, best pos: [104.72694779 100.49588915 221.75907904 173.19412748 241.13832089
+ 245.9658225 ]
+2020-04-17 19:29:26,311 - matplotlib.animation - INFO - Animation.save using <class 'matplotlib.animation.FFMpegWriter'>
+2020-04-17 19:29:26,313 - matplotlib.animation - INFO - MovieWriter._run: running command: ffmpeg -f rawvideo -vcodec rawvideo -s 1000x800 -pix_fmt rgba -r 10 -loglevel error -i pipe: -vcodec h264 -pix_fmt yuv420p -y particlesPso.gif
+2020-04-17 19:29:26,932 - matplotlib.animation - WARNING - MovieWriter stderr:
+[gif @ 0000021d468f57c0] GIF muxer supports only a single video GIF stream.
+Could not write header for output file #0 (incorrect codec parameters ?): Invalid argument
+Error initializing output stream 0:0 -- 
+
+2020-04-17 19:37:58,851 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-17 19:37:58,882 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-17 19:37:59,953 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-17 19:46:48,993 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 12.56098273570462, best pos: [ 99.80648928  31.45294718 109.4758485   59.78098787 203.85508656
+ 125.06705256]
+2020-04-17 19:46:49,474 - matplotlib.animation - INFO - Animation.save using <class 'matplotlib.animation.FFMpegWriter'>
+2020-04-17 19:46:49,476 - matplotlib.animation - INFO - MovieWriter._run: running command: ffmpeg -f rawvideo -vcodec rawvideo -s 1000x800 -pix_fmt rgba -r 10 -loglevel error -i pipe: -vcodec h264 -pix_fmt yuv420p -y particlesPso.mp4
+2020-04-17 20:08:23,773 - pyswarms.single.global_best - INFO - Optimize for 3 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-17 20:08:23,801 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-17 20:08:24,810 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-17 20:17:09,491 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 14.103281735990844, best pos: [115.26687619  40.6499778   90.60604938 229.48728271 171.47590062
+  33.80007328]
+2020-04-17 20:17:09,959 - matplotlib.animation - INFO - Animation.save using <class 'matplotlib.animation.FFMpegWriter'>
+2020-04-17 20:17:09,960 - matplotlib.animation - INFO - MovieWriter._run: running command: ffmpeg -f rawvideo -vcodec rawvideo -s 1000x800 -pix_fmt rgba -r 10 -loglevel error -i pipe: -vcodec h264 -pix_fmt yuv420p -y particlesPso.mp4
+2020-04-17 20:19:23,466 - pyswarms.single.global_best - INFO - Optimize for 3 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-17 20:19:23,495 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-17 20:19:24,502 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-17 20:26:25,633 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 13.86409037435033, best pos: [134.6273054  154.14202727  85.37252336 254.47017134 196.35421102
+ 183.68793203]
+2020-04-17 20:26:26,081 - matplotlib.animation - INFO - Animation.save using <class 'matplotlib.animation.FFMpegWriter'>
+2020-04-17 20:26:26,082 - matplotlib.animation - INFO - MovieWriter._run: running command: ffmpeg -f rawvideo -vcodec rawvideo -s 1000x800 -pix_fmt rgba -r 10 -loglevel error -i pipe: -vcodec h264 -pix_fmt yuv420p -y particlesPso.mp4
+2020-04-17 20:31:54,865 - pyswarms.single.global_best - INFO - Optimize for 3 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-17 20:31:54,894 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-17 20:31:55,884 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-17 20:46:15,471 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 11.533266387136191, best pos: [229.50177621 211.13459463  68.5832442  107.91961308 141.31424848
+ 141.22713057]
+2020-04-17 20:46:15,924 - matplotlib.animation - INFO - Animation.save using <class 'matplotlib.animation.FFMpegWriter'>
+2020-04-17 20:46:15,926 - matplotlib.animation - INFO - MovieWriter._run: running command: ffmpeg -f rawvideo -vcodec rawvideo -s 1000x800 -pix_fmt rgba -r 10 -loglevel error -i pipe: -vcodec h264 -pix_fmt yuv420p -y particlesPso.html
+2020-04-17 20:46:16,088 - matplotlib.animation - WARNING - MovieWriter stderr:
+[NULL @ 000001d96ca257c0] Unable to find a suitable output format for 'particlesPso.html'
+particlesPso.html: Invalid argument
+
+2020-04-17 22:15:15,732 - pyswarms.single.global_best - INFO - Optimize for 3 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-17 22:15:15,761 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-17 22:15:16,828 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-17 22:23:23,508 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 13.735396467853883, best pos: [178.80494139  65.11576247  55.12475051 223.15548408 189.53256789
+ 172.35217241]
+2020-04-17 22:23:24,039 - matplotlib.animation - INFO - Animation.save using <class 'matplotlib.animation.FFMpegWriter'>
+2020-04-17 22:23:24,041 - matplotlib.animation - INFO - MovieWriter._run: running command: ffmpeg -f rawvideo -vcodec rawvideo -s 1000x800 -pix_fmt rgba -r 10 -loglevel error -i pipe: -vcodec h264 -pix_fmt yuv420p -y particlesPso.mp4
+2020-04-17 22:25:27,829 - pyswarms.single.global_best - INFO - Optimize for 3 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-17 22:25:27,886 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-17 22:25:30,270 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-17 22:47:04,037 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 14.588835185354505, best pos: [191.53816398 211.21270859 153.37681999   1.98350005 173.98751094
+ 156.40889204]
+2020-04-17 22:53:11,622 - pyswarms.single.global_best - INFO - Optimize for 3 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-17 22:53:11,651 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-17 22:53:12,716 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-17 23:04:08,272 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 10.273967125019755, best pos: [224.60252943 118.5369192   16.57736817  58.21985027 230.92869194
+ 235.60996815]
+2020-04-17 23:04:08,780 - matplotlib.animation - INFO - Animation.save using <class 'matplotlib.animation.FFMpegWriter'>
+2020-04-17 23:04:08,781 - matplotlib.animation - INFO - MovieWriter._run: running command: ffmpeg -f rawvideo -vcodec rawvideo -s 1000x800 -pix_fmt rgba -r 10 -loglevel error -i pipe: -vcodec h264 -pix_fmt yuv420p -y particlesPso.mp4
+2020-04-17 23:15:00,582 - pyswarms.single.global_best - INFO - Optimize for 3 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-17 23:15:00,640 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-17 23:15:03,189 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-17 23:27:46,802 - pyswarms.single.global_best - INFO - Optimize for 3 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-17 23:27:46,896 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-17 23:27:49,474 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-17 23:34:55,391 - pyswarms.single.global_best - INFO - Optimize for 3 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-17 23:34:55,447 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-17 23:34:57,725 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-17 23:43:46,915 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 13.657577292796208, best pos: [ 99.75037639  68.96770923 102.72361913 111.00499188 217.94845881
+ 158.84486982]
+2020-04-17 23:49:40,490 - pyswarms.single.global_best - INFO - Optimize for 3 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-17 23:49:40,545 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-17 23:49:43,232 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-17 23:54:33,896 - pyswarms.single.global_best - INFO - Optimize for 3 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-17 23:54:33,953 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-17 23:54:36,346 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-18 00:11:48,232 - pyswarms.single.global_best - INFO - Optimize for 3 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-18 00:11:48,294 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-18 00:11:50,612 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-18 00:29:41,667 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 11.462863024740795, best pos: [204.70782014 125.36056901 109.42490464  65.70334693 221.42829749
+  53.93467402]
+2020-04-18 00:33:25,969 - pyswarms.single.global_best - INFO - Optimize for 3 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-18 00:33:26,030 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-18 00:33:28,644 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-18 00:43:09,815 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 11.651015360864397, best pos: [169.63367662  62.28029943  94.82526862 211.25510787  39.79736978
+ 168.02639729]
+2020-04-18 00:47:10,210 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-18 00:47:10,268 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-18 00:47:12,567 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-18 00:52:44,426 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 14.099745042159233, best pos: [ 51.18305574 113.70220955 110.92829903  96.57072165  42.2615439
+ 174.10168632]
+2020-04-18 00:59:21,242 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-18 00:59:21,514 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-18 00:59:42,306 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-18 01:13:37,695 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 12.723958004722974, best pos: [147.95072329 214.20990169  58.19380945 243.4849122  254.00038833
+ 177.04205207]
+2020-04-18 12:02:12,833 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-18 12:02:13,250 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-18 12:02:16,103 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-18 12:09:42,002 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 13.043906949404136, best pos: [224.64698033 114.23769387 204.85497091  83.58369644 182.81388335
+  52.72130596]
+2020-04-18 12:18:07,639 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-18 12:18:07,707 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-18 12:18:10,288 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-18 12:23:56,070 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 13.37688832007961, best pos: [ 31.49007687 158.25563798 235.84276471  11.96753959 182.54154641
+  41.34104609]
+2020-04-18 12:25:57,630 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-18 12:25:57,686 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-18 12:26:00,106 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-18 12:33:52,935 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 11.931166208742265, best pos: [214.07298235 139.13121849 180.95794336 145.40309633  45.24588607
+ 189.00332874]
+2020-04-18 12:36:08,744 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-18 12:36:08,821 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-18 12:36:11,166 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-18 12:41:37,674 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 15.74862345397522, best pos: [114.75170459  43.05668255  29.01924815 194.95897936 174.02554335
+  52.81868848]
+2020-04-18 16:03:27,923 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-18 16:03:27,979 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-18 16:03:30,263 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-18 16:10:01,084 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 11.320340087997204, best pos: [251.82497836 218.41860644   7.33284127 188.57185027 168.32522895
+ 116.45063024]
+2020-04-18 16:17:00,315 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-18 16:17:00,371 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-18 16:17:02,666 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-18 16:22:28,293 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 12.308679435701038, best pos: [153.60712602  51.13425896 216.08291783 239.32257154  87.10209093
+  83.49842327]
+2020-04-18 16:24:58,088 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-18 16:24:58,144 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-18 16:25:00,434 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-18 16:33:49,609 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 15.636511316210555, best pos: [188.98282901 146.87484178 213.24141256 150.61271511  50.72092904
+ 184.17701376]
+2020-04-18 16:34:19,416 - matplotlib.animation - INFO - Animation.save using <class 'matplotlib.animation.FFMpegWriter'>
+2020-04-18 16:34:19,428 - matplotlib.animation - INFO - MovieWriter._run: running command: ffmpeg -f rawvideo -vcodec rawvideo -s 1000x800 -pix_fmt rgba -r 10 -loglevel error -i pipe: -vcodec h264 -pix_fmt yuv420p -y particlesPso.mp4
+2020-04-18 16:40:06,384 - pyswarms.single.global_best - INFO - Optimize for 4 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-18 16:40:06,413 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-18 16:40:07,571 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-18 16:43:43,309 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 13.680428929237372, best pos: [20.60955078 82.03490794 94.94168783 79.7187864   5.60107337 32.44506718]
+2020-04-18 16:43:43,761 - matplotlib.animation - INFO - Animation.save using <class 'matplotlib.animation.FFMpegWriter'>
+2020-04-18 16:43:43,762 - matplotlib.animation - INFO - MovieWriter._run: running command: ffmpeg -f rawvideo -vcodec rawvideo -s 1000x800 -pix_fmt rgba -r 10 -loglevel error -i pipe: -vcodec h264 -pix_fmt yuv420p -y particlesPso.mp4
+2020-04-18 16:51:42,390 - pyswarms.single.global_best - INFO - Optimize for 4 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-18 16:51:42,418 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-18 16:51:43,407 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-18 17:07:17,699 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 13.238756915838309, best pos: [103.91797298 189.05671946 152.37274776 173.57965396 193.05538714
+  48.85567675]
+2020-04-18 17:07:18,164 - matplotlib.animation - INFO - Animation.save using <class 'matplotlib.animation.FFMpegWriter'>
+2020-04-18 17:07:18,165 - matplotlib.animation - INFO - MovieWriter._run: running command: ffmpeg -f rawvideo -vcodec rawvideo -s 1000x800 -pix_fmt rgba -r 10 -loglevel error -i pipe: -vcodec h264 -pix_fmt yuv420p -y particlesPso.html
+2020-04-18 17:07:18,328 - matplotlib.animation - WARNING - MovieWriter stderr:
+[NULL @ 000001259ff957c0] Unable to find a suitable output format for 'particlesPso.html'
+particlesPso.html: Invalid argument
+
+2020-04-18 17:15:58,994 - pyswarms.single.global_best - INFO - Optimize for 4 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-18 17:15:59,022 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-18 17:16:00,016 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-18 17:30:44,184 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 11.2290425942585, best pos: [109.39367906 117.89721673 174.41499748 158.84154444  49.96371713
+  46.02104952]
+2020-04-18 17:30:44,639 - matplotlib.animation - INFO - Animation.save using <class 'matplotlib.animation.FFMpegWriter'>
+2020-04-18 17:30:44,641 - matplotlib.animation - INFO - MovieWriter._run: running command: ffmpeg -f rawvideo -vcodec rawvideo -s 1000x800 -pix_fmt rgba -r 10 -loglevel error -i pipe: -vcodec h264 -pix_fmt yuv420p -y particlesPso.mp4
+2020-04-18 17:53:17,836 - pyswarms.single.global_best - INFO - Optimize for 4 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-18 17:53:17,893 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-18 17:53:20,255 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-18 18:14:12,644 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 11.849934120643717, best pos: [163.13863816 127.62111425 230.6641611  226.13549736 160.59309899
+  47.89627839]
+2020-04-18 18:22:56,285 - pyswarms.single.global_best - INFO - Optimize for 4 iters with {'w': 0.9, 'c1': 0.3, 'c2': 0.3}
+2020-04-18 18:22:56,316 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-18 18:22:57,441 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-18 18:23:55,165 - pyswarms.single.global_best - INFO - Optimize for 4 iters with {'w': 0.9, 'c1': 0.8, 'c2': 0.7}
+2020-04-18 18:23:55,193 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-18 18:23:56,204 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-18 18:36:09,634 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 10.767010009291813, best pos: [ 42.5298759  148.0849125  106.7563725   89.95695243 127.22063743
+  41.99019932]
+2020-04-18 18:36:10,083 - matplotlib.animation - INFO - Animation.save using <class 'matplotlib.animation.FFMpegWriter'>
+2020-04-18 18:36:10,084 - matplotlib.animation - INFO - MovieWriter._run: running command: ffmpeg -f rawvideo -vcodec rawvideo -s 1000x800 -pix_fmt rgba -r 10 -loglevel error -i pipe: -vcodec h264 -pix_fmt yuv420p -y particlesPso_intermedia.mp4
+2020-04-18 18:48:26,118 - pyswarms.single.global_best - INFO - Optimize for 4 iters with {'w': 0.9, 'c1': 1.3, 'c2': 1.2}
+2020-04-18 18:48:26,149 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-18 18:48:27,480 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-18 19:05:04,970 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 12.59639843903921, best pos: [ 82.52712958 112.4471851  173.33009191 185.1911347  145.50080232
+  36.74123017]
+2020-04-18 19:05:05,456 - matplotlib.animation - INFO - Animation.save using <class 'matplotlib.animation.FFMpegWriter'>
+2020-04-18 19:05:05,458 - matplotlib.animation - INFO - MovieWriter._run: running command: ffmpeg -f rawvideo -vcodec rawvideo -s 1000x800 -pix_fmt rgba -r 10 -loglevel error -i pipe: -vcodec h264 -pix_fmt yuv420p -y particlesPso_elevada.mp4
+2020-04-18 19:54:51,741 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.7, 'c2': 0.7}
+2020-04-18 19:54:51,770 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\resource_variable_ops.py:435: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+2020-04-18 19:54:52,819 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+2020-04-18 19:57:08,962 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 10.994285694218132, best pos: [ 43.49141291  39.94570276 239.1448944  170.10649823 142.85293666
+  51.9410139 ]
+2020-04-18 19:57:09,604 - matplotlib.animation - INFO - Animation.save using <class 'matplotlib.animation.FFMpegWriter'>
+2020-04-18 19:57:09,605 - matplotlib.animation - INFO - MovieWriter._run: running command: ffmpeg -f rawvideo -vcodec rawvideo -s 1000x800 -pix_fmt rgba -r 10 -loglevel error -i pipe: -vcodec h264 -pix_fmt yuv420p -y pos_var_exp.mp4

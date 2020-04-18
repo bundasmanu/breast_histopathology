@@ -11,6 +11,7 @@ from optimizers import OptimizerFactory, Optimizer, PSO
 from models.Strategies_Train import UnderSampling, Strategy, DataAugmentation
 import matplotlib.pyplot as plt
 from keras.models import load_model
+import keras
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL']='2' #MAKES MORE FASTER THE INITIAL SETUP OF GPU --> WARNINGS INITIAL STEPS IS MORE QUICKLY
 #os.environ["CUDA_VISIBLE_DEVICES"]="-1"  #THIS LINE DISABLES GPU OPTIMIZATION
@@ -97,9 +98,9 @@ def main():
     #alexNetModel.addStrategy(underSampling)
     #alexNetModel.addStrategy(data_aug)
 
-    model, predictions, history = alexNetModel.template_method(*valuesLayers)
+    #model, predictions, history = alexNetModel.template_method(*valuesLayers)
 
-    config_func.print_final_results(d.y_test, predictions, history)
+    #config_func.print_final_results(d.y_test, predictions, history)
 
     ## ---------------------------VGGNET APPLICATION ------------------------------------
 
@@ -120,8 +121,8 @@ def main():
 
     vggNetModel = factoryModel.getModel(config.VGG_NET, d, *numberLayers)
 
-    vggNetModel.addStrategy(underSampling)
-    vggNetModel.addStrategy(data_aug)
+    #vggNetModel.addStrategy(underSampling)
+    #vggNetModel.addStrategy(data_aug)
 
     #model, predictions, history = vggNetModel.template_method(*valuesLayers)
 
@@ -132,16 +133,41 @@ def main():
     ## ------------------------PSO OPTIMIZATION ------------------------------------------
 
     #PSO OPTIMIZATION
-    # optFact = OptimizerFactory.OptimizerFactory()
-    # opt_options = (
-    #     config.PARTICLES,
-    #     config.ITERATIONS,
-    #     config.PSO_DIMENSIONS
-    # )
-    # optPSO = optFact.createOptimizer(config.PSO_OPTIMIZER, alexNetModel, *opt_options)
-    # cost, pos = optPSO.optimize()
-    # print(cost)
-    # print(pos)
+    optFact = OptimizerFactory.OptimizerFactory()
+    opt_options = (
+        config.PARTICLES,
+        config.ITERATIONS,
+        config.PSO_DIMENSIONS
+    )
+    optPSO = optFact.createOptimizer(config.PSO_OPTIMIZER, alexNetModel, *opt_options)
+    cost, pos, optimizer = optPSO.optimize()
+
+    #plot cost history and plot position history
+    optPSO.plotCostHistory(optimizer=optimizer)
+    optPSO.plotPositionHistory(optimizer, np.array(config.X_LIMITS), np.array(config.Y_LIMITS), config.POS_VAR_EXP, config.LABEL_X_AXIS, config.LABEL_Y_AXIS)
+    print(cost)
+    print(pos)
+
+    ## --------------------------ENSEMBLE ---------------------------------------------------
+
+    # # load models, that are saved in files
+    # alexNetModel = load_model(config.ALEX_NET_BEST_FILE)
+    # vggNetModel = load_model(config.VGG_NET_BEST_FILE)
+    #
+    #
+    # # list of models to ensemble
+    # ensemble_models = [alexNetModel, vggNetModel]
+    #
+    # # get ensemble model
+    # ensemble_model = config_func.ensemble(ensemble_models)
+    #
+    # # predict using ensemble model
+    # predictions = ensemble_model.predict(d.X_test)
+    # argmax_preds = np.argmax(predictions, axis=1)  # BY ROW, BY EACH SAMPLE
+    # predictions = keras.utils.to_categorical(argmax_preds)
+    #
+    # # print final results of predict using ensemble model (report and confusion matrix)
+    # config_func.print_final_results(y_test=d.y_test, predictions=predictions, history=None)
 
 if __name__ == "__main__":
     main()

@@ -28,16 +28,18 @@ class Optimizer(ABC):
         try:
 
             cnnFilters = [args[i] for i in range(self.model.nCNNLayers)] #ATTRIBUTION IMPORTANCE TO CNN FILTERS (*i) --> LAST FCONVOLUTION LAYER IS MORE IMPORTANT THAN FIRST
-            totalFilters = sum(cnnFilters)
+            totalMajorFilters = sum(cnnFilters[0:round(len(cnnFilters) / 2)])
+            totalMinorFilters = sum(cnnFilters[round(len(cnnFilters) / 2):])
             denseNeurons = [args[(self.model.nCNNLayers+self.model.nDenseLayers) - (i+1)] for i in range(self.model.nDenseLayers)]
             totalNeurons = sum(denseNeurons)
 
-            confusion_mat = args[-1]
-            recall_idc = 1.0 - (confusion_mat[1][0]/ (confusion_mat[1][0] + confusion_mat[1][1])) #THIS TWO VALUES NEED TO BE OPTIMIZED TO BE THE MINIMUM
-            precision_idc = 1.0 - (confusion_mat[0][1] / (confusion_mat[0][1] + confusion_mat[1][1]))
+            report = args[-1]
+            recall_idc = report['macro avg']['recall']
+            precision_idc = report['macro avg']['precision']
 
-            return 2.0 * ((1.0 - (1.0 / (totalFilters)))
-                      + (1.0 - (1.0 / (totalNeurons)))) + 1.5 * (1.0 - acc) + 5.0 * (1.0 - recall_idc) + 3.0 * (1.0 - precision_idc)
+            return 3.5 * (1.0 - (1.0 / (totalMajorFilters))) + 2.0 * (1.0 - (1.0 / (totalMinorFilters)))\
+                          + 3.5 * (1.0 - (1.0 / (totalNeurons))) + 3.0 * (1.0 - acc) \
+                            + 5.0 * (1.0 - recall_idc) + 4.0 * (1.0 - precision_idc)
 
         except:
             raise

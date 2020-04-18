@@ -41,7 +41,7 @@ VALIDATION_ACCURACY = "val_accuracy"
 
 BATCH_SIZE_ALEX_NO_AUG = 128
 BATCH_SIZE_ALEX_AUG = 128
-EPOCHS = 12
+EPOCHS = 20
 MULTIPROCESSING = True
 SHUFFLE = True
 
@@ -81,15 +81,15 @@ ERROR_APPEND_STRATEGY = "\nError on appending strategy"
 ERROR_ON_PLOTTING = "\nError on plotting"
 
 #PSO OPTIONS
-PARTICLES = 2
-ITERATIONS = 2
+PARTICLES = 20
+ITERATIONS = 20
 PSO_DIMENSIONS = 6 ## 4 CNN LAYERS + 1 DENSE LAYER + BATCH SIZE
 TOPOLOGY_FLAG = 0 # 0 MEANS GBEST, AND 1 MEANS LBEST
-gbestOptions = {'w' : 0.9, 'c1' : 0.3, 'c2' : 0.3}
-lbestOptions = {'w' : 0.9, 'c1' : 0.3, 'c2' : 0.3, 'k' : 4, 'p' : 2}
+gbestOptions = {'w' : 0.9, 'c1' : 0.7, 'c2' : 0.7}
+lbestOptions = {'w' : 0.9, 'c1' : 0.7, 'c2' : 0.7, 'k' : 4, 'p' : 2}
 
-MAX_VALUES_LAYERS_ALEX_NET = [96, 96, 96, 96, 24, 256] #LAST VALUE IS BATCH SIZE
-MIN_BATCH_SIZE = 64
+MAX_VALUES_LAYERS_ALEX_NET = [256, 256, 256, 256, 256, 256] #LAST VALUE IS BATCH SIZE
+MIN_BATCH_SIZE = 16
 
 IDC_CLASS_NAME = "With IDC"
 HEALTHY_CLASS_NAME = "Healthy"
@@ -110,4 +110,16 @@ VGG_NET_PSO_FILE = "vgg_pso.h5"
 VGG_NET_GA_FILE = "vgg_ga.h5"
 
 #FILENAME POSITION PSO VARIATION
-POS_VAR = 'particlesPso.html'
+POS_VAR_LOWER = 'particlesPso.mp4'
+POS_VAR_INTER = 'particlesPso_intermedia.mp4'
+POS_VAR_HIGHTER = 'particlesPso_elevada.mp4'
+POS_VAR_EXP = 'pos_var_exp.mp4'
+
+#NAMES DIMENSIONS PSO --> array
+DIMENSIONS_NAMES = ['1 Conv', '2 Conv', '3 Conv', '4 Conv', 'Dense', 'Batch']
+
+# VARIABLES MAKE .mp4 VIDEO with particles movement position
+X_LIMITS = [1, 256]
+Y_LIMITS = [1, 256]
+LABEL_X_AXIS = 'Nºfiltros 1ªcamada'
+LABEL_Y_AXIS = 'Nºfiltros 2ªcamada'
