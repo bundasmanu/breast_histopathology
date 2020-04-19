@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 from keras.models import load_model
 import os
 #os.environ['TF_CPP_MIN_LOG_LEVEL']='2' #MAKES MORE FASTER THE INITIAL SETUP OF GPU --> WARNINGS INITIAL STEPS IS MORE QUICKLY
-os.environ["CUDA_VISIBLE_DEVICES"]="-1"  #THIS LINE DISABLES GPU OPTIMIZATION
+#os.environ["CUDA_VISIBLE_DEVICES"]="-1"  #THIS LINE DISABLES GPU OPTIMIZATION
 
 def main():
 
@@ -82,22 +82,23 @@ def main():
     )
 
     valuesLayers = (
-        16,
-        24,
+        32,
         48,
         72,
-        12,
-        config.BATCH_SIZE_ALEX_NO_AUG
+        72,
+        16,
+        config.BATCH_SIZE_ALEX_AUG
     )
 
     # CREATION OF MODEL
     alexNetModel = factoryModel.getModel(config.ALEX_NET, d, *numberLayers)
 
     ## APPLY STRATEGIES OF TRAIN
-    #alexNetModel.addStrategy(underSampling)
-    #alexNetModel.addStrategy(data_aug)
+    alexNetModel.addStrategy(underSampling)
+    alexNetModel.addStrategy(data_aug)
 
     model, predictions, history = alexNetModel.template_method(*valuesLayers)
+    #alexNetModel.save(model, config.ALEX_NET_BEST_FILE)
 
     config_func.print_final_results(d.y_test, predictions, history)
 
@@ -110,20 +111,21 @@ def main():
     )
 
     valuesLayers = (
-        16,
-        24,
+        32,
+        32,
         48,
         72,
-        12,
+        16,
         config.BATCH_SIZE_ALEX_AUG
     )
 
     vggNetModel = factoryModel.getModel(config.VGG_NET, d, *numberLayers)
 
-    vggNetModel.addStrategy(underSampling)
-    vggNetModel.addStrategy(data_aug)
+    #vggNetModel.addStrategy(underSampling)
+    #vggNetModel.addStrategy(data_aug)
 
     #model, predictions, history = vggNetModel.template_method(*valuesLayers)
+    #vggNetModel.save(model, config.VGG_NET_BEST_FILE)
 
     #config_func.print_final_results(d.y_test, predictions, history)
 

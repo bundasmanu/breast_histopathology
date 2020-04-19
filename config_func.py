@@ -329,7 +329,7 @@ def print_final_results(y_test, predictions, history):
         report, confusion_mat = getConfusionMatrix(predictions, y_test_decoded)
         print(report)
         plt.figure()
-        plot_confusion_matrix(confusion_mat, config.DICT_TARGETS)
+        plot_confusion_matrix(confusion_mat, config.LIST_CLASSES_NAME)
 
     except:
         raise
