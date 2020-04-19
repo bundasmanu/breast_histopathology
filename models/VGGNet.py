@@ -116,15 +116,15 @@ class VGGNet(Model.Model):
                     train_generator = self.StrategyList[1].applyStrategy(self.data)
 
             #reduce_lr = LearningRateScheduler(config_func.lr_scheduler)
-            es_callback = EarlyStopping(monitor='loss', patience=6)
+            es_callback = EarlyStopping(monitor='loss', patience=3)
             decrease_callback = ReduceLROnPlateau(monitor='val_loss',
-                                                        patience=2,
+                                                        patience=1,
                                                         factor=0.7,
                                                         mode='min',
                                                         verbose=1,
                                                         min_lr=0.000001)
             decrease_callback2 = ReduceLROnPlateau(monitor='loss',
-                                                        patience=3,
+                                                        patience=1,
                                                         factor=0.7,
                                                         mode='min',
                                                         verbose=1,
@@ -144,7 +144,7 @@ class VGGNet(Model.Model):
                     epochs=config.EPOCHS,
                     validation_data=(self.data.X_val, self.data.y_val),
                     shuffle=True,
-                    use_multiprocessing=config.MULTIPROCESSING,
+                    #use_multiprocessing=config.MULTIPROCESSING,
                     callbacks=[decrease_callback, decrease_callback2, es_callback],
                     class_weight=class_weights
                 )
@@ -159,7 +159,7 @@ class VGGNet(Model.Model):
                 epochs=config.EPOCHS,
                 steps_per_epoch=X_train.shape[0] / batch_size,
                 shuffle=True,
-                callbacks=[es_callback, decrease_callback2],
+                callbacks=[decrease_callback, decrease_callback2, es_callback],
             )
 
             return history, model
