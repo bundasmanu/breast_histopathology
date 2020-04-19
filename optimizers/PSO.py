@@ -15,7 +15,8 @@ from IPython.display import Image
 class PSO(Optimizer.Optimizer):
 
     def __init__(self, model : Model.Model, *args): #DIMENSIONS NEED TO BE EQUAL TO NUMBER OF LAYERS ON MODEL
-        super(PSO, self).__init__(model, *args)
+        self.limit_super = args[-1]  # last argument
+        super(PSO, self).__init__(model, *args[:-1]) # all args except last one
 
     def plotCostHistory(self, optimizer):
 
@@ -46,13 +47,17 @@ class PSO(Optimizer.Optimizer):
         try:
 
             d = Designer(limits=[xLimits, yLimits], label=[xLabel, yLabel])
-            animation = plot_contour(pos_history=optimizer.pos_history,
+            pos = []
+            for i in range(config.ITERATIONS):
+                pos.append(optimizer.pos_history[i][:, 0:2])
+            animation = plot_contour(pos_history=pos,
                                      designer=d)
 
-            animation.save(filename, writer='ffmpeg', fps=10)
-            Image(url=filename)
+            plt.close(animation._fig)
+            html_file = animation.to_jshtml()
+            with open(filename, 'w') as f:
+                f.write(html_file)
 
-            plt.show()
         except:
             raise CustomError.ErrorCreationModel(config.ERROR_ON_PLOTTING)
 
@@ -71,7 +76,7 @@ class PSO(Optimizer.Optimizer):
             minBounds[totalDimensions-1] = minBounds[totalDimensions-1] * config.MIN_BATCH_SIZE #min batch size
             maxBounds = np.ones(totalDimensions)
 
-            maxBounds = [maxBounds[j]*i for i, j in zip(config.MAX_VALUES_LAYERS_ALEX_NET, range(totalDimensions))]
+            maxBounds = [maxBounds[j]*i for i, j in zip(self.limit_super, range(totalDimensions))]
             maxBounds = np.array(maxBounds)
 
             bounds = (minBounds, maxBounds)
@@ -101,15 +106,15 @@ class PSO(Optimizer.Optimizer):
                 acc = (self.model.data.y_test == predictions).mean() #CHECK FINAL ACCURACY OF MODEL PREDICTIONS
                 decoded_predictions = config_func.decode_array(predictions)
                 decoded_y_true = config_func.decode_array(self.model.data.y_test)
-                report, conf = config_func.getConfusionMatrix(decoded_predictions, decoded_y_true)
-                int_converted_values.append(conf)
+                report, conf = config_func.getConfusionMatrix(decoded_predictions, decoded_y_true, dict=True)
+                int_converted_values.append(report)
                 losses.append(self.objectiveFunction(acc, *int_converted_values)) #ADD COST LOSS TO LIST
             return losses
 
         except:
             raise CustomError.ErrorCreationModel(config.ERROR_ON_OPTIMIZATION)
 
-    def optimize(self) -> Tuple[float, float]:
+    def optimize(self) -> Tuple[float, float, ps.single.general_optimizer.SwarmOptimizer]:
 
         '''
         THIS FUNCTION IS RESPONSIBLE TO APPLY ALL LOGIC OF PSO CNN NETWORK OPTIMIZATION
@@ -130,15 +135,7 @@ class PSO(Optimizer.Optimizer):
                                                     options=config.lbestOptions, bounds=bounds)
 
             cost, pos = optimizer.optimize(objective_func=self.loopAllParticles, iters=self.iters)
-            self.plotCostHistory(optimizer)
-            plt.show()
-            #x_limits = np.ones(2)
-            #x_limits[1] = 128
-            #y_limits = np.ones(2)
-            #y_limits[1] = 128
-            #self.plotPositionHistory(optimizer, x_limits, y_limits, config.POS_VAR, '', '')
-            #plt.show()
-            return cost, pos
+            return cost, pos, optimizer
 
         except:
             raise CustomError.ErrorCreationModel(config.ERROR_ON_OPTIMIZATION)
