@@ -159,7 +159,6 @@ class VGGNet(Model.Model):
                 epochs=config.EPOCHS,
                 steps_per_epoch=X_train.shape[0] / batch_size,
                 shuffle=True,
-                use_multiprocessing=config.MULTIPROCESSING,
                 callbacks=[es_callback, decrease_callback2],
             )
 

@@ -121,32 +121,33 @@ def main():
 
     vggNetModel = factoryModel.getModel(config.VGG_NET, d, *numberLayers)
 
-    #vggNetModel.addStrategy(underSampling)
-    #vggNetModel.addStrategy(data_aug)
+    vggNetModel.addStrategy(underSampling)
+    vggNetModel.addStrategy(data_aug)
 
-    #model, predictions, history = vggNetModel.template_method(*valuesLayers)
+    model, predictions, history = vggNetModel.template_method(*valuesLayers)
 
-    #config_func.print_final_results(d.y_test, predictions, history)
+    config_func.print_final_results(d.y_test, predictions, history)
 
     ## ------------------------ENSEMBLE OF MODELS -------------------------------------
 
     ## ------------------------PSO OPTIMIZATION ------------------------------------------
 
-    #PSO OPTIMIZATION
-    optFact = OptimizerFactory.OptimizerFactory()
-    opt_options = (
-        config.PARTICLES,
-        config.ITERATIONS,
-        config.PSO_DIMENSIONS
-    )
-    optPSO = optFact.createOptimizer(config.PSO_OPTIMIZER, alexNetModel, *opt_options)
-    cost, pos, optimizer = optPSO.optimize()
-
-    #plot cost history and plot position history
-    optPSO.plotCostHistory(optimizer=optimizer)
-    optPSO.plotPositionHistory(optimizer, np.array(config.X_LIMITS), np.array(config.Y_LIMITS), config.POS_VAR_EXP, config.LABEL_X_AXIS, config.LABEL_Y_AXIS)
-    print(cost)
-    print(pos)
+    # #PSO OPTIMIZATION
+    # optFact = OptimizerFactory.OptimizerFactory()
+    #
+    # # definition optimizers for models
+    # pso_alex = optFact.createOptimizer(config.PSO_OPTIMIZER, alexNetModel, *config.pso_init_args_alex)
+    # pso_vgg = optFact.createOptimizer(config.PSO_OPTIMIZER, vggNetModel, *config.pso_init_args_vgg)
+    #
+    # # call optimize function
+    # cost, pos, optimizer = pso_alex.optimize()
+    #
+    # #plot cost history and plot position history
+    # print(cost)
+    # print(pos)
+    # pso_alex.plotCostHistory(optimizer=optimizer)
+    # pso_alex.plotPositionHistory(optimizer, np.array(config.X_LIMITS), np.array(config.Y_LIMITS),
+    #                              config.POS_VAR_EXP, config.LABEL_X_AXIS, config.LABEL_Y_AXIS)
 
     ## --------------------------ENSEMBLE ---------------------------------------------------
 

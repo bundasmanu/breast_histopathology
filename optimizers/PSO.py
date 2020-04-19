@@ -15,7 +15,8 @@ from IPython.display import Image
 class PSO(Optimizer.Optimizer):
 
     def __init__(self, model : Model.Model, *args): #DIMENSIONS NEED TO BE EQUAL TO NUMBER OF LAYERS ON MODEL
-        super(PSO, self).__init__(model, *args)
+        self.limit_super = args[-1]  # last argument
+        super(PSO, self).__init__(model, *args[:-1]) # all args except last one
 
     def plotCostHistory(self, optimizer):
 
@@ -52,10 +53,11 @@ class PSO(Optimizer.Optimizer):
             animation = plot_contour(pos_history=pos,
                                      designer=d)
 
-            animation.save(filename, writer='ffmpeg', fps=10)
-            Image(url=filename)
+            plt.close(animation._fig)
+            html_file = animation.to_jshtml()
+            with open(filename, 'w') as f:
+                f.write(html_file)
 
-            plt.show()
         except:
             raise CustomError.ErrorCreationModel(config.ERROR_ON_PLOTTING)
 
@@ -74,7 +76,7 @@ class PSO(Optimizer.Optimizer):
             minBounds[totalDimensions-1] = minBounds[totalDimensions-1] * config.MIN_BATCH_SIZE #min batch size
             maxBounds = np.ones(totalDimensions)
 
-            maxBounds = [maxBounds[j]*i for i, j in zip(config.MAX_VALUES_LAYERS_ALEX_NET, range(totalDimensions))]
+            maxBounds = [maxBounds[j]*i for i, j in zip(self.limit_super, range(totalDimensions))]
             maxBounds = np.array(maxBounds)
 
             bounds = (minBounds, maxBounds)
@@ -133,7 +135,6 @@ class PSO(Optimizer.Optimizer):
                                                     options=config.lbestOptions, bounds=bounds)
 
             cost, pos = optimizer.optimize(objective_func=self.loopAllParticles, iters=self.iters)
-            self.plotCostHistory(optimizer)
             return cost, pos, optimizer
 
         except:
