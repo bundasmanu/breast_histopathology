@@ -14,7 +14,7 @@ STANDARDIZE_AXIS_CHANNELS = (0,1,2,3)
 
 NUMBER_CLASSES = 2
 
-SIZE_DATAFRAME = 50000
+SIZE_DATAFRAME = 200000
 
 VALIDATION_SIZE = 0.2
 TEST_SIZE = 0.2
@@ -42,7 +42,7 @@ VALIDATION_ACCURACY = "val_accuracy"
 
 BATCH_SIZE_ALEX_NO_AUG = 128
 BATCH_SIZE_ALEX_AUG = 128
-EPOCHS = 2
+EPOCHS = 18
 MULTIPROCESSING = True
 SHUFFLE = True
 
@@ -82,14 +82,14 @@ ERROR_APPEND_STRATEGY = "\nError on appending strategy"
 ERROR_ON_PLOTTING = "\nError on plotting"
 
 #PSO OPTIONS
-PARTICLES = 2
-ITERATIONS = 2
+PARTICLES = 20
+ITERATIONS = 20
 TOPOLOGY_FLAG = 0 # 0 MEANS GBEST, AND 1 MEANS LBEST
 gbestOptions = {'w' : 0.9, 'c1' : 0.7, 'c2' : 0.7}
 lbestOptions = {'w' : 0.9, 'c1' : 0.7, 'c2' : 0.7, 'k' : 4, 'p' : 2}
 
-MAX_VALUES_LAYERS_ALEX_NET = [32, 32, 32, 32, 32, 32] # 4 conv's, 1 dense and batch size
-MAX_VALUES_LAYERS_VGG_NET = [32, 32, 32, 32, 32, 32] # 4 conv's, 1 dense and batch size
+MAX_VALUES_LAYERS_ALEX_NET = [256, 256, 256, 256, 256, 256] # 4 conv's, 1 dense and batch size
+MAX_VALUES_LAYERS_VGG_NET = [256, 256, 256, 256, 256, 256] # 4 conv's, 1 dense and batch size
 MIN_BATCH_SIZE = 16
 
 IDC_CLASS_NAME = "With IDC"

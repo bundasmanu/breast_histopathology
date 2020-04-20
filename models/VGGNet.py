@@ -116,15 +116,15 @@ class VGGNet(Model.Model):
                     train_generator = self.StrategyList[1].applyStrategy(self.data)
 
             #reduce_lr = LearningRateScheduler(config_func.lr_scheduler)
-            es_callback = EarlyStopping(monitor='loss', patience=6)
+            es_callback = EarlyStopping(monitor='loss', patience=3)
             decrease_callback = ReduceLROnPlateau(monitor='val_loss',
-                                                        patience=2,
+                                                        patience=1,
                                                         factor=0.7,
                                                         mode='min',
                                                         verbose=1,
                                                         min_lr=0.000001)
             decrease_callback2 = ReduceLROnPlateau(monitor='loss',
-                                                        patience=3,
+                                                        patience=1,
                                                         factor=0.7,
                                                         mode='min',
                                                         verbose=1,
