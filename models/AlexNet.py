@@ -153,7 +153,7 @@ class AlexNet(Model.Model):
                     epochs=config.EPOCHS,
                     validation_data=(self.data.X_val, self.data.y_val),
                     shuffle=True,
-                    use_multiprocessing=config.MULTIPROCESSING,
+                    #use_multiprocessing=config.MULTIPROCESSING,
                     callbacks=[decrease_callback2, es_callback, decrease_callback],
                     class_weight=class_weights
                 )
@@ -168,6 +168,7 @@ class AlexNet(Model.Model):
                 epochs=config.EPOCHS,
                 steps_per_epoch=X_train.shape[0] / batch_size,
                 shuffle=True,
+                callbacks=[decrease_callback2, es_callback, decrease_callback]
             )
 
             return history, model
