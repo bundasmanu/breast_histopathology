@@ -11,6 +11,8 @@ import matplotlib.pyplot as plt
 import config_func
 from pyswarms.utils.plotters.formatters import Designer
 from IPython.display import Image
+from keras import backend as K
+import gc
 
 class PSO(Optimizer.Optimizer):
 
@@ -109,6 +111,9 @@ class PSO(Optimizer.Optimizer):
                 report, conf = config_func.getConfusionMatrix(decoded_predictions, decoded_y_true, dict=True)
                 int_converted_values.append(report)
                 losses.append(self.objectiveFunction(acc, *int_converted_values)) #ADD COST LOSS TO LIST
+                K.clear_session()
+                gc.collect()
+                del model
             return losses
 
         except:
