@@ -128,8 +128,6 @@ def main():
 
     #config_func.print_final_results(d.y_test, predictions, history)
 
-    ## ------------------------ENSEMBLE OF MODELS -------------------------------------
-
     ## ------------------------PSO OPTIMIZATION ------------------------------------------
 
     # #PSO OPTIMIZATION

@@ -1469,3 +1469,6 @@ Use tf.cast instead.
 2020-04-19 18:54:06,707 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.7, 'c2': 0.7}
 2020-04-19 19:17:10,476 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 10.41524070249105, best pos: [ 2.11825697 10.42723996 28.23240887 27.58006156  8.07860961 16.34351144]
 2020-04-19 19:17:10,738 - matplotlib.animation - INFO - Animation.save using <class 'matplotlib.animation.HTMLWriter'>
+2020-04-20 15:36:11,283 - pyswarms.single.global_best - INFO - Optimize for 20 iters with {'w': 0.9, 'c1': 0.7, 'c2': 0.7}
+2020-04-20 21:19:15,974 - pyswarms.single.global_best - INFO - Optimize for 16 iters with {'w': 0.9, 'c1': 0.7, 'c2': 0.7}
+2020-04-20 21:42:49,515 - pyswarms.single.global_best - INFO - Optimize for 16 iters with {'w': 0.9, 'c1': 0.7, 'c2': 0.7}
