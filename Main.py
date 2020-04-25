@@ -83,12 +83,12 @@ def main():
     )
 
     valuesLayers = (
-        16,
-        24,
-        48,
-        72,
-        12,
-        config.BATCH_SIZE_ALEX_NO_AUG
+        63,
+        95,
+        8,
+        89,
+        1,
+        226
     )
 
     # CREATION OF MODEL

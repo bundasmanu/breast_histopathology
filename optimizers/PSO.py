@@ -109,8 +109,9 @@ class PSO(Optimizer.Optimizer):
                 decoded_predictions = config_func.decode_array(predictions)
                 decoded_y_true = config_func.decode_array(self.model.data.y_test)
                 report, conf = config_func.getConfusionMatrix(decoded_predictions, decoded_y_true, dict=True)
-                int_converted_values.append(report)
-                losses.append(self.objectiveFunction(acc, *int_converted_values)) #ADD COST LOSS TO LIST
+                # define args to pass to objective function
+                obj_args = (model, report)
+                losses.append(self.objectiveFunction(acc, *obj_args)) #ADD COST LOSS TO LIST
                 K.clear_session()
                 gc.collect()
                 del model
