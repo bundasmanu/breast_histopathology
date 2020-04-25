@@ -124,7 +124,7 @@ class AlexNet(Model.Model):
                     train_generator = self.StrategyList[1].applyStrategy(self.data)
 
             #reduce_lr = LearningRateScheduler(config_func.lr_scheduler)
-            es_callback = EarlyStopping(monitor='val_loss', patience=3)
+            es_callback = EarlyStopping(monitor='val_loss', patience=2)
             decrease_callback = ReduceLROnPlateau(monitor='val_loss',
                                                         patience=1,
                                                         factor=0.7,

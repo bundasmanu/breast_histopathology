@@ -1472,3 +1472,14 @@ Use tf.cast instead.
 2020-04-20 15:36:11,283 - pyswarms.single.global_best - INFO - Optimize for 20 iters with {'w': 0.9, 'c1': 0.7, 'c2': 0.7}
 2020-04-20 21:19:15,974 - pyswarms.single.global_best - INFO - Optimize for 16 iters with {'w': 0.9, 'c1': 0.7, 'c2': 0.7}
 2020-04-20 21:42:49,515 - pyswarms.single.global_best - INFO - Optimize for 16 iters with {'w': 0.9, 'c1': 0.7, 'c2': 0.7}
+2020-04-21 14:46:29,988 - pyswarms.single.global_best - INFO - Optimize for 16 iters with {'w': 0.9, 'c1': 0.7, 'c2': 0.7}
+2020-04-21 14:53:41,537 - pyswarms.single.global_best - INFO - Optimize for 16 iters with {'w': 0.9, 'c1': 0.7, 'c2': 0.7}
+2020-04-21 15:09:15,056 - pyswarms.single.global_best - INFO - Optimize for 16 iters with {'w': 0.9, 'c1': 0.7, 'c2': 0.7}
+2020-04-21 15:17:42,077 - pyswarms.single.global_best - INFO - Optimize for 16 iters with {'w': 0.9, 'c1': 0.7, 'c2': 0.7}
+2020-04-21 15:32:42,741 - pyswarms.single.global_best - INFO - Optimize for 16 iters with {'w': 0.9, 'c1': 0.7, 'c2': 0.7}
+2020-04-21 15:41:02,382 - pyswarms.single.global_best - INFO - Optimize for 16 iters with {'w': 0.9, 'c1': 0.7, 'c2': 0.7}
+2020-04-22 11:35:24,251 - pyswarms.single.global_best - INFO - Optimize for 16 iters with {'w': 0.9, 'c1': 0.7, 'c2': 0.7}
+2020-04-22 13:34:30,225 - pyswarms.single.global_best - INFO - Optimize for 16 iters with {'w': 0.9, 'c1': 0.7, 'c2': 0.7}
+2020-04-24 20:06:01,233 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 7.110090065363801, best pos: [ 62.80071584  95.41690907   7.749395    88.98932033   1.40803314
+ 225.65038471]
+2020-04-24 20:06:02,414 - matplotlib.animation - INFO - Animation.save using <class 'matplotlib.animation.HTMLWriter'>

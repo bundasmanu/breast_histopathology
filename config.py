@@ -83,13 +83,13 @@ ERROR_ON_PLOTTING = "\nError on plotting"
 
 #PSO OPTIONS
 PARTICLES = 20
-ITERATIONS = 16
+ITERATIONS = 12
 TOPOLOGY_FLAG = 0 # 0 MEANS GBEST, AND 1 MEANS LBEST
 gbestOptions = {'w' : 0.9, 'c1' : 0.7, 'c2' : 0.7}
 lbestOptions = {'w' : 0.9, 'c1' : 0.7, 'c2' : 0.7, 'k' : 4, 'p' : 2}
 
-MAX_VALUES_LAYERS_ALEX_NET = [256, 256, 256, 256, 256, 256] # 4 conv's, 1 dense and batch size
-MAX_VALUES_LAYERS_VGG_NET = [256, 256, 256, 256, 256, 256] # 4 conv's, 1 dense and batch size
+MAX_VALUES_LAYERS_ALEX_NET = [140, 140, 140, 256, 128, 256] # 4 conv's, 1 dense and batch size
+MAX_VALUES_LAYERS_VGG_NET = [128, 128, 128, 196, 128, 256] # 4 conv's, 1 dense and batch size
 MIN_BATCH_SIZE = 16
 
 IDC_CLASS_NAME = "With IDC"
@@ -120,8 +120,8 @@ POS_VAR_EXP = 'pos_var_exp.html'
 DIMENSIONS_NAMES = ['1 Conv', '2 Conv', '3 Conv', '4 Conv', 'Dense', 'Batch']
 
 # VARIABLES MAKE .mp4 VIDEO with particles movement position
-X_LIMITS = [1, 256]
-Y_LIMITS = [1, 256]
+X_LIMITS = [1, 128]
+Y_LIMITS = [1, 140]
 LABEL_X_AXIS = 'Nºfiltros 1ªcamada'
 LABEL_Y_AXIS = 'Nºfiltros 2ªcamada'
 
