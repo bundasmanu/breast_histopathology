@@ -37,7 +37,7 @@ class Optimizer(ABC):
             model = args[0]
             trainable_count = np.sum([K.count_params(w) for w in model.trainable_weights])
 
-            return 1e-12 * trainable_count + 2 * (1.0 - acc) \
+            return 1e-15 * trainable_count + 2 * (1.0 - acc) \
                             + 4 * (1.0 - recall_idc) + 3 * (1.0 - precision_idc)
 
         except:
