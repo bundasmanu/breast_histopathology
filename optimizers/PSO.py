@@ -76,7 +76,6 @@ class PSO(Optimizer.Optimizer):
 
             minBounds = np.ones(totalDimensions)
             minBounds[totalDimensions-1] = minBounds[totalDimensions-1] * config.MIN_BATCH_SIZE #min batch size
-            minBounds[totalDimensions - 2] = 14 # dense layer min value
             maxBounds = np.ones(totalDimensions)
 
             maxBounds = [maxBounds[j]*i for i, j in zip(self.limit_super, range(totalDimensions))]
