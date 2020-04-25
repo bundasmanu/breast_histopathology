@@ -1,4 +1,10 @@
 import numpy as np
+import itertools
+
+#global counter
+counter_iterations = itertools.count(start=0, step=1)
+
+# image dimensions
 WIDTH = 50
 HEIGHT = 50
 CHANNELS = 3
