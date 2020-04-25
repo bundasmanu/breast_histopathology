@@ -76,6 +76,7 @@ class PSO(Optimizer.Optimizer):
 
             minBounds = np.ones(totalDimensions)
             minBounds[totalDimensions-1] = minBounds[totalDimensions-1] * config.MIN_BATCH_SIZE #min batch size
+            minBounds[totalDimensions - 2] = 14 # dense layer min value
             maxBounds = np.ones(totalDimensions)
 
             maxBounds = [maxBounds[j]*i for i, j in zip(self.limit_super, range(totalDimensions))]
@@ -109,8 +110,9 @@ class PSO(Optimizer.Optimizer):
                 decoded_predictions = config_func.decode_array(predictions)
                 decoded_y_true = config_func.decode_array(self.model.data.y_test)
                 report, conf = config_func.getConfusionMatrix(decoded_predictions, decoded_y_true, dict=True)
-                int_converted_values.append(report)
-                losses.append(self.objectiveFunction(acc, *int_converted_values)) #ADD COST LOSS TO LIST
+                # define args to pass to objective function
+                obj_args = (model, report)
+                losses.append(self.objectiveFunction(acc, *obj_args)) #ADD COST LOSS TO LIST
                 K.clear_session()
                 gc.collect()
                 del model
