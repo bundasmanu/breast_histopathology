@@ -1735,3 +1735,51 @@ Use tf.where in 2.0, which has the same broadcast rule as np.where
 2020-04-25 16:56:11,386 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 2.5241347732373867, best pos: [197.61680941 253.89862438  37.64326933 253.1648865   33.65193435
  147.62529627]
 2020-04-25 16:56:11,558 - matplotlib.animation - INFO - Animation.save using <class 'matplotlib.animation.HTMLWriter'>
+2020-04-25 17:25:03,166 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.7, 'c2': 0.7}
+2020-04-25 17:25:50,341 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.7, 'c2': 0.7}
+2020-04-25 17:49:13,844 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.7, 'c2': 0.7}
+2020-04-25 17:49:39,138 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.7, 'c2': 0.7}
+2020-04-25 17:49:39,183 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\keras\backend\tensorflow_backend.py:4070: The name tf.nn.max_pool is deprecated. Please use tf.nn.max_pool2d instead.
+
+2020-04-25 17:49:42,826 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_grad.py:1250: add_dispatch_support.<locals>.wrapper (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.where in 2.0, which has the same broadcast rule as np.where
+2020-04-25 17:49:44,623 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\keras\backend\tensorflow_backend.py:422: The name tf.global_variables is deprecated. Please use tf.compat.v1.global_variables instead.
+
+2020-04-25 17:50:19,779 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 5.240625000849155, best pos: [209.74620734 138.5905043   83.01411438 126.52219924 158.95010819
+ 187.89877931]
+2020-04-25 17:50:19,935 - matplotlib.animation - INFO - Animation.save using <class 'matplotlib.animation.HTMLWriter'>
+2020-04-25 17:54:03,448 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.7, 'c2': 0.7}
+2020-04-25 17:55:57,567 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.7, 'c2': 0.7}
+2020-04-25 17:55:57,605 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\keras\backend\tensorflow_backend.py:4070: The name tf.nn.max_pool is deprecated. Please use tf.nn.max_pool2d instead.
+
+2020-04-25 17:56:01,393 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_grad.py:1250: add_dispatch_support.<locals>.wrapper (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.where in 2.0, which has the same broadcast rule as np.where
+2020-04-25 17:56:03,235 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\keras\backend\tensorflow_backend.py:422: The name tf.global_variables is deprecated. Please use tf.compat.v1.global_variables instead.
+
+2020-04-25 17:56:30,867 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 5.1796875004256915, best pos: [161.03819087   7.62945989 151.4011907   87.0969885   11.47968119
+ 140.12609623]
+2020-04-25 17:56:31,023 - matplotlib.animation - INFO - Animation.save using <class 'matplotlib.animation.HTMLWriter'>
+2020-04-25 17:59:27,842 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.7, 'c2': 0.7}
+2020-04-25 17:59:27,884 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\keras\backend\tensorflow_backend.py:4070: The name tf.nn.max_pool is deprecated. Please use tf.nn.max_pool2d instead.
+
+2020-04-25 17:59:31,782 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_grad.py:1250: add_dispatch_support.<locals>.wrapper (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.where in 2.0, which has the same broadcast rule as np.where
+2020-04-25 17:59:33,651 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\keras\backend\tensorflow_backend.py:422: The name tf.global_variables is deprecated. Please use tf.compat.v1.global_variables instead.
+
+2020-04-25 18:00:04,264 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 4.719096395676674, best pos: [203.07953521  53.85518538  66.63681705 168.11677464 108.54427874
+ 105.24126783]
+2020-04-25 18:00:04,420 - matplotlib.animation - INFO - Animation.save using <class 'matplotlib.animation.HTMLWriter'>
+2020-04-25 18:02:02,987 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.7, 'c2': 0.7}
+2020-04-25 18:02:03,016 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\keras\backend\tensorflow_backend.py:4070: The name tf.nn.max_pool is deprecated. Please use tf.nn.max_pool2d instead.
+
+2020-04-25 18:02:06,702 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\math_grad.py:1250: add_dispatch_support.<locals>.wrapper (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.where in 2.0, which has the same broadcast rule as np.where
+2020-04-25 18:02:08,547 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\keras\backend\tensorflow_backend.py:422: The name tf.global_variables is deprecated. Please use tf.compat.v1.global_variables instead.
+
+2020-04-25 18:02:36,096 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 5.2125000006269575, best pos: [  6.86006405 148.49300332  52.51200862 149.95346006 189.46395765
+ 246.23886831]
+2020-04-25 18:02:36,251 - matplotlib.animation - INFO - Animation.save using <class 'matplotlib.animation.HTMLWriter'>

@@ -103,6 +103,7 @@ class PSO(Optimizer.Optimizer):
 
             losses = []
             for i in range(particles.shape[0]):
+                config_func.print_log_message()
                 int_converted_values = [math.trunc(i) for i in particles[i]] #CONVERSION OF DIMENSION VALUES OF PARTICLE
                 model, predictions, history = self.model.template_method(*int_converted_values) #APPLY BUILD, TRAIN AND PREDICT MODEL OPERATIONS, FOR EACH PARTICLE AND ITERATION
                 acc = (self.model.data.y_test == predictions).mean() #CHECK FINAL ACCURACY OF MODEL PREDICTIONS
