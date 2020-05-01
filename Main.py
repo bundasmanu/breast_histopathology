@@ -14,7 +14,7 @@ from keras.models import load_model
 import keras
 import os
 #os.environ['TF_CPP_MIN_LOG_LEVEL']='2' #MAKES MORE FASTER THE INITIAL SETUP OF GPU --> WARNINGS INITIAL STEPS IS MORE QUICKLY
-#os.environ["CUDA_VISIBLE_DEVICES"]="-1"  #THIS LINE DISABLES GPU OPTIMIZATION
+os.environ["CUDA_VISIBLE_DEVICES"]="-1"  #THIS LINE DISABLES GPU OPTIMIZATION
 
 def main():
 
@@ -60,15 +60,6 @@ def main():
         1 #DENSE LAYERS
     )
 
-    valuesLayers = (
-        16,
-        24,
-        48,
-        72,
-        12,
-        config.BATCH_SIZE_ALEX_NO_AUG
-    )
-
     ## STRATEGIES OF TRAIN INSTANCES
 
     underSampling = UnderSampling.UnderSampling()
@@ -83,12 +74,12 @@ def main():
     )
 
     valuesLayers = (
-        63,
-        95,
-        8,
-        89,
-        1,
-        226
+        117,
+        56,
+        74,
+        149,
+        119,
+        43 #batch size
     )
 
     # CREATION OF MODEL
@@ -98,9 +89,9 @@ def main():
     alexNetModel.addStrategy(underSampling)
     alexNetModel.addStrategy(data_aug)
 
-    #model, predictions, history = alexNetModel.template_method(*valuesLayers)
+    model, predictions, history = alexNetModel.template_method(*valuesLayers)
 
-    #config_func.print_final_results(d.y_test, predictions, history)
+    config_func.print_final_results(d.y_test, predictions, history)
 
     ## ---------------------------VGGNET APPLICATION ------------------------------------
 
@@ -133,21 +124,21 @@ def main():
     ## ------------------------PSO OPTIMIZATION ------------------------------------------
 
     # #PSO OPTIMIZATION
-    optFact = OptimizerFactory.OptimizerFactory()
-
-    # definition optimizers for models
-    pso_alex = optFact.createOptimizer(config.PSO_OPTIMIZER, alexNetModel, *config.pso_init_args_alex)
-    pso_vgg = optFact.createOptimizer(config.PSO_OPTIMIZER, vggNetModel, *config.pso_init_args_vgg)
-
-    # call optimize function
-    cost, pos, optimizer = pso_alex.optimize()
-
-    #plot cost history and plot position history
-    print(cost)
-    print(pos)
-    pso_alex.plotCostHistory(optimizer=optimizer)
-    pso_alex.plotPositionHistory(optimizer, np.array(config.X_LIMITS), np.array(config.Y_LIMITS),
-                                 config.POS_VAR_EXP, config.LABEL_X_AXIS, config.LABEL_Y_AXIS)
+    # optFact = OptimizerFactory.OptimizerFactory()
+    #
+    # # definition optimizers for models
+    # pso_alex = optFact.createOptimizer(config.PSO_OPTIMIZER, alexNetModel, *config.pso_init_args_alex)
+    # pso_vgg = optFact.createOptimizer(config.PSO_OPTIMIZER, vggNetModel, *config.pso_init_args_vgg)
+    #
+    # # call optimize function
+    # cost, pos, optimizer = pso_alex.optimize()
+    #
+    # #plot cost history and plot position history
+    # print(cost)
+    # print(pos)
+    # pso_alex.plotCostHistory(optimizer=optimizer)
+    # pso_alex.plotPositionHistory(optimizer, np.array(config.X_LIMITS), np.array(config.Y_LIMITS),
+    #                              config.POS_VAR_EXP, config.LABEL_X_AXIS, config.LABEL_Y_AXIS)
 
     ## --------------------------ENSEMBLE ---------------------------------------------------
 
