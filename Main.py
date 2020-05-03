@@ -31,9 +31,6 @@ def main():
     #TRANSFORM DATA INTO NUMPY ARRAY'S
     X, Y = config_func.resize_images(config.WIDTH,config.HEIGHT, data)
 
-    #SHUFFLE DATA
-    X, Y = shuffle(X, Y)
-
     #DIVISION OF DATASET'S BETWEEN TRAIN, VALIDATION AND TEST --> I NEED ATTENTION, BECAUSE CLASSES ARE UNBALANCED
     X_train, X_val, y_train, y_val = train_test_split(X, Y, test_size=config.VALIDATION_SIZE, random_state=0, stratify=Y) #RANDOM STATE IS NEEDED TO GUARANTEES REPRODUCIBILITY
     X_train, X_test, y_train, y_test = train_test_split(X_train, y_train, test_size=config.TEST_SIZE, random_state=0, stratify=y_train)
@@ -119,8 +116,6 @@ def main():
 
     #config_func.print_final_results(d.y_test, predictions, history)
 
-    ## ------------------------ENSEMBLE OF MODELS -------------------------------------
-
     ## ------------------------PSO OPTIMIZATION ------------------------------------------
 
     # #PSO OPTIMIZATION
@@ -145,7 +140,6 @@ def main():
     # # load models, that are saved in files
     # alexNetModel = load_model(config.ALEX_NET_BEST_FILE)
     # vggNetModel = load_model(config.VGG_NET_BEST_FILE)
-    #
     #
     # # list of models to ensemble
     # ensemble_models = [alexNetModel, vggNetModel]
