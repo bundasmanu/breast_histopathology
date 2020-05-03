@@ -32,8 +32,12 @@ def main():
     X, Y = config_func.resize_images(config.WIDTH,config.HEIGHT, data)
 
     #DIVISION OF DATASET'S BETWEEN TRAIN, VALIDATION AND TEST --> I NEED ATTENTION, BECAUSE CLASSES ARE UNBALANCED
-    X_train, X_val, y_train, y_val = train_test_split(X, Y, test_size=config.VALIDATION_SIZE, random_state=0, stratify=Y) #RANDOM STATE IS NEEDED TO GUARANTEES REPRODUCIBILITY
-    X_train, X_test, y_train, y_test = train_test_split(X_train, y_train, test_size=config.TEST_SIZE, random_state=0, stratify=y_train)
+    indexes = np.arange(X.shape[0])
+    X_train, X_val, y_train, y_val, indeces_train, indices_val = train_test_split(X, Y, indexes, test_size=config.VALIDATION_SIZE,
+                                                shuffle=True, random_state=config.RANDOM_STATE) #RANDOM STATE IS NEEDED TO GUARANTEES REPRODUCIBILITY
+    indexes = indeces_train
+    X_train, X_test, y_train, y_test, indices_train, indices_test = train_test_split(X_train, y_train, indexes, test_size=config.TEST_SIZE,
+                                                                    shuffle=True, random_state=config.RANDOM_STATE)
     print(X_train.shape)
     print(X_val.shape)
     print(X_test.shape)
@@ -76,7 +80,7 @@ def main():
         74,
         149,
         119,
-        43 #batch size
+        10 #batch size
     )
 
     # CREATION OF MODEL

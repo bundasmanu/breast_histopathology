@@ -36,7 +36,7 @@ def getNumberOfImages():
 
     try:
 
-        images = glob(pathname= config.CUSTOM_IMAGE_PATH, recursive=True)  # RELATIVE PATHNAME --> RETURN LIST OF FILES
+        images = sorted(glob(pathname= config.CUSTOM_IMAGE_PATH))  # RELATIVE PATHNAME --> RETURN LIST OF FILES
         return len(images)
 
     except:
@@ -53,11 +53,10 @@ def populate_DataFrame(data):
     try:
 
         all_patients_index = [i for i in range(getNumberPatients())]
-        sorted_patients_index = random.sample(all_patients_index, len(all_patients_index))
 
         add_row = 0
         patients_dirs = os.listdir(config.PATIENTS_FOLDER_PATH)
-        for i in sorted_patients_index:
+        for i in range(len(all_patients_index)):
             patient_dir = patients_dirs[i]
             patient_link = os.path.join(config.PATIENTS_FOLDER_PATH, patient_dir)
             for path in os.listdir(os.path.join(patient_link)):

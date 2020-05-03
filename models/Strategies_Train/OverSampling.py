@@ -28,7 +28,6 @@ class OverSampling(Strategy.Strategy):
 
             if not bool(kwargs) == False:  # CHECK IF DICT IS EMPTY
                 raise CustomError.ErrorCreationModel(config.ERROR_NO_ARGS_ACCEPTED)
-                return
 
             numberValues = [np.argmax(data.y_train, axis=1)]
             numberValues = np.array(numberValues)
