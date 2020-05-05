@@ -90,9 +90,9 @@ def main():
     alexNetModel.addStrategy(underSampling)
     alexNetModel.addStrategy(data_aug)
 
-    model, predictions, history = alexNetModel.template_method(*valuesLayers)
+    #model, predictions, history = alexNetModel.template_method(*valuesLayers)
 
-    config_func.print_final_results(d.y_test, predictions, history)
+    #config_func.print_final_results(d.y_test, predictions, history)
 
     ## ---------------------------VGGNET APPLICATION ------------------------------------
 
@@ -120,24 +120,55 @@ def main():
 
     #config_func.print_final_results(d.y_test, predictions, history)
 
+    ## ---------------------------DENSENET APPLICATION ------------------------------------
+
+    # # DICTIONARIES DEFINITION
+    # numberLayers = (
+    #     10, #CNN LAYERS
+    #     0 #DENSE LAYERS
+    # )
+    #
+    # valuesLayers = (
+    #     16,
+    #     16,
+    #     24,
+    #     32,
+    #     32,
+    #     48,
+    #     64,
+    #     64,
+    #     72,
+    #     72,
+    #     config.BATCH_SIZE_ALEX_AUG
+    # )
+    #
+    # densenet = factoryModel.getModel(config.DENSE_NET, d, *numberLayers)
+    #
+    # densenet.addStrategy(underSampling)
+    # densenet.addStrategy(data_aug)
+    #
+    # model, predictions, history = densenet.template_method(*valuesLayers)
+    #
+    # config_func.print_final_results(d.y_test, predictions, history)
+
     ## ------------------------PSO OPTIMIZATION ------------------------------------------
 
-    # #PSO OPTIMIZATION
-    # optFact = OptimizerFactory.OptimizerFactory()
-    #
-    # # definition optimizers for models
-    # pso_alex = optFact.createOptimizer(config.PSO_OPTIMIZER, alexNetModel, *config.pso_init_args_alex)
-    # pso_vgg = optFact.createOptimizer(config.PSO_OPTIMIZER, vggNetModel, *config.pso_init_args_vgg)
-    #
-    # # call optimize function
-    # cost, pos, optimizer = pso_alex.optimize()
-    #
-    # #plot cost history and plot position history
-    # print(cost)
-    # print(pos)
-    # pso_alex.plotCostHistory(optimizer=optimizer)
-    # pso_alex.plotPositionHistory(optimizer, np.array(config.X_LIMITS), np.array(config.Y_LIMITS),
-    #                              config.POS_VAR_EXP, config.LABEL_X_AXIS, config.LABEL_Y_AXIS)
+    #PSO OPTIMIZATION
+    optFact = OptimizerFactory.OptimizerFactory()
+
+    # definition optimizers for models
+    pso_alex = optFact.createOptimizer(config.PSO_OPTIMIZER, alexNetModel, *config.pso_init_args_alex)
+    pso_vgg = optFact.createOptimizer(config.PSO_OPTIMIZER, vggNetModel, *config.pso_init_args_vgg)
+
+    # call optimize function
+    cost, pos, optimizer = pso_alex.optimize()
+
+    #plot cost history and plot position history
+    print(cost)
+    print(pos)
+    pso_alex.plotCostHistory(optimizer=optimizer)
+    pso_alex.plotPositionHistory(optimizer, np.array(config.X_LIMITS), np.array(config.Y_LIMITS),
+                                 config.POS_VAR_EXP, config.LABEL_X_AXIS, config.LABEL_Y_AXIS)
 
     ## --------------------------ENSEMBLE ---------------------------------------------------
 
@@ -158,6 +189,10 @@ def main():
     #
     # # print final results of predict using ensemble model (report and confusion matrix)
     # config_func.print_final_results(y_test=d.y_test, predictions=predictions, history=None)
+    #
+    # # save ensemble model
+    # ensemble_model.save(config.ENSEMBLE_NORMAL_MODEL)
+    # del ensemble_model
 
 if __name__ == "__main__":
     main()

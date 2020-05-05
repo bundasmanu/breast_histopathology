@@ -20,13 +20,14 @@ STANDARDIZE_AXIS_CHANNELS = (0,1,2,3)
 
 NUMBER_CLASSES = 2
 
-SIZE_DATAFRAME = 2000
+SIZE_DATAFRAME = 200000
 
 VALIDATION_SIZE = 0.2
 TEST_SIZE = 0.2
 
 ALEX_NET = "ALEXNET"
 VGG_NET = "VGGNET"
+DENSE_NET = "DENSENET"
 
 PSO_OPTIMIZER = "PSO"
 GA_OPTIMIZER = "GA"
@@ -92,13 +93,14 @@ ERROR_ON_PLOTTING = "\nError on plotting"
 #PSO OPTIONS
 PARTICLES = 20
 ITERATIONS = 12
-TOPOLOGY_FLAG = 1 # 0 MEANS GBEST, AND 1 MEANS LBEST
+TOPOLOGY_FLAG = 0 # 0 MEANS GBEST, AND 1 MEANS LBEST
 gbestOptions = {'w' : 0.9, 'c1' : 0.7, 'c2' : 0.7}
 lbestOptions = {'w' : 0.9, 'c1' : 0.7, 'c2' : 0.7, 'k' : 4, 'p' : 2}
 
 MAX_VALUES_LAYERS_ALEX_NET = [140, 140, 140, 256, 128, 256] # 4 conv's, 1 dense and batch size
+MIN_VALUES_LAYERS_ALEX_NET = [1, 1, 1, 1, 4, 16]
 MAX_VALUES_LAYERS_VGG_NET = [128, 128, 128, 196, 128, 256] # 4 conv's, 1 dense and batch size
-MIN_BATCH_SIZE = 16
+MIN_VALUES_LAYERS_VGG_NET = [1, 1, 1, 1, 4, 16]
 
 IDC_CLASS_NAME = "With IDC"
 HEALTHY_CLASS_NAME = "Healthy"
@@ -117,6 +119,7 @@ ALEX_NET_GA_FILE = "alex_ga.h5"
 VGG_NET_BEST_FILE = "vgg_best.h5"
 VGG_NET_PSO_FILE = "vgg_pso.h5"
 VGG_NET_GA_FILE = "vgg_ga.h5"
+ENSEMBLE_NORMAL_MODEL = "ensemble_normal.h5"
 
 #FILENAME POSITION PSO VARIATION
 POS_VAR_LOWER = 'particlesPso.mp4'
@@ -138,6 +141,7 @@ pso_init_args_alex = (
     PARTICLES,  # number of individuals
     ITERATIONS,  # iterations
     6,  # dimensions (6 conv filters, 1 dense neurons and batch size)
+    np.array(MIN_VALUES_LAYERS_ALEX_NET), # lower bound limits for dimensions
     np.array(MAX_VALUES_LAYERS_ALEX_NET)  # superior bound limits for dimensions
 )
 
@@ -145,5 +149,6 @@ pso_init_args_vgg = (
     PARTICLES,  # number of individuals
     ITERATIONS,  # iterations
     6,  # dimensions (6 conv filters, 1 dense neurons and batch size)
+    np.array(MIN_VALUES_LAYERS_VGG_NET), # lower bound limits for dimensions
     np.array(MAX_VALUES_LAYERS_VGG_NET)  # superior bound limits for dimensions
 )

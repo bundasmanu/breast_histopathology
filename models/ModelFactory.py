@@ -1,4 +1,4 @@
-from . import Model, AlexNet, VGGNet
+from . import Model, AlexNet, VGGNet, DenseNet
 import config
 import Data
 
@@ -23,6 +23,8 @@ class ModelFactory:
                 return AlexNet.AlexNet(data, *args)
             elif modelType == config.VGG_NET:
                 return VGGNet.VGGNet(data, *args)
+            elif modelType == config.DENSE_NET:
+                return DenseNet.DenseNet(data, *args)
             else:
                 return AttributeError()
 
