@@ -123,33 +123,27 @@ def main():
     ## ---------------------------DENSENET APPLICATION ------------------------------------
 
     # # DICTIONARIES DEFINITION
-    # numberLayers = (
-    #     10, #CNN LAYERS
-    #     0 #DENSE LAYERS
-    # )
-    #
-    # valuesLayers = (
-    #     16,
-    #     16,
-    #     24,
-    #     32,
-    #     32,
-    #     48,
-    #     64,
-    #     64,
-    #     72,
-    #     72,
-    #     config.BATCH_SIZE_ALEX_AUG
-    # )
-    #
-    # densenet = factoryModel.getModel(config.DENSE_NET, d, *numberLayers)
-    #
-    # densenet.addStrategy(underSampling)
-    # densenet.addStrategy(data_aug)
-    #
-    # model, predictions, history = densenet.template_method(*valuesLayers)
-    #
-    # config_func.print_final_results(d.y_test, predictions, history)
+    numberLayers = (
+        4, #BLOCKS
+        0 #DENSE LAYERS
+    )
+
+    valuesLayers = (
+        16,
+        4,
+        3,
+        32,
+        config.BATCH_SIZE_ALEX_AUG
+    )
+
+    densenet = factoryModel.getModel(config.DENSE_NET, d, *numberLayers)
+
+    densenet.addStrategy(underSampling)
+    densenet.addStrategy(data_aug)
+
+    #model, predictions, history = densenet.template_method(*valuesLayers)
+
+    #config_func.print_final_results(d.y_test, predictions, history)
 
     ## ------------------------PSO OPTIMIZATION ------------------------------------------
 
@@ -159,15 +153,16 @@ def main():
     # definition optimizers for models
     pso_alex = optFact.createOptimizer(config.PSO_OPTIMIZER, alexNetModel, *config.pso_init_args_alex)
     pso_vgg = optFact.createOptimizer(config.PSO_OPTIMIZER, vggNetModel, *config.pso_init_args_vgg)
+    pso_dense = optFact.createOptimizer(config.PSO_OPTIMIZER, densenet, *config.pso_init_args_densenet)
 
     # call optimize function
-    cost, pos, optimizer = pso_alex.optimize()
+    cost, pos, optimizer = pso_dense.optimize()
 
     #plot cost history and plot position history
     print(cost)
     print(pos)
-    pso_alex.plotCostHistory(optimizer=optimizer)
-    pso_alex.plotPositionHistory(optimizer, np.array(config.X_LIMITS), np.array(config.Y_LIMITS),
+    pso_dense.plotCostHistory(optimizer=optimizer)
+    pso_dense.plotPositionHistory(optimizer, np.array(config.X_LIMITS), np.array(config.Y_LIMITS),
                                  config.POS_VAR_EXP, config.LABEL_X_AXIS, config.LABEL_Y_AXIS)
 
     ## --------------------------ENSEMBLE ---------------------------------------------------

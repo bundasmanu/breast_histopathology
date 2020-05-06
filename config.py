@@ -101,6 +101,8 @@ MAX_VALUES_LAYERS_ALEX_NET = [140, 140, 140, 256, 128, 256] # 4 conv's, 1 dense 
 MIN_VALUES_LAYERS_ALEX_NET = [1, 1, 1, 1, 4, 16]
 MAX_VALUES_LAYERS_VGG_NET = [128, 128, 128, 196, 128, 256] # 4 conv's, 1 dense and batch size
 MIN_VALUES_LAYERS_VGG_NET = [1, 1, 1, 1, 4, 16]
+MAX_VALUES_LAYERS_DENSE_NET = [180, 5, 4, 48, 128] # 4 conv's, 1 dense and batch size
+MIN_VALUES_LAYERS_DENSE_NET = [16, 2, 1, 4, 16]
 
 IDC_CLASS_NAME = "With IDC"
 HEALTHY_CLASS_NAME = "Healthy"
@@ -151,6 +153,14 @@ pso_init_args_vgg = (
     6,  # dimensions (6 conv filters, 1 dense neurons and batch size)
     np.array(MIN_VALUES_LAYERS_VGG_NET), # lower bound limits for dimensions
     np.array(MAX_VALUES_LAYERS_VGG_NET)  # superior bound limits for dimensions
+)
+
+pso_init_args_densenet = (
+    PARTICLES,  # number of individuals
+    ITERATIONS,  # iterations
+    5,  # dimensions (6 conv filters, 1 dense neurons and batch size)
+    np.array(MIN_VALUES_LAYERS_DENSE_NET), # lower bound limits for dimensions
+    np.array(MAX_VALUES_LAYERS_DENSE_NET)  # superior bound limits for dimensions
 )
 
 ## verbose and summary options on build and train

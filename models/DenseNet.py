@@ -52,9 +52,9 @@ class DenseNet(Model.Model):
 
         x = BatchNormalization(epsilon=1.1e-5)(inputs)
         x = Activation(config.RELU_FUNCTION)(x)
-        num_feature_maps = inputs.shape[1]
+        num_feature_maps = inputs.shape[1].value
 
-        x = Conv2D(filters=np.floor( 0.5 * num_feature_maps.value ).astype( np.int ),
+        x = Conv2D(filters=np.floor( 0.5 * num_feature_maps ).astype( np.int ),
                                    kernel_size=(1, 1), use_bias=False, padding=config.SAME_PADDING, kernel_initializer='he_normal',
                                    kernel_regularizer=regularizers.l2(1e-4))(x)
         x = Dropout(rate=0.25)(x)
@@ -62,21 +62,23 @@ class DenseNet(Model.Model):
         x = AveragePooling2D(pool_size=(2, 2))(x)
         return x
 
-    def dense_block(self, inputs, num_layers, *filters):
+    def dense_block(self, inputs, num_layers, initFilter, growth_rate):
 
         '''
         This function represents the logic of Dense block
         :param inputs: input from previous Transition layer
         :param num_layers: integer : number of Conv layer
-        :param filters: list(num_layers, ) : number of filters of each Conv layer
-        :return:
+        :param initFilter: integer: initial number of filters of Bootleneck layer (H function)
+        :param growth_rate: integer: increase of filters on bootleneck layers
+        :return: Concatenation of Bootleneck layers
         '''
 
         try:
 
             for i in range(num_layers):
-                conv_outputs = self.H(inputs, filters[i])
+                conv_outputs = self.H(inputs, initFilter)
                 inputs = concatenate([conv_outputs, inputs])
+                initFilter += growth_rate
             return inputs
 
         except:
@@ -105,8 +107,8 @@ class DenseNet(Model.Model):
             x = Conv2D(args[0], kernel_size=(3, 3), use_bias=False, kernel_initializer='he_normal',
                                        kernel_regularizer=regularizers.l2(1e-4))(input)
 
-            for i in range(3):
-                x = self.dense_block(x, 3, *args[(i*3)+1:(i*3)+4])
+            for i in range(args[1]):
+                x = self.dense_block(x, args[2], 16, args[3])
                 x = self.transition(x)
 
             x = GlobalAveragePooling2D()(x)
