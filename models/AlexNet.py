@@ -83,7 +83,9 @@ class AlexNet(Model.Model):
 
             model.add(Dense(units=config.NUMBER_CLASSES))
             model.add(Activation(config.SOFTMAX_FUNCTION))
-            model.summary()
+
+            if config.BUILD_SUMMARY == 1:
+                model.summary()
 
             return model
 
@@ -154,7 +156,8 @@ class AlexNet(Model.Model):
                     shuffle=True,
                     #use_multiprocessing=config.MULTIPROCESSING,
                     callbacks=[decrease_callback2, es_callback, decrease_callback],
-                    class_weight=class_weights
+                    class_weight=class_weights,
+                    verbose=config.TRAIN_VERBOSE
                 )
 
                 return history, model
@@ -167,7 +170,8 @@ class AlexNet(Model.Model):
                 epochs=config.EPOCHS,
                 steps_per_epoch=X_train.shape[0] / batch_size,
                 shuffle=True,
-                callbacks=[decrease_callback2, es_callback, decrease_callback]
+                callbacks=[decrease_callback2, es_callback, decrease_callback],
+                verbose=config.TRAIN_VERBOSE
             )
 
             return history, model

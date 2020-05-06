@@ -20,7 +20,7 @@ STANDARDIZE_AXIS_CHANNELS = (0,1,2,3)
 
 NUMBER_CLASSES = 2
 
-SIZE_DATAFRAME = 200000
+SIZE_DATAFRAME = 2000
 
 VALIDATION_SIZE = 0.2
 TEST_SIZE = 0.2
@@ -91,8 +91,8 @@ ERROR_APPEND_STRATEGY = "\nError on appending strategy"
 ERROR_ON_PLOTTING = "\nError on plotting"
 
 #PSO OPTIONS
-PARTICLES = 20
-ITERATIONS = 12
+PARTICLES = 2
+ITERATIONS = 2
 TOPOLOGY_FLAG = 0 # 0 MEANS GBEST, AND 1 MEANS LBEST
 gbestOptions = {'w' : 0.9, 'c1' : 0.7, 'c2' : 0.7}
 lbestOptions = {'w' : 0.9, 'c1' : 0.7, 'c2' : 0.7, 'k' : 4, 'p' : 2}
@@ -152,3 +152,7 @@ pso_init_args_vgg = (
     np.array(MIN_VALUES_LAYERS_VGG_NET), # lower bound limits for dimensions
     np.array(MAX_VALUES_LAYERS_VGG_NET)  # superior bound limits for dimensions
 )
+
+## verbose and summary options on build and train
+TRAIN_VERBOSE = 1 # 0 - no info, 1- info, 2- partial info
+BUILD_SUMMARY = 1 # 0 - no summary, 1- summary

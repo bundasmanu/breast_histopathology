@@ -114,7 +114,9 @@ class DenseNet(Model.Model):
             outputs = Activation(config.SOFTMAX_FUNCTION)(x)
 
             model = mp(input, outputs)
-            model.summary()
+
+            if config.BUILD_SUMMARY == 1:
+                model.summary()
 
             return model
 
@@ -185,7 +187,8 @@ class DenseNet(Model.Model):
                     shuffle=True,
                     #use_multiprocessing=config.MULTIPROCESSING,
                     callbacks=[decrease_callback2, es_callback, decrease_callback],
-                    class_weight=class_weights
+                    class_weight=class_weights,
+                    verbose=config.TRAIN_VERBOSE
                 )
 
                 return history, model
@@ -198,7 +201,8 @@ class DenseNet(Model.Model):
                 epochs=config.EPOCHS,
                 steps_per_epoch=X_train.shape[0] / batch_size,
                 shuffle=True,
-                callbacks=[decrease_callback2, es_callback, decrease_callback]
+                callbacks=[decrease_callback2, es_callback, decrease_callback],
+                verbose=config.TRAIN_VERBOSE
             )
 
             return history, model
