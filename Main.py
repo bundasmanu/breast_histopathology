@@ -75,12 +75,13 @@ def main():
     )
 
     valuesLayers = (
-        117,
-        56,
-        74,
-        149,
-        119,
-        10 #batch size
+        1, ## number of normal convolutional layers (init conv doen't count here, because always exist)
+        2, ## number of stacked cnn layers
+        16, ## number of feature maps of first conv layer
+        16, ## growth rate
+        2, ## number of FCL's preceding output layer (sigmoid layer)
+        16, ## number of neurons of Full Connected Layer
+        config.BATCH_SIZE_ALEX_AUG #batch size
     )
 
     # CREATION OF MODEL
@@ -103,12 +104,12 @@ def main():
     )
 
     valuesLayers = (
-        16,
-        24,
-        48,
-        72,
-        12,
-        config.BATCH_SIZE_ALEX_AUG
+        4, # 4 stacks (5 in total, because init stack is only needed)
+        16, # number of feature maps of initial convolution layer
+        16, # growth rate
+        2, ## number of FCL's preceding output layer (sigmoid layer)
+        16, # number neurons of Full Connected Layer
+        config.BATCH_SIZE_ALEX_AUG # batch size
     )
 
     vggNetModel = factoryModel.getModel(config.VGG_NET, d, *numberLayers)
@@ -125,15 +126,15 @@ def main():
     # # DICTIONARIES DEFINITION
     numberLayers = (
         4, #BLOCKS
-        0 #DENSE LAYERS
+        1 #DENSE LAYERS
     )
 
     valuesLayers = (
-        16,
-        4,
-        3,
-        32,
-        config.BATCH_SIZE_ALEX_AUG
+        16, # initial number of Feature Maps
+        4, # number of dense blocks
+        2, # number of layers in each block
+        16, # growth rate
+        config.BATCH_SIZE_ALEX_AUG # batch size
     )
 
     densenet = factoryModel.getModel(config.DENSE_NET, d, *numberLayers)
@@ -156,13 +157,13 @@ def main():
     pso_dense = optFact.createOptimizer(config.PSO_OPTIMIZER, densenet, *config.pso_init_args_densenet)
 
     # call optimize function
-    cost, pos, optimizer = pso_dense.optimize()
+    cost, pos, optimizer = pso_vgg.optimize()
 
     #plot cost history and plot position history
     print(cost)
     print(pos)
-    pso_dense.plotCostHistory(optimizer=optimizer)
-    pso_dense.plotPositionHistory(optimizer, np.array(config.X_LIMITS), np.array(config.Y_LIMITS),
+    pso_vgg.plotCostHistory(optimizer=optimizer)
+    pso_vgg.plotPositionHistory(optimizer, np.array(config.X_LIMITS), np.array(config.Y_LIMITS),
                                  config.POS_VAR_EXP, config.LABEL_X_AXIS, config.LABEL_Y_AXIS)
 
     ## --------------------------ENSEMBLE ---------------------------------------------------

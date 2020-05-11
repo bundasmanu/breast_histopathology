@@ -1,6 +1,6 @@
 from . import Model
 from keras.models import Sequential
-from keras.layers import Conv2D, GlobalAveragePooling2D, Activation, Dropout, BatchNormalization, Dense, concatenate, Input, ZeroPadding2D, AveragePooling2D
+from keras.layers import Conv2D, GlobalAveragePooling2D, Activation, Dropout, BatchNormalization, Dense, concatenate, Input, ZeroPadding2D, AveragePooling2D, MaxPooling2D
 import config
 from exceptions import CustomError
 from .Strategies_Train import Strategy
@@ -14,6 +14,7 @@ import config_func
 from sklearn.utils import class_weight
 import numpy as np
 from keras.models import Model as mp
+from keras_applications.densenet import DenseNet as dnet
 
 class DenseNet(Model.Model):
 
@@ -37,9 +38,14 @@ class DenseNet(Model.Model):
 
         conv_out = BatchNormalization(epsilon=1.1e-5)(inputs)
         conv_out = Activation(config.RELU_FUNCTION)(conv_out)
-        conv_out = ZeroPadding2D((1, 1))(conv_out)
-        conv_out = Conv2D(num_filters, kernel_size=(3, 3), use_bias=False, kernel_initializer='he_normal')(conv_out)
-        conv_out = Dropout(0.25)(conv_out)
+        bootleneck_filters = num_filters * 2 ## paper
+        conv_out = Conv2D(bootleneck_filters, kernel_size=(1, 1), use_bias=False, padding=config.SAME_PADDING, kernel_initializer='he_normal')(conv_out)
+
+        conv_out = BatchNormalization(epsilon=1.1e-5)(conv_out)
+        conv_out = Activation(config.RELU_FUNCTION)(conv_out)
+        #conv_out = ZeroPadding2D((1, 1))(conv_out)
+        conv_out = Conv2D(num_filters, kernel_size=(3, 3), use_bias=False, padding=config.SAME_PADDING, kernel_initializer='he_normal')(conv_out)
+        #conv_out = Dropout(0.15)(conv_out)
         return conv_out
 
     def transition(self, inputs):
@@ -57,7 +63,7 @@ class DenseNet(Model.Model):
         x = Conv2D(filters=np.floor( 0.5 * num_feature_maps ).astype( np.int ),
                                    kernel_size=(1, 1), use_bias=False, padding=config.SAME_PADDING, kernel_initializer='he_normal',
                                    kernel_regularizer=regularizers.l2(1e-4))(x)
-        x = Dropout(rate=0.25)(x)
+        #x = Dropout(rate=0.15)(x)
 
         x = AveragePooling2D(pool_size=(2, 2))(x)
         return x
@@ -79,7 +85,7 @@ class DenseNet(Model.Model):
                 conv_outputs = self.H(inputs, initFilter)
                 inputs = concatenate([conv_outputs, inputs])
                 initFilter += growth_rate
-            return inputs
+            return inputs, initFilter
 
         except:
             raise
@@ -98,22 +104,23 @@ class DenseNet(Model.Model):
             if trainedModel != None:
                 return trainedModel
 
-            if len(args) < (self.nDenseLayers+self.nCNNLayers):
-                raise CustomError.ErrorCreationModel(config.ERROR_INVALID_NUMBER_ARGS)
-
             input_shape = (config.WIDTH, config.HEIGHT, config.CHANNELS)
             input = Input(shape=(input_shape))
 
             x = Conv2D(args[0], kernel_size=(3, 3), use_bias=False, kernel_initializer='he_normal',
-                                       kernel_regularizer=regularizers.l2(1e-4))(input)
+                        strides=2, padding=config.SAME_PADDING, kernel_regularizer=regularizers.l2(1e-4))(input)
+            x = MaxPooling2D(pool_size=(2,2), strides=2)(x)
 
+            nFilters = 16
             for i in range(args[1]):
-                x = self.dense_block(x, args[2], 16, args[3])
-                x = self.transition(x)
+                x, nFilters = self.dense_block(x, args[2], nFilters, args[3])
+                if i < (args[1] - 1):
+                    x = self.transition(x) ## in last block (final step doesn't apply transition logic, global average pooling, made thiis
 
             x = GlobalAveragePooling2D()(x)
+
             x = Dense(config.NUMBER_CLASSES)(x)  # Num Classes for CIFAR-10
-            outputs = Activation(config.SOFTMAX_FUNCTION)(x)
+            outputs = Activation(config.SIGMOID_FUNCTION)(x)
 
             model = mp(input, outputs)
 
