@@ -157,13 +157,13 @@ def main():
     pso_dense = optFact.createOptimizer(config.PSO_OPTIMIZER, densenet, *config.pso_init_args_densenet)
 
     # call optimize function
-    cost, pos, optimizer = pso_vgg.optimize()
+    cost, pos, optimizer = pso_alex.optimize()
 
     #plot cost history and plot position history
     print(cost)
     print(pos)
-    pso_vgg.plotCostHistory(optimizer=optimizer)
-    pso_vgg.plotPositionHistory(optimizer, np.array(config.X_LIMITS), np.array(config.Y_LIMITS),
+    pso_alex.plotCostHistory(optimizer=optimizer)
+    pso_alex.plotPositionHistory(optimizer, np.array(config.X_LIMITS), np.array(config.Y_LIMITS),
                                  config.POS_VAR_EXP, config.LABEL_X_AXIS, config.LABEL_Y_AXIS)
 
     ## --------------------------ENSEMBLE ---------------------------------------------------

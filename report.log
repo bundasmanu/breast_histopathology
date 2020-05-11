@@ -2324,3 +2324,38 @@ Instructions for updating:
 Use tf.where in 2.0, which has the same broadcast rule as np.where
 2020-05-10 15:26:18,179 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\keras\backend\tensorflow_backend.py:422: The name tf.global_variables is deprecated. Please use tf.compat.v1.global_variables instead.
 
+2020-05-12 00:42:38,767 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.7, 'c2': 0.7}
+2020-05-12 00:42:39,348 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\keras\backend\tensorflow_backend.py:4070: The name tf.nn.max_pool is deprecated. Please use tf.nn.max_pool2d instead.
+
+2020-05-12 00:42:41,397 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\nn_impl.py:180: add_dispatch_support.<locals>.wrapper (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.where in 2.0, which has the same broadcast rule as np.where
+2020-05-12 00:42:46,043 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\keras\backend\tensorflow_backend.py:422: The name tf.global_variables is deprecated. Please use tf.compat.v1.global_variables instead.
+
+2020-05-12 00:43:47,782 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.7, 'c2': 0.7}
+2020-05-12 00:43:47,860 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\keras\backend\tensorflow_backend.py:4070: The name tf.nn.max_pool is deprecated. Please use tf.nn.max_pool2d instead.
+
+2020-05-12 00:43:49,345 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\nn_impl.py:180: add_dispatch_support.<locals>.wrapper (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.where in 2.0, which has the same broadcast rule as np.where
+2020-05-12 00:43:53,668 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\keras\backend\tensorflow_backend.py:422: The name tf.global_variables is deprecated. Please use tf.compat.v1.global_variables instead.
+
+2020-05-12 00:44:33,580 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.7, 'c2': 0.7}
+2020-05-12 00:44:33,638 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\keras\backend\tensorflow_backend.py:4070: The name tf.nn.max_pool is deprecated. Please use tf.nn.max_pool2d instead.
+
+2020-05-12 00:44:34,936 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\keras\backend\tensorflow_backend.py:4074: The name tf.nn.avg_pool is deprecated. Please use tf.nn.avg_pool2d instead.
+
+2020-05-12 00:44:35,925 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\nn_impl.py:180: add_dispatch_support.<locals>.wrapper (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.where in 2.0, which has the same broadcast rule as np.where
+2020-05-12 00:44:41,297 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\keras\backend\tensorflow_backend.py:422: The name tf.global_variables is deprecated. Please use tf.compat.v1.global_variables instead.
+
+2020-05-12 00:45:52,870 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\keras\backend\tensorflow_backend.py:4070: The name tf.nn.max_pool is deprecated. Please use tf.nn.max_pool2d instead.
+
+2020-05-12 00:45:53,902 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\keras\backend\tensorflow_backend.py:4074: The name tf.nn.avg_pool is deprecated. Please use tf.nn.avg_pool2d instead.
+
+2020-05-12 00:45:55,355 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\nn_impl.py:180: add_dispatch_support.<locals>.wrapper (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.where in 2.0, which has the same broadcast rule as np.where
+2020-05-12 00:46:01,629 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\keras\backend\tensorflow_backend.py:422: The name tf.global_variables is deprecated. Please use tf.compat.v1.global_variables instead.
+

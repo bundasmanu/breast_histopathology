@@ -20,7 +20,7 @@ STANDARDIZE_AXIS_CHANNELS = (0,1,2,3)
 
 NUMBER_CLASSES = 2
 
-SIZE_DATAFRAME = 2000
+SIZE_DATAFRAME = 200000
 
 VALIDATION_SIZE = 0.2
 TEST_SIZE = 0.2
@@ -99,11 +99,11 @@ gbestOptions = {'w' : 0.9, 'c1' : 0.7, 'c2' : 0.7}
 lbestOptions = {'w' : 0.9, 'c1' : 0.7, 'c2' : 0.7, 'k' : 4, 'p' : 2}
 
 MAX_VALUES_LAYERS_ALEX_NET = [2, 4, 128, 48, 3, 128, 256] # nº of normal conv's, nº of stack cnn layers, nº of feature maps of initial conv, growth rate, nº neurons of FCL layer and batch size
-MIN_VALUES_LAYERS_ALEX_NET = [0, 0, 16, 8, 1, 8, 16]
-MAX_VALUES_LAYERS_VGG_NET = [5, 128, 42, 3, 128, 256] # nº of stack cnn layers, nº of feature maps of initial conv, growth rate, nº neurons of FCL layer and batch size
-MIN_VALUES_LAYERS_VGG_NET = [0, 16, 8, 1, 8, 16]
-MAX_VALUES_LAYERS_DENSE_NET = [96, 4, 4, 32, 256] #
-MIN_VALUES_LAYERS_DENSE_NET = [16, 1, 1, 4, 16]
+MIN_VALUES_LAYERS_ALEX_NET = [0, 0, 8, 0, 1, 8, 16]
+MAX_VALUES_LAYERS_VGG_NET = [5, 128, 48, 3, 128, 256] # nº of stack cnn layers, nº of feature maps of initial conv, growth rate, nº neurons of FCL layer and batch size
+MIN_VALUES_LAYERS_VGG_NET = [1, 16, 0, 1, 8, 16]
+MAX_VALUES_LAYERS_DENSE_NET = [128, 5, 4, 32, 256] #
+MIN_VALUES_LAYERS_DENSE_NET = [4, 1, 1, 0, 16]
 
 IDC_CLASS_NAME = "With IDC"
 HEALTHY_CLASS_NAME = "Healthy"
