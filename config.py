@@ -92,8 +92,8 @@ ERROR_APPEND_STRATEGY = "\nError on appending strategy"
 ERROR_ON_PLOTTING = "\nError on plotting"
 
 #PSO OPTIONS
-PARTICLES = 2
-ITERATIONS = 2
+PARTICLES = 20
+ITERATIONS = 12
 TOPOLOGY_FLAG = 0 # 0 MEANS GBEST, AND 1 MEANS LBEST
 gbestOptions = {'w' : 0.9, 'c1' : 0.7, 'c2' : 0.7}
 lbestOptions = {'w' : 0.9, 'c1' : 0.7, 'c2' : 0.7, 'k' : 4, 'p' : 2}

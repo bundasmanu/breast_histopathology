@@ -2359,3 +2359,37 @@ Instructions for updating:
 Use tf.where in 2.0, which has the same broadcast rule as np.where
 2020-05-12 00:46:01,629 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\keras\backend\tensorflow_backend.py:422: The name tf.global_variables is deprecated. Please use tf.compat.v1.global_variables instead.
 
+2020-05-12 15:27:11,693 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.7, 'c2': 0.7}
+2020-05-12 15:27:12,139 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\keras\backend\tensorflow_backend.py:4070: The name tf.nn.max_pool is deprecated. Please use tf.nn.max_pool2d instead.
+
+2020-05-12 15:27:14,015 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\nn_impl.py:180: add_dispatch_support.<locals>.wrapper (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.where in 2.0, which has the same broadcast rule as np.where
+2020-05-12 15:27:18,554 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\keras\backend\tensorflow_backend.py:422: The name tf.global_variables is deprecated. Please use tf.compat.v1.global_variables instead.
+
+2020-05-12 15:28:41,109 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 6.682812500691251, best pos: [  0.67307403   2.33771236  76.10103235  16.69454812   2.54571921
+  89.99565581 102.63347963]
+2020-05-12 15:28:42,066 - matplotlib.animation - INFO - Animation.save using <class 'matplotlib.animation.HTMLWriter'>
+2020-05-12 15:30:51,668 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.7, 'c2': 0.7}
+2020-05-12 15:30:51,751 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\keras\backend\tensorflow_backend.py:4070: The name tf.nn.max_pool is deprecated. Please use tf.nn.max_pool2d instead.
+
+2020-05-12 15:30:53,425 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\nn_impl.py:180: add_dispatch_support.<locals>.wrapper (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.where in 2.0, which has the same broadcast rule as np.where
+2020-05-12 15:30:58,439 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\keras\backend\tensorflow_backend.py:422: The name tf.global_variables is deprecated. Please use tf.compat.v1.global_variables instead.
+
+2020-05-12 15:34:00,509 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 6.682812501217225, best pos: [  2.17593362 116.00321927  34.58568192   1.43122779  27.27142989
+  85.5828728 ]
+2020-05-12 15:34:01,056 - matplotlib.animation - INFO - Animation.save using <class 'matplotlib.animation.HTMLWriter'>
+2020-05-12 15:35:31,866 - pyswarms.single.global_best - INFO - Optimize for 2 iters with {'w': 0.9, 'c1': 0.7, 'c2': 0.7}
+2020-05-12 15:35:31,909 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\keras\backend\tensorflow_backend.py:4070: The name tf.nn.max_pool is deprecated. Please use tf.nn.max_pool2d instead.
+
+2020-05-12 15:35:33,087 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\keras\backend\tensorflow_backend.py:4074: The name tf.nn.avg_pool is deprecated. Please use tf.nn.avg_pool2d instead.
+
+2020-05-12 15:35:34,500 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\tensorflow\python\ops\nn_impl.py:180: add_dispatch_support.<locals>.wrapper (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.where in 2.0, which has the same broadcast rule as np.where
+2020-05-12 15:35:40,980 - tensorflow - WARNING - From D:\Miniconda3\envs\breast_histopathologys\lib\site-packages\keras\backend\tensorflow_backend.py:422: The name tf.global_variables is deprecated. Please use tf.compat.v1.global_variables instead.
+
+2020-05-12 15:36:28,054 - pyswarms.single.global_best - INFO - Optimization finished | best cost: 2.850256851121222, best pos: [16.98880516  1.91899713  2.81404517 10.08519971 64.8429039 ]
+2020-05-12 15:36:28,246 - matplotlib.animation - INFO - Animation.save using <class 'matplotlib.animation.HTMLWriter'>
