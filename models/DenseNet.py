@@ -48,7 +48,7 @@ class DenseNet(Model.Model):
         #conv_out = Dropout(0.15)(conv_out)
         return conv_out
 
-    def transition(self, inputs):
+    def transition(self, inputs, compresion_rate):
 
         '''
         The Transition layers perform the downsampling of the feature maps. The feature maps come from the previous block.
@@ -60,7 +60,7 @@ class DenseNet(Model.Model):
         x = Activation(config.RELU_FUNCTION)(x)
         num_feature_maps = inputs.shape[1].value
 
-        x = Conv2D(filters=np.floor( 0.5 * num_feature_maps ).astype( np.int ),
+        x = Conv2D(filters=np.floor( compresion_rate * num_feature_maps ).astype( np.int ),
                                    kernel_size=(1, 1), use_bias=False, padding=config.SAME_PADDING, kernel_initializer='he_normal',
                                    kernel_regularizer=regularizers.l2(1e-4))(x)
         #x = Dropout(rate=0.15)(x)
@@ -94,6 +94,8 @@ class DenseNet(Model.Model):
 
         '''
         THIS FUNCTION IS RESPONSIBLE FOR THE INITIALIZATION OF SEQUENTIAL ALEXNET MODEL
+        Reference: https://github.com/titu1994/DenseNet/blob/127ec490ca72114e867af576191ce47fddf02d80/densenet.py#L513
+        Reference: https://github.com/liuzhuang13/DenseNet/blob/master/models/densenet.lua --> Original Author of DenseNet Paper
         :param args: list integers, in logical order --> to populate cnn (filters) and dense (neurons)
         :return: Sequential: AlexNet MODEL
         '''
@@ -109,13 +111,15 @@ class DenseNet(Model.Model):
 
             x = Conv2D(args[0], kernel_size=(3, 3), use_bias=False, kernel_initializer='he_normal',
                         strides=2, padding=config.SAME_PADDING, kernel_regularizer=regularizers.l2(1e-4))(input)
+            x = BatchNormalization(epsilon=1.1e-5)(x)
+            x = Activation(config.RELU_FUNCTION)(x)
             x = MaxPooling2D(pool_size=(2,2), strides=2)(x)
 
-            nFilters = 16
             for i in range(args[1]):
-                x, nFilters = self.dense_block(x, args[2], nFilters, args[3])
+                x, nFilters = self.dense_block(x, args[2], args[0], args[3])
                 if i < (args[1] - 1):
-                    x = self.transition(x) ## in last block (final step doesn't apply transition logic, global average pooling, made thiis
+                    x = self.transition(x, args[4]) ## in last block (final step doesn't apply transition logic, global average pooling, made this
+                    nFilters = int(nFilters * args[4])
 
             x = GlobalAveragePooling2D()(x)
 

@@ -316,6 +316,28 @@ def ensemble(models):
     except:
         raise
 
+def show_predict_per_class(prediction):
+
+    '''
+    This function shows the percentage by class in a prediction
+    :param prediction: numpy array with a prediction of a simple sample
+    :return: dict of shape: {class1: percentage, class2: percentage,  ...}
+    '''
+
+    try:
+
+        # define empty dictionary
+        predict_by_class = {}
+
+        # dictionary definition
+        for i, j in zip(prediction, range(len(prediction))):
+            predict_by_class[config.LIST_CLASSES_NAME[j]] = i
+
+        return predict_by_class
+
+    except:
+        raise
+
 def print_final_results(y_test, predictions, history, dict=False):
 
     '''
@@ -372,7 +394,8 @@ def print_Best_Position_PSO(dimensions, modelType):
             print("Number Dense Blocks: {}".format(math.trunc(dimensions[1])))
             print("Number Layers per Block: {}".format(math.trunc(dimensions[2])))
             print("Growth rate: {}".format(math.trunc(dimensions[3])))
-            print("Batch Size: {}".format(math.trunc(dimensions[4])))
+            print("Compression rate: {}".format(dimensions[4]))
+            print("Batch Size: {}".format(math.trunc(dimensions[5])))
 
     except:
         raise

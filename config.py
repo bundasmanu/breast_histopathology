@@ -20,7 +20,7 @@ STANDARDIZE_AXIS_CHANNELS = (0,1,2,3)
 
 NUMBER_CLASSES = 2
 
-SIZE_DATAFRAME = 200000
+SIZE_DATAFRAME = 2000
 
 VALIDATION_SIZE = 0.2
 TEST_SIZE = 0.2
@@ -36,7 +36,7 @@ RELU_FUNCTION = "relu"
 SOFTMAX_FUNCTION = "softmax"
 SIGMOID_FUNCTION = "sigmoid"
 
-LEARNING_RATE = 0.01
+LEARNING_RATE = 0.001
 DECAY = 1e-6
 
 LOSS_BINARY = "binary_crossentropy"
@@ -50,7 +50,7 @@ VALIDATION_ACCURACY = "val_accuracy"
 
 BATCH_SIZE_ALEX_NO_AUG = 128
 BATCH_SIZE_ALEX_AUG = 128
-EPOCHS = 15
+EPOCHS = 1
 MULTIPROCESSING = True
 SHUFFLE = True
 
@@ -92,8 +92,8 @@ ERROR_APPEND_STRATEGY = "\nError on appending strategy"
 ERROR_ON_PLOTTING = "\nError on plotting"
 
 #PSO OPTIONS
-PARTICLES = 20
-ITERATIONS = 12
+PARTICLES = 2
+ITERATIONS = 2
 TOPOLOGY_FLAG = 0 # 0 MEANS GBEST, AND 1 MEANS LBEST
 gbestOptions = {'w' : 0.9, 'c1' : 0.7, 'c2' : 0.7}
 lbestOptions = {'w' : 0.9, 'c1' : 0.7, 'c2' : 0.7, 'k' : 4, 'p' : 2}
@@ -102,8 +102,8 @@ MAX_VALUES_LAYERS_ALEX_NET = [2, 4, 128, 48, 3, 128, 256] # nº of normal conv's
 MIN_VALUES_LAYERS_ALEX_NET = [0, 0, 8, 0, 1, 8, 16]
 MAX_VALUES_LAYERS_VGG_NET = [5, 128, 48, 3, 128, 256] # nº of stack cnn layers, nº of feature maps of initial conv, growth rate, nº neurons of FCL layer and batch size
 MIN_VALUES_LAYERS_VGG_NET = [1, 16, 0, 1, 8, 16]
-MAX_VALUES_LAYERS_DENSE_NET = [128, 5, 4, 32, 256] #
-MIN_VALUES_LAYERS_DENSE_NET = [4, 1, 1, 0, 16]
+MAX_VALUES_LAYERS_DENSE_NET = [128, 5, 4, 32, 0.9, 256] #
+MIN_VALUES_LAYERS_DENSE_NET = [4, 1, 1, 0, 0.1, 16]
 
 IDC_CLASS_NAME = "With IDC"
 HEALTHY_CLASS_NAME = "Healthy"
@@ -129,9 +129,6 @@ POS_VAR_LOWER = 'particlesPso.mp4'
 POS_VAR_INTER = 'particlesPso_intermedia.mp4'
 POS_VAR_HIGHTER = 'particlesPso_elevada.mp4'
 POS_VAR_EXP = 'pos_var_exp.html'
-
-#NAMES DIMENSIONS PSO --> array
-DIMENSIONS_NAMES = ['1 Conv', '2 Conv', '3 Conv', '4 Conv', 'Dense', 'Batch']
 
 # VARIABLES MAKE .mp4 VIDEO with particles movement position
 X_LIMITS = [1, 128]
@@ -159,7 +156,7 @@ pso_init_args_vgg = (
 pso_init_args_densenet = (
     PARTICLES,  # number of individuals
     ITERATIONS,  # iterations
-    5,  # dimensions (init Conv Feature Maps, number of blocks, number cnn layers on blocks, growth rate and batch size)
+    6,  # dimensions (init Conv Feature Maps, number of blocks, number cnn layers on blocks, growth rate, comprension rate and batch size)
     np.array(MIN_VALUES_LAYERS_DENSE_NET), # lower bound limits for dimensions
     np.array(MAX_VALUES_LAYERS_DENSE_NET)  # superior bound limits for dimensions
 )
