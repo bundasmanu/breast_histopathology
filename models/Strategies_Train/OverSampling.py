@@ -49,7 +49,7 @@ class OverSampling(Strategy.Strategy):
             deepData.X_train, decoded_ytrain = overSampler.fit_resample(X_train, decoded_ytrain)
 
             # I NEED TO RESHAPE DATA AGAIN FROM 2D TO 4D
-            X_train = data.reshape2D_to_4D()
+            X_train = deepData.reshape2D_to_4D()
 
             occorrences_counter = np.bincount(decoded_ytrain)
             #print("\nNumber samples Class 0: ", occorrences_counter[0])

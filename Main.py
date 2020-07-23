@@ -8,13 +8,13 @@ import config
 from models import ModelFactory
 import Data
 from optimizers import OptimizerFactory, Optimizer, PSO
-from models.Strategies_Train import UnderSampling, Strategy, DataAugmentation
+from models.Strategies_Train import UnderSampling, Strategy, DataAugmentation, OverSampling
 import matplotlib.pyplot as plt
 from keras.models import load_model
 import keras
 import os
-#os.environ['TF_CPP_MIN_LOG_LEVEL']='2' #MAKES MORE FASTER THE INITIAL SETUP OF GPU --> WARNINGS INITIAL STEPS IS MORE QUICKLY
-os.environ["CUDA_VISIBLE_DEVICES"]="-1"  #THIS LINE DISABLES GPU OPTIMIZATION
+os.environ['TF_CPP_MIN_LOG_LEVEL']='2' #MAKES MORE FASTER THE INITIAL SETUP OF GPU --> WARNINGS INITIAL STEPS IS MORE QUICKLY
+#os.environ["CUDA_VISIBLE_DEVICES"]="-1"  #THIS LINE DISABLES GPU OPTIMIZATION
 
 def main():
 
@@ -34,10 +34,10 @@ def main():
     #DIVISION OF DATASET'S BETWEEN TRAIN, VALIDATION AND TEST --> I NEED ATTENTION, BECAUSE CLASSES ARE UNBALANCED
     indexes = np.arange(X.shape[0])
     X_train, X_val, y_train, y_val, indeces_train, indices_val = train_test_split(X, Y, indexes, test_size=config.VALIDATION_SIZE,
-                                                shuffle=True, random_state=config.RANDOM_STATE) #RANDOM STATE IS NEEDED TO GUARANTEES REPRODUCIBILITY
+                                        stratify=Y, shuffle=True, random_state=config.RANDOM_STATE) #RANDOM STATE IS NEEDED TO GUARANTEES REPRODUCIBILITY
     indexes = indeces_train
     X_train, X_test, y_train, y_test, indices_train, indices_test = train_test_split(X_train, y_train, indexes, test_size=config.TEST_SIZE,
-                                                                    shuffle=True, random_state=config.RANDOM_STATE)
+                                        stratify=y_train, shuffle=True, random_state=config.RANDOM_STATE)
     print(X_train.shape)
     print(X_val.shape)
     print(X_test.shape)
@@ -75,7 +75,7 @@ def main():
     )
 
     valuesLayers = (
-        1, ## number of normal convolutional layers (init conv doen't count here, because always exist)
+        2, ## number of normal convolutional layers
         2, ## number of stacked cnn layers
         16, ## number of feature maps of first conv layer
         16, ## growth rate
@@ -91,9 +91,9 @@ def main():
     alexNetModel.addStrategy(underSampling)
     alexNetModel.addStrategy(data_aug)
 
-    #model, predictions, history = alexNetModel.template_method(*valuesLayers)
+    model, predictions, history = alexNetModel.template_method(*valuesLayers)
 
-    #config_func.print_final_results(d.y_test, predictions, history)
+    config_func.print_final_results(d.y_test, predictions, history)
 
     ## ---------------------------VGGNET APPLICATION ------------------------------------
 
@@ -104,10 +104,10 @@ def main():
     )
 
     valuesLayers = (
-        4, # 4 stacks (5 in total, because init stack is only needed)
-        16, # number of feature maps of initial convolution layer
+        5, # conv stacks
+        24, # number of feature maps of initial convolution layer
         16, # growth rate
-        2, ## number of FCL's preceding output layer (sigmoid layer)
+        1, ## number of FCL's preceding output layer (sigmoid layer)
         16, # number neurons of Full Connected Layer
         config.BATCH_SIZE_ALEX_AUG # batch size
     )
@@ -121,6 +121,34 @@ def main():
 
     #config_func.print_final_results(d.y_test, predictions, history)
 
+    ## ---------------------------RESNET APPLICATION ------------------------------------
+
+    # number of conv and dense layers respectively
+    number_cnn_dense = (5, 1)
+
+    # creation of ResNet instance
+    resnet = factoryModel.getModel(config.RES_NET, d, *number_cnn_dense)
+
+    # apply strategies to resnet
+    resnet.addStrategy(underSampling)
+    resnet.addStrategy(data_aug)
+
+    # definition of args to pass to template_method (conv's number of filters, dense neurons and batch size)
+    resnet_args = (
+        48, # number of filters of initial CNN layer
+        4, # number of consecutive conv+identity blocks
+        1, # repetition of identity block's, by default resnet-18 is 1 (1conv block + 1 identity block) for all layers
+        8, # growth rate
+        config.BATCH_SIZE_ALEX_AUG, # batch size
+    )
+
+    # apply build, train and predict
+    #model, predictions, history = resnet.template_method(*resnet_args)
+    ##resnet.save(model, config.RES_NET_WEIGHTS_FILE)
+
+    # print final results
+    #config_func.print_final_results(y_test=d.y_test, predictions=predictions, history=history, dict=False)
+
     ## ---------------------------DENSENET APPLICATION ------------------------------------
 
     # # DICTIONARIES DEFINITION
@@ -130,10 +158,10 @@ def main():
     )
 
     valuesLayers = (
-        16, # initial number of Feature Maps
+        24, # initial number of Feature Maps
         4, # number of dense blocks
-        2, # number of layers in each block
-        16, # growth rate
+        3, # number of layers in each block
+        12, # growth rate
         0.5, # compression rate
         config.BATCH_SIZE_ALEX_AUG # batch size
     )
@@ -143,29 +171,30 @@ def main():
     densenet.addStrategy(underSampling)
     densenet.addStrategy(data_aug)
 
-    model, predictions, history = densenet.template_method(*valuesLayers)
+    #model, predictions, history = densenet.template_method(*valuesLayers)
 
-    config_func.print_final_results(d.y_test, predictions, history)
+    #config_func.print_final_results(d.y_test, predictions, history)
 
     ## ------------------------PSO OPTIMIZATION ------------------------------------------
 
     #PSO OPTIMIZATION
-    # optFact = OptimizerFactory.OptimizerFactory()
-    #
-    # # definition optimizers for models
-    # pso_alex = optFact.createOptimizer(config.PSO_OPTIMIZER, alexNetModel, *config.pso_init_args_alex)
-    # pso_vgg = optFact.createOptimizer(config.PSO_OPTIMIZER, vggNetModel, *config.pso_init_args_vgg)
-    # pso_dense = optFact.createOptimizer(config.PSO_OPTIMIZER, densenet, *config.pso_init_args_densenet)
-    #
-    # # call optimize function
-    # cost, pos, optimizer = pso_dense.optimize()
-    #
-    # #plot cost history and plot position history
-    # print("Custo: {}".format(cost))
-    # config_func.print_Best_Position_PSO(pos, config.DENSE_NET) # print position
-    # pso_dense.plotCostHistory(optimizer=optimizer)
-    # pso_dense.plotPositionHistory(optimizer, np.array(config.X_LIMITS), np.array(config.Y_LIMITS),
-    #                              config.POS_VAR_EXP, config.LABEL_X_AXIS, config.LABEL_Y_AXIS)
+    optFact = OptimizerFactory.OptimizerFactory()
+
+    # definition optimizers for models
+    pso_alex = optFact.createOptimizer(config.PSO_OPTIMIZER, alexNetModel, *config.pso_init_args_alex)
+    pso_vgg = optFact.createOptimizer(config.PSO_OPTIMIZER, vggNetModel, *config.pso_init_args_vgg)
+    pso_res = optFact.createOptimizer(config.PSO_OPTIMIZER, resnet, *config.pso_init_args_resnet)
+    pso_dense = optFact.createOptimizer(config.PSO_OPTIMIZER, densenet, *config.pso_init_args_densenet)
+
+    # call optimize function
+    cost, pos, optimizer = pso_alex.optimize()
+
+    #plot cost history and plot position history
+    print("Custo: {}".format(cost))
+    config_func.print_Best_Position_PSO(pos, config.ALEX_NET) # print position
+    pso_alex.plotCostHistory(optimizer=optimizer)
+    pso_alex.plotPositionHistory(optimizer, np.array(config.X_LIMITS), np.array(config.Y_LIMITS),
+                                 config.POS_VAR_EXP, config.LABEL_X_AXIS, config.LABEL_Y_AXIS)
 
     ## --------------------------ENSEMBLE ---------------------------------------------------
 

@@ -14,6 +14,7 @@ import numpy
 from .Strategies_Train import Strategy
 from keras import regularizers
 from keras.models import Model as mp
+from models.Strategies_Train import DataAugmentation, UnderSampling, OverSampling
 
 class VGGNet(Model.Model):
 
@@ -21,7 +22,7 @@ class VGGNet(Model.Model):
         super(VGGNet, self).__init__(data, *args)
 
     def addStrategy(self, strategy : Strategy.Strategy) -> bool:
-        return super(VGGNet, self).addStrategy(strategy)
+        return self.StrategyList.append(strategy)
 
     def add_stack(self, input, numberFilters, dropoutRate, input_shape=None):
 
@@ -38,17 +39,17 @@ class VGGNet(Model.Model):
         try:
 
             if input_shape!=None:
-                input = Conv2D(filters=numberFilters, kernel_size=(3, 3), strides=1, input_shape=input_shape,
+                input = Conv2D(filters=numberFilters, kernel_size=(3, 3), strides=1, input_shape=input_shape, kernel_initializer='he_uniform',
                        padding=config.SAME_PADDING, kernel_regularizer=regularizers.l2(config.DECAY)) (input)
             else:
-                input = Conv2D(filters=numberFilters, kernel_size=(3,3), strides=1, padding=config.SAME_PADDING,
+                input = Conv2D(filters=numberFilters, kernel_size=(3,3), strides=1, padding=config.SAME_PADDING, kernel_initializer='he_uniform',
                            kernel_regularizer=regularizers.l2(config.DECAY)) (input)
             input = Activation(config.RELU_FUNCTION) (input)
-            input = Conv2D(filters=numberFilters, kernel_size=(3,3), strides=1, padding=config.SAME_PADDING,
+            input = Conv2D(filters=numberFilters, kernel_size=(3,3), strides=1, padding=config.SAME_PADDING, kernel_initializer='he_uniform',
                            kernel_regularizer=regularizers.l2(config.DECAY)) (input)
             input = Activation(config.RELU_FUNCTION) (input)
-            input = MaxPooling2D(pool_size=(2,2), strides=2) (input)
             input = BatchNormalization() (input)
+            input = MaxPooling2D(pool_size=(2,2), strides=2, padding='same') (input)
             input = Dropout(dropoutRate) (input)
 
             return input
@@ -74,13 +75,14 @@ class VGGNet(Model.Model):
             input_shape = (config.WIDTH, config.HEIGHT, config.CHANNELS)
             input = Input(input_shape)
 
-            #first stack convolution layer
-            model = self.add_stack(input, args[1], 0.15, input_shape)
-
             ## add stack conv layer to the model
-            numberFilters = args[1] + args[2]
+            numberFilters = args[1]
+            model = None
             for i in range(args[0]):
-                model = self.add_stack(model, numberFilters, 0.25)
+                if i == 0:
+                    model = self.add_stack(input, numberFilters, 0.15, input_shape)
+                else:
+                    model = self.add_stack(model, numberFilters, 0.25)
                 numberFilters += args[2]
 
             # flatten
@@ -88,7 +90,7 @@ class VGGNet(Model.Model):
 
             ## Full Connected Layers
             for i in range(args[3]):
-                model = Dense(units=args[4], kernel_regularizer=regularizers.l2(config.DECAY)) (model)
+                model = Dense(units=args[4], kernel_regularizer=regularizers.l2(config.DECAY), kernel_initializer='he_uniform') (model)
                 model = Activation(config.RELU_FUNCTION) (model)
                 model = BatchNormalization() (model)
                 if i != (args[3] - 1):
@@ -125,17 +127,21 @@ class VGGNet(Model.Model):
             #GET STRATEGIES RETURN DATA, AND IF DATA_AUGMENTATION IS APPLIED TRAIN GENERATOR
             train_generator = None
 
-            if len(self.StrategyList) == 0: #IF USER DOESN'T PRETEND EITHER UNDERSAMPLING AND OVERSAMPLING
-                X_train = self.data.X_train
-                y_train = self.data.y_train
+            # get data
+            X_train = self.data.X_train
+            y_train = self.data.y_train
 
-            else: #USER WANTS AT LEAST UNDERSAMPLING OR OVERSAMPLING
-                X_train, y_train = self.StrategyList[0].applyStrategy(self.data)
-                if len(self.StrategyList) > 1: #USER CHOOSE DATA AUGMENTATION OPTION
-                    train_generator = self.StrategyList[1].applyStrategy(self.data)
+            if self.StrategyList: # if strategylist is not empty
+                for i, j in zip(self.StrategyList, range(len(self.StrategyList))):
+                    if isinstance(i, DataAugmentation.DataAugmentation):
+                        train_generator = self.StrategyList[j].applyStrategy(self.data)
+                    if isinstance(i, OverSampling.OverSampling):
+                        X_train, y_train = self.StrategyList[j].applyStrategy(self.data)
+                    if isinstance(i, UnderSampling.UnderSampling):
+                        X_train, y_train = self.StrategyList[j].applyStrategy(self.data)
 
             #reduce_lr = LearningRateScheduler(config_func.lr_scheduler)
-            es_callback = EarlyStopping(monitor='val_loss', patience=3)
+            es_callback = EarlyStopping(monitor='val_loss', patience=2)
             decrease_callback = ReduceLROnPlateau(monitor='val_loss',
                                                         patience=1,
                                                         factor=0.7,
@@ -165,7 +171,7 @@ class VGGNet(Model.Model):
                     shuffle=True,
                     #use_multiprocessing=config.MULTIPROCESSING,
                     callbacks=[decrease_callback, decrease_callback2, es_callback],
-                    class_weight=class_weights,
+                    #class_weight=class_weights,
                     verbose=config.TRAIN_VERBOSE
                 )
 
@@ -180,7 +186,8 @@ class VGGNet(Model.Model):
                 steps_per_epoch=X_train.shape[0] / batch_size,
                 shuffle=True,
                 callbacks=[decrease_callback, decrease_callback2, es_callback],
-                verbose=config.TRAIN_VERBOSE
+                verbose=config.TRAIN_VERBOSE,
+                class_weight=class_weights
             )
 
             return history, model

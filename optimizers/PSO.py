@@ -143,10 +143,10 @@ class PSO(Optimizer.Optimizer):
 
             optimizer = None
             if config.TOPOLOGY_FLAG == 0: #global best topology
-                optimizer = ps.single.GlobalBestPSO(n_particles=self.indiv, dimensions=self.dims,
+                optimizer = ps.single.GlobalBestPSO(n_particles=self.indiv, dimensions=self.dims, bh_strategy='shrink', vh_strategy='invert',
                                                     options=config.gbestOptions, bounds=bounds)
             else: #local best topology
-                optimizer = ps.single.LocalBestPSO(n_particles=self.indiv, dimensions=self.dims,
+                optimizer = ps.single.LocalBestPSO(n_particles=self.indiv, dimensions=self.dims, bh_strategy='shrink', vh_strategy='invert',
                                                     options=config.lbestOptions, bounds=bounds)
 
             cost, pos = optimizer.optimize(objective_func=self.loopAllParticles, iters=self.iters)

@@ -16,17 +16,18 @@ TARGET = "target"
 PATIENTS_FOLDER_PATH = "../breast_histopathology/input/breast-histopathology-images/IDC_regular_ps50_idx5/"
 CUSTOM_IMAGE_PATH = "../breast_histopathology/input/breast-histopathology-images/IDC_regular_ps50_idx5/**/*.png"
 
-STANDARDIZE_AXIS_CHANNELS = (0,1,2,3)
+STANDARDIZE_AXIS_CHANNELS = (0,1,2)
 
 NUMBER_CLASSES = 2
 
-SIZE_DATAFRAME = 2000
+SIZE_DATAFRAME = 277524
 
 VALIDATION_SIZE = 0.2
-TEST_SIZE = 0.2
+TEST_SIZE = 0.25
 
 ALEX_NET = "ALEXNET"
 VGG_NET = "VGGNET"
+RES_NET = "RESNET"
 DENSE_NET = "DENSENET"
 
 PSO_OPTIMIZER = "PSO"
@@ -50,7 +51,7 @@ VALIDATION_ACCURACY = "val_accuracy"
 
 BATCH_SIZE_ALEX_NO_AUG = 128
 BATCH_SIZE_ALEX_AUG = 128
-EPOCHS = 1
+EPOCHS = 15
 MULTIPROCESSING = True
 SHUFFLE = True
 
@@ -64,6 +65,7 @@ HEIGHT_SHIFT_RANGE = 0.1
 ROTATION_RANGE = 10
 
 RANDOM_STATE = 0
+HE_SEED = 0
 
 #FLAGS TRAIN STRATEGY
 UNDERSAMPLING = True
@@ -88,22 +90,26 @@ ERROR_ON_TRAINING = "\nError on training"
 ERROR_ON_OPTIMIZATION = "\nError on optimization"
 ERROR_INVALID_NUMBER_ARGS = "\nPlease provide correct number of args"
 ERROR_ON_BUILD = "\nError on building model"
+ERROR_ON_IDENTITY_BLOCK ="\nError on modelling identity block, please check the problem"
+ERROR_ON_CONV_BLOCK ="\nError on modelling convolutional block, please check the problem"
 ERROR_APPEND_STRATEGY = "\nError on appending strategy"
 ERROR_ON_PLOTTING = "\nError on plotting"
 
 #PSO OPTIONS
-PARTICLES = 2
-ITERATIONS = 2
+PARTICLES = 20
+ITERATIONS = 12
 TOPOLOGY_FLAG = 0 # 0 MEANS GBEST, AND 1 MEANS LBEST
-gbestOptions = {'w' : 0.9, 'c1' : 0.7, 'c2' : 0.7}
-lbestOptions = {'w' : 0.9, 'c1' : 0.7, 'c2' : 0.7, 'k' : 4, 'p' : 2}
+gbestOptions = {'w' : 0.7, 'c1' : 1.4, 'c2' : 1.4}
+lbestOptions = {'w' : 0.7, 'c1' : 1.4, 'c2' : 1.4, 'k' : 2, 'p' : 2}
 
-MAX_VALUES_LAYERS_ALEX_NET = [2, 4, 128, 48, 3, 128, 256] # nº of normal conv's, nº of stack cnn layers, nº of feature maps of initial conv, growth rate, nº neurons of FCL layer and batch size
-MIN_VALUES_LAYERS_ALEX_NET = [0, 0, 8, 0, 1, 8, 16]
-MAX_VALUES_LAYERS_VGG_NET = [5, 128, 48, 3, 128, 256] # nº of stack cnn layers, nº of feature maps of initial conv, growth rate, nº neurons of FCL layer and batch size
-MIN_VALUES_LAYERS_VGG_NET = [1, 16, 0, 1, 8, 16]
-MAX_VALUES_LAYERS_DENSE_NET = [128, 5, 4, 32, 0.9, 256] #
-MIN_VALUES_LAYERS_DENSE_NET = [4, 1, 1, 0, 0.1, 16]
+MAX_VALUES_LAYERS_ALEX_NET = [3.99, 3.99, 128, 64, 2.99, 64, 128] # nº of normal conv's, nº of stack cnn layers, nº of feature maps of initial conv, growth rate, nº neurons of FCL layer and batch size
+MIN_VALUES_LAYERS_ALEX_NET = [1, 1, 4, 0, 1, 8, 16]
+MAX_VALUES_LAYERS_VGG_NET = [6.99, 128, 64, 2.99, 64, 128] # nº of stack cnn layers, nº of feature maps of initial conv, growth rate, nº neurons of FCL layer and batch size
+MIN_VALUES_LAYERS_VGG_NET = [2, 4, 0, 1, 8, 16]
+MAX_VALUES_LAYERS_RES_NET = [128, 2.99, 4.99, 64, 128] # number of filters of first conv layer, number of conv+identity blocks, growth rate and batch size
+MIN_VALUES_LAYERS_RES_NET = [4, 0, 1, 0, 16]
+MAX_VALUES_LAYERS_DENSE_NET = [128, 4.99, 6.99, 24, 1.0, 128] # nº of initial filters, nº of dense blocks, nº of composite blocks, growth rate, compression rate and batch size
+MIN_VALUES_LAYERS_DENSE_NET = [4, 1, 2, 0, 0.1, 16]
 
 IDC_CLASS_NAME = "With IDC"
 HEALTHY_CLASS_NAME = "Healthy"
@@ -114,6 +120,12 @@ TOURNAMENT_SIZE = 100
 INDPB = 0.6
 CXPB = 0.4
 MUTPB = 0.2
+
+# class weights
+class_weights={
+    0: 1.0, # healthy
+    1: 2.5, # with idc
+}
 
 #FILENAMES SAVE MODELS
 ALEX_NET_BEST_FILE = "alex_best.h5"
@@ -151,6 +163,14 @@ pso_init_args_vgg = (
     6,  # dimensions (nº of stack cnn layers, nº of feature maps of initial conv, growth rate, nº of Dense layers preceding Output Layer, nº neurons of FCL layers (equals along with each other) and batch size)
     np.array(MIN_VALUES_LAYERS_VGG_NET), # lower bound limits for dimensions
     np.array(MAX_VALUES_LAYERS_VGG_NET)  # superior bound limits for dimensions
+)
+
+pso_init_args_resnet = (
+    PARTICLES,  # number of individuals
+    ITERATIONS,  # iterations
+    5,  # number of filters of first conv layer, number of conv+identity blocks, nº of identity block (all layers - the same value), growth rate and batch size
+    np.array(MIN_VALUES_LAYERS_RES_NET),
+    np.array(MAX_VALUES_LAYERS_RES_NET)  # superior bound limits for dimensions
 )
 
 pso_init_args_densenet = (

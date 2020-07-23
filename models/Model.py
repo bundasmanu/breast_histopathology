@@ -11,13 +11,12 @@ import Data
 
 class Model(ABC):
 
-    StrategyList = list()
-
     @abstractmethod
     def __init__(self, data : Data.Data, numberCNNLayers, numberDenseLayers):
         self.nCNNLayers = numberCNNLayers
         self.nDenseLayers = numberDenseLayers
         self.data = data
+        self.StrategyList = list()
 
     @abstractmethod
     def addStrategy(self, strategy : Strategy.Strategy) -> bool:

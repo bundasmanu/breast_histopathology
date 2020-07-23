@@ -15,6 +15,8 @@ from sklearn.utils import class_weight
 import numpy as np
 from keras.models import Model as mp
 from keras_applications.densenet import DenseNet as dnet
+from keras.initializers import he_uniform
+from models.Strategies_Train import DataAugmentation, UnderSampling, OverSampling
 
 class DenseNet(Model.Model):
 
@@ -36,16 +38,17 @@ class DenseNet(Model.Model):
         :return: Convolution Layer output
         '''
 
-        conv_out = BatchNormalization(epsilon=1.1e-5)(inputs)
+        conv_out = BatchNormalization(axis=3)(inputs)
         conv_out = Activation(config.RELU_FUNCTION)(conv_out)
-        bootleneck_filters = num_filters * 2 ## paper
-        conv_out = Conv2D(bootleneck_filters, kernel_size=(1, 1), use_bias=False, padding=config.SAME_PADDING, kernel_initializer='he_normal')(conv_out)
+        bootleneck_filters = num_filters * 4 ## paper
+        conv_out = Conv2D(bootleneck_filters, kernel_size=(1, 1), use_bias=False, padding=config.SAME_PADDING, kernel_initializer=he_uniform(config.HE_SEED))(conv_out)
+        #conv_out = Dropout(0.2)(conv_out)
 
-        conv_out = BatchNormalization(epsilon=1.1e-5)(conv_out)
+        conv_out = BatchNormalization(axis=3)(conv_out)
         conv_out = Activation(config.RELU_FUNCTION)(conv_out)
         #conv_out = ZeroPadding2D((1, 1))(conv_out)
-        conv_out = Conv2D(num_filters, kernel_size=(3, 3), use_bias=False, padding=config.SAME_PADDING, kernel_initializer='he_normal')(conv_out)
-        #conv_out = Dropout(0.15)(conv_out)
+        conv_out = Conv2D(num_filters, kernel_size=(3, 3), use_bias=False, padding=config.SAME_PADDING, kernel_initializer=he_uniform(config.HE_SEED))(conv_out)
+        #conv_out = Dropout(0.2)(conv_out)
         return conv_out
 
     def transition(self, inputs, compresion_rate):
@@ -56,16 +59,16 @@ class DenseNet(Model.Model):
         :return: Convolution Layer output
         '''
 
-        x = BatchNormalization(epsilon=1.1e-5)(inputs)
+        x = BatchNormalization(axis=3)(inputs)
         x = Activation(config.RELU_FUNCTION)(x)
         num_feature_maps = inputs.shape[1].value
 
         x = Conv2D(filters=np.floor( compresion_rate * num_feature_maps ).astype( np.int ),
-                                   kernel_size=(1, 1), use_bias=False, padding=config.SAME_PADDING, kernel_initializer='he_normal',
+                                   kernel_size=(1, 1), use_bias=False, padding=config.SAME_PADDING, kernel_initializer=he_uniform(config.HE_SEED),
                                    kernel_regularizer=regularizers.l2(1e-4))(x)
-        #x = Dropout(rate=0.15)(x)
+        #x = Dropout(rate=0.2)(x)
 
-        x = AveragePooling2D(pool_size=(2, 2))(x)
+        x = AveragePooling2D(pool_size=(2, 2), strides=2)(x)
         return x
 
     def dense_block(self, inputs, num_layers, initFilter, growth_rate):
@@ -85,7 +88,7 @@ class DenseNet(Model.Model):
                 conv_outputs = self.H(inputs, initFilter)
                 inputs = concatenate([conv_outputs, inputs])
                 initFilter += growth_rate
-            return inputs, initFilter
+            return inputs
 
         except:
             raise
@@ -96,6 +99,7 @@ class DenseNet(Model.Model):
         THIS FUNCTION IS RESPONSIBLE FOR THE INITIALIZATION OF SEQUENTIAL ALEXNET MODEL
         Reference: https://github.com/titu1994/DenseNet/blob/127ec490ca72114e867af576191ce47fddf02d80/densenet.py#L513
         Reference: https://github.com/liuzhuang13/DenseNet/blob/master/models/densenet.lua --> Original Author of DenseNet Paper
+        Reference: https://github.com/flyyufelix/DenseNet-Keras/blob/master/densenet121.py
         :param args: list integers, in logical order --> to populate cnn (filters) and dense (neurons)
         :return: Sequential: AlexNet MODEL
         '''
@@ -109,21 +113,25 @@ class DenseNet(Model.Model):
             input_shape = (config.WIDTH, config.HEIGHT, config.CHANNELS)
             input = Input(shape=(input_shape))
 
-            x = Conv2D(args[0], kernel_size=(3, 3), use_bias=False, kernel_initializer='he_normal',
-                        strides=2, padding=config.SAME_PADDING, kernel_regularizer=regularizers.l2(1e-4))(input)
-            x = BatchNormalization(epsilon=1.1e-5)(x)
+            x = Conv2D(args[0], kernel_size=(5, 5), use_bias=False, kernel_initializer=he_uniform(config.HE_SEED),
+                        strides=1, padding=config.SAME_PADDING, kernel_regularizer=regularizers.l2(1e-4))(input)
+            x = BatchNormalization(axis=3)(x)
             x = Activation(config.RELU_FUNCTION)(x)
-            x = MaxPooling2D(pool_size=(2,2), strides=2)(x)
+            x = MaxPooling2D(pool_size=(3,3), strides=2, padding='same')(x)
 
+            nFilters = args[0]
             for i in range(args[1]):
-                x, nFilters = self.dense_block(x, args[2], args[0], args[3])
+                x = self.dense_block(x, args[2], args[3], args[3]) # initial number of filters is equal to growth rate, and all conv's uses all same number of filters: growth rate
                 if i < (args[1] - 1):
                     x = self.transition(x, args[4]) ## in last block (final step doesn't apply transition logic, global average pooling, made this
                     nFilters = int(nFilters * args[4])
 
+            x = BatchNormalization(axis=3) (x)
+            x = Activation(config.RELU_FUNCTION)(x)
             x = GlobalAveragePooling2D()(x)
 
-            x = Dense(config.NUMBER_CLASSES)(x)  # Num Classes for CIFAR-10
+            x = Dense(config.NUMBER_CLASSES, kernel_initializer=he_uniform(config.HE_SEED),
+                      kernel_regularizer=regularizers.l2(1e-4))(x)  # Num Classes for CIFAR-10
             outputs = Activation(config.SIGMOID_FUNCTION)(x)
 
             model = mp(input, outputs)
@@ -159,14 +167,18 @@ class DenseNet(Model.Model):
             #GET STRATEGIES RETURN DATA, AND IF DATA_AUGMENTATION IS APPLIED TRAIN GENERATOR
             train_generator = None
 
-            if len(self.StrategyList) == 0: #IF USER DOESN'T PRETEND EITHER UNDERSAMPLING AND OVERSAMPLING
-                X_train = self.data.X_train
-                y_train = self.data.y_train
+            # get data
+            X_train = self.data.X_train
+            y_train = self.data.y_train
 
-            else: #USER WANTS AT LEAST UNDERSAMPLING OR OVERSAMPLING
-                X_train, y_train = self.StrategyList[0].applyStrategy(self.data)
-                if len(self.StrategyList) > 1: #USER CHOOSE DATA AUGMENTATION OPTION
-                    train_generator = self.StrategyList[1].applyStrategy(self.data)
+            if self.StrategyList: # if strategylist is not empty
+                for i, j in zip(self.StrategyList, range(len(self.StrategyList))):
+                    if isinstance(i, DataAugmentation.DataAugmentation):
+                        train_generator = self.StrategyList[j].applyStrategy(self.data)
+                    if isinstance(i, OverSampling.OverSampling):
+                        X_train, y_train = self.StrategyList[j].applyStrategy(self.data)
+                    if isinstance(i, UnderSampling.UnderSampling):
+                        X_train, y_train = self.StrategyList[j].applyStrategy(self.data)
 
             #reduce_lr = LearningRateScheduler(config_func.lr_scheduler)
             es_callback = EarlyStopping(monitor='val_loss', patience=3)
@@ -174,14 +186,14 @@ class DenseNet(Model.Model):
                                                         patience=1,
                                                         factor=0.7,
                                                         mode='min',
-                                                        verbose=1,
+                                                        verbose=0,
                                                         min_lr=0.000001)
 
             decrease_callback2 = ReduceLROnPlateau(monitor='loss',
                                                         patience=1,
                                                         factor=0.7,
                                                         mode='min',
-                                                        verbose=1,
+                                                        verbose=0,
                                                         min_lr=0.000001)
 
             weights_y_train = config_func.decode_array(y_train)
@@ -215,7 +227,8 @@ class DenseNet(Model.Model):
                 steps_per_epoch=X_train.shape[0] / batch_size,
                 shuffle=True,
                 callbacks=[decrease_callback2, es_callback, decrease_callback],
-                verbose=config.TRAIN_VERBOSE
+                verbose=config.TRAIN_VERBOSE,
+                class_weight=class_weights
             )
 
             return history, model
