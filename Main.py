@@ -91,9 +91,9 @@ def main():
     alexNetModel.addStrategy(underSampling)
     alexNetModel.addStrategy(data_aug)
 
-    model, predictions, history = alexNetModel.template_method(*valuesLayers)
+    #model, predictions, history = alexNetModel.template_method(*valuesLayers)
 
-    config_func.print_final_results(d.y_test, predictions, history)
+    #config_func.print_final_results(d.y_test, predictions, history)
 
     ## ---------------------------VGGNET APPLICATION ------------------------------------
 
@@ -160,7 +160,7 @@ def main():
     valuesLayers = (
         24, # initial number of Feature Maps
         4, # number of dense blocks
-        3, # number of layers in each block
+        2, # number of layers in each block
         12, # growth rate
         0.5, # compression rate
         config.BATCH_SIZE_ALEX_AUG # batch size
@@ -171,9 +171,9 @@ def main():
     densenet.addStrategy(underSampling)
     densenet.addStrategy(data_aug)
 
-    #model, predictions, history = densenet.template_method(*valuesLayers)
+    model, predictions, history = densenet.template_method(*valuesLayers)
 
-    #config_func.print_final_results(d.y_test, predictions, history)
+    config_func.print_final_results(d.y_test, predictions, history)
 
     ## ------------------------PSO OPTIMIZATION ------------------------------------------
 
@@ -187,11 +187,11 @@ def main():
     pso_dense = optFact.createOptimizer(config.PSO_OPTIMIZER, densenet, *config.pso_init_args_densenet)
 
     # call optimize function
-    cost, pos, optimizer = pso_alex.optimize()
+    cost, pos, optimizer = pso_res.optimize()
 
     #plot cost history and plot position history
     print("Custo: {}".format(cost))
-    config_func.print_Best_Position_PSO(pos, config.ALEX_NET) # print position
+    config_func.print_Best_Position_PSO(pos, config.RES_NET) # print position
     pso_alex.plotCostHistory(optimizer=optimizer)
     pso_alex.plotPositionHistory(optimizer, np.array(config.X_LIMITS), np.array(config.Y_LIMITS),
                                  config.POS_VAR_EXP, config.LABEL_X_AXIS, config.LABEL_Y_AXIS)

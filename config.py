@@ -97,7 +97,7 @@ ERROR_ON_PLOTTING = "\nError on plotting"
 
 #PSO OPTIONS
 PARTICLES = 20
-ITERATIONS = 12
+ITERATIONS = 10
 TOPOLOGY_FLAG = 0 # 0 MEANS GBEST, AND 1 MEANS LBEST
 gbestOptions = {'w' : 0.7, 'c1' : 1.4, 'c2' : 1.4}
 lbestOptions = {'w' : 0.7, 'c1' : 1.4, 'c2' : 1.4, 'k' : 2, 'p' : 2}
@@ -106,8 +106,8 @@ MAX_VALUES_LAYERS_ALEX_NET = [3.99, 3.99, 128, 64, 2.99, 64, 128] # nº of norma
 MIN_VALUES_LAYERS_ALEX_NET = [1, 1, 4, 0, 1, 8, 16]
 MAX_VALUES_LAYERS_VGG_NET = [6.99, 128, 64, 2.99, 64, 128] # nº of stack cnn layers, nº of feature maps of initial conv, growth rate, nº neurons of FCL layer and batch size
 MIN_VALUES_LAYERS_VGG_NET = [2, 4, 0, 1, 8, 16]
-MAX_VALUES_LAYERS_RES_NET = [128, 2.99, 4.99, 64, 128] # number of filters of first conv layer, number of conv+identity blocks, growth rate and batch size
-MIN_VALUES_LAYERS_RES_NET = [4, 0, 1, 0, 16]
+MAX_VALUES_LAYERS_RES_NET = [128, 5.99, 2.99, 64, 128] # number of filters of first conv layer, number of conv+identity blocks, growth rate and batch size
+MIN_VALUES_LAYERS_RES_NET = [4, 1, 0, 0, 16]
 MAX_VALUES_LAYERS_DENSE_NET = [128, 4.99, 6.99, 24, 1.0, 128] # nº of initial filters, nº of dense blocks, nº of composite blocks, growth rate, compression rate and batch size
 MIN_VALUES_LAYERS_DENSE_NET = [4, 1, 2, 0, 0.1, 16]
 
