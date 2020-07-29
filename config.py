@@ -108,7 +108,7 @@ MAX_VALUES_LAYERS_VGG_NET = [6.99, 128, 64, 2.99, 64, 128] # nº of stack cnn la
 MIN_VALUES_LAYERS_VGG_NET = [2, 4, 0, 1, 8, 16]
 MAX_VALUES_LAYERS_RES_NET = [128, 5.99, 2.99, 64, 128] # number of filters of first conv layer, number of conv+identity blocks, growth rate and batch size
 MIN_VALUES_LAYERS_RES_NET = [4, 1, 0, 0, 16]
-MAX_VALUES_LAYERS_DENSE_NET = [128, 5.99, 6.99, 24, 1.0, 128] # nº of initial filters, nº of dense blocks, nº of composite blocks, growth rate, compression rate and batch size
+MAX_VALUES_LAYERS_DENSE_NET = [128, 4.99, 6.99, 24, 1.0, 128] # nº of initial filters, nº of dense blocks, nº of composite blocks, growth rate, compression rate and batch size
 MIN_VALUES_LAYERS_DENSE_NET = [4, 1, 2, 0, 0.1, 16]
 
 IDC_CLASS_NAME = "With IDC"

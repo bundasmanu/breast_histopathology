@@ -159,7 +159,7 @@ def main():
 
     valuesLayers = (
         24, # initial number of Feature Maps
-        4, # number of dense blocks
+        5, # number of dense blocks
         2, # number of layers in each block
         12, # growth rate
         0.5, # compression rate
