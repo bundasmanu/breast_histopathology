@@ -120,7 +120,8 @@ def normalize(X_train, X_val, X_test):
         X_train = (X_train-mean)/(std+1e-7)
         X_val = (X_val-mean)/(std+1e-7)
         X_test = (X_test-mean)/(std+1e-7)
-
+        print(mean)
+        print(std)
         # transform float64 numpy arrays to float32, in order to reduce memory usage
         X_train = X_train.astype(np.float32)
         X_val = X_val.astype(np.float32)

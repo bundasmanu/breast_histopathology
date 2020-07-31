@@ -103,13 +103,13 @@ gbestOptions = {'w' : 0.7, 'c1' : 1.4, 'c2' : 1.4}
 lbestOptions = {'w' : 0.7, 'c1' : 1.4, 'c2' : 1.4, 'k' : 2, 'p' : 2}
 
 MAX_VALUES_LAYERS_ALEX_NET = [3.99, 3.99, 128, 64, 2.99, 64, 128] # nº of normal conv's, nº of stack cnn layers, nº of feature maps of initial conv, growth rate, nº neurons of FCL layer and batch size
-MIN_VALUES_LAYERS_ALEX_NET = [1, 1, 4, 0, 1, 8, 16]
+MIN_VALUES_LAYERS_ALEX_NET = [1, 1, 4, 0, 1, 8, 32]
 MAX_VALUES_LAYERS_VGG_NET = [6.99, 128, 64, 2.99, 64, 128] # nº of stack cnn layers, nº of feature maps of initial conv, growth rate, nº neurons of FCL layer and batch size
-MIN_VALUES_LAYERS_VGG_NET = [2, 4, 0, 1, 8, 16]
+MIN_VALUES_LAYERS_VGG_NET = [2, 4, 0, 1, 8, 32]
 MAX_VALUES_LAYERS_RES_NET = [128, 5.99, 2.99, 64, 128] # number of filters of first conv layer, number of conv+identity blocks, growth rate and batch size
-MIN_VALUES_LAYERS_RES_NET = [4, 1, 0, 0, 16]
+MIN_VALUES_LAYERS_RES_NET = [4, 1, 0, 0, 32]
 MAX_VALUES_LAYERS_DENSE_NET = [128, 4.99, 6.99, 32, 1.0, 128] # nº of initial filters, nº of dense blocks, nº of composite blocks, growth rate, compression rate and batch size
-MIN_VALUES_LAYERS_DENSE_NET = [4, 1, 2, 2, 0.1, 16]
+MIN_VALUES_LAYERS_DENSE_NET = [4, 1, 2, 2, 0.1, 32]
 
 IDC_CLASS_NAME = "With IDC"
 HEALTHY_CLASS_NAME = "Healthy"
