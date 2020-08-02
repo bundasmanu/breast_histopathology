@@ -199,7 +199,7 @@ class ResNet(Model.Model):
                     else:
                         X_train, y_train = self.StrategyList[j].applyStrategy(self.data)
 
-            es_callback = EarlyStopping(monitor='val_loss', patience=2)
+            es_callback = EarlyStopping(monitor='val_loss', patience=2, restore_best_weights=True)
             decrease_callback = ReduceLROnPlateau(monitor='loss',
                                                         patience=1,
                                                         factor=0.7,
