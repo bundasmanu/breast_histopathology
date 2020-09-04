@@ -6,7 +6,7 @@ from glob import glob
 import numpy as np
 import keras
 import random
-from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.metrics import classification_report, confusion_matrix, balanced_accuracy_score
 import matplotlib.pyplot as plt
 import itertools
 from keras.models import Model as mp
@@ -360,6 +360,7 @@ def print_final_results(y_test, predictions, history, dict=False):
         print(report)
         plt.figure()
         plot_confusion_matrix(confusion_mat, config.LIST_CLASSES_NAME)
+        print(balanced_accuracy_score(y_test_decoded, predictions))
 
     except:
         raise

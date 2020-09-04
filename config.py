@@ -51,7 +51,7 @@ VALIDATION_ACCURACY = "val_accuracy"
 
 BATCH_SIZE_ALEX_NO_AUG = 128
 BATCH_SIZE_ALEX_AUG = 128
-EPOCHS = 15
+EPOCHS = 30
 MULTIPROCESSING = True
 SHUFFLE = True
 
@@ -128,13 +128,11 @@ class_weights={
 }
 
 #FILENAMES SAVE MODELS
-ALEX_NET_BEST_FILE = "alex_best.h5"
-ALEX_NET_PSO_FILE = "alex_pso.h5"
-ALEX_NET_GA_FILE = "alex_ga.h5"
-VGG_NET_BEST_FILE = "vgg_best.h5"
-VGG_NET_PSO_FILE = "vgg_pso.h5"
-VGG_NET_GA_FILE = "vgg_ga.h5"
-ENSEMBLE_NORMAL_MODEL = "ensemble_normal.h5"
+ALEXNET_FILE = "alex_net_oficial.h5"
+VGGNET_FILE = "vggnet_oficial.h5"
+RESNET_FILE = "resnet_oficial.h5"
+DENSENET_FILE = "densenet_oficial.h5"
+ENSEMBLE_MODEL = "ensemble_all.h5"
 
 #FILENAME POSITION PSO VARIATION
 POS_VAR_LOWER = 'particlesPso.mp4'

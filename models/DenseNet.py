@@ -97,9 +97,8 @@ class DenseNet(Model.Model):
 
         '''
         THIS FUNCTION IS RESPONSIBLE FOR THE INITIALIZATION OF SEQUENTIAL ALEXNET MODEL
-        Reference: https://github.com/titu1994/DenseNet/blob/127ec490ca72114e867af576191ce47fddf02d80/densenet.py#L513
+        Reference: https://arxiv.org/pdf/1608.06993.pdf --> Original Paper
         Reference: https://github.com/liuzhuang13/DenseNet/blob/master/models/densenet.lua --> Original Author of DenseNet Paper
-        Reference: https://github.com/flyyufelix/DenseNet-Keras/blob/master/densenet121.py
         :param args: list integers, in logical order --> to populate cnn (filters) and dense (neurons)
         :return: Sequential: AlexNet MODEL
         '''
