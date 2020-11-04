@@ -15,7 +15,7 @@ from keras.regularizers import l2
 from keras.utils import plot_model
 from sklearn.utils import class_weight
 from typing import Tuple
-
+import numpy as np
 
 class ResNet(Model.Model):
 
@@ -213,6 +213,11 @@ class ResNet(Model.Model):
                                                         verbose=1,
                                                         min_lr=0.000001)
 
+            weights_y_train = config_func.decode_array(y_train)
+            class_weights = class_weight.compute_class_weight('balanced',
+                                                              np.unique(weights_y_train),
+                                                              weights_y_train)
+
             if train_generator is None: #NO DATA AUGMENTATION
 
                 history = model.fit(
@@ -223,7 +228,7 @@ class ResNet(Model.Model):
                     validation_data=(self.data.X_val, self.data.y_val),
                     shuffle=True,
                     callbacks=[es_callback, decrease_callback, decrease_callback2],
-                    #class_weight=config.class_weights
+                    class_weight=class_weights,
                     verbose=config.TRAIN_VERBOSE
                 )
 
@@ -236,7 +241,7 @@ class ResNet(Model.Model):
                 epochs=config.EPOCHS,
                 steps_per_epoch=X_train.shape[0] / args[0],
                 shuffle=True,
-                #class_weight=config.class_weights,
+                class_weight=class_weights,
                 verbose=config.TRAIN_VERBOSE,
                 callbacks=[es_callback, decrease_callback, decrease_callback2]
             )
