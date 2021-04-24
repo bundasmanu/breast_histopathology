@@ -25,7 +25,7 @@ The main limitations of this benchmark are:
 1. Clone Project: git clone https://github.com/bundasmanu/breast_histopathology.git
 2. Install requirements: pip install -r requirements.txt
 3. Check config.py file, and redraw the configuration variables used to read, obtain and divide the data of the problem, and variables that are used for construction, training and optimization of the architectures.
-   * Samples of problem are readed from "../breast_histopathology/input/breast-histopathology-images/IDC_regular_ps50_idx5/" folder, example path of one sample: "../breast_histopathology/input/breast-histopathology-images/IDC_regular_ps50_idx5/8863/0/8863_idx5_x51_y1251_class0.png" (8863 is the patient_id and 0 folder contains all without IDC samples of this patient) --> this is an example that you need to pay attention and redraw before use project;
+   * Samples of problem are readed from "../breast_histopathology/input/breast-histopathology-images/IDC_regular_ps50_idx5/" folder, example path of one sample: "../breast_histopathology/input/breast-histopathology-images/IDC_regular_ps50_idx5/8863/0/8863_idx5_x51_y1251_class0.png" (8863 is the patient_id and 0 folder contains all "no IDC" samples of this patient) --> this is an example that you need to pay attention and redraw before use project;
 
 ### Results - Breast Histopathology:
 | Model | Memory | Macro Average F1Score | Macro Average Recall | Accuracy | File | 
